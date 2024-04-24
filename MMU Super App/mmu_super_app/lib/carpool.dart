@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
   Widget build(BuildContext
   context) {
     return MaterialApp(
@@ -10,13 +13,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: OfferRide(),
+      home: const OfferRide(),
     );
   }
 }
 
 class OfferRide extends
     StatefulWidget {
+  const OfferRide({super.key});
+
+  @override
   _OfferRideState createState() =>
       _OfferRideState();
 }
@@ -25,11 +31,12 @@ class _OfferRideState extends
     State<OfferRide> {
   bool isOfferingRide = false;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent ,
-        title: Text('Carpool'),
+        title: const Text('Carpool'),
       ),
       body: Center(
         child: Column(

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
   Widget build(BuildContext
   context) {
     return MaterialApp(
@@ -13,38 +10,34 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const OfferRide(),
+      home: OfferRide(),
     );
   }
 }
 
 class OfferRide extends
-    StatefulWidget {
-  const OfferRide({super.key});
-
-  @override
+StatefulWidget {
   _OfferRideState createState() =>
       _OfferRideState();
 }
 
 class _OfferRideState extends
-    State<OfferRide> {
+State<OfferRide> {
   bool isOfferingRide = false;
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent ,
-        title: const Text('Carpool'),
+        title: Text('Carpool'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () => setState(() => isOfferingRide = !isOfferingRide),
-        child: Text(isOfferingRide? 'Find Ride': 'Offer Ride'))],
+                onPressed: () => setState(() => isOfferingRide = !isOfferingRide),
+                child: Text(isOfferingRide? 'Find Ride': 'Offer Ride'))],
         ),
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void carpool() => runApp(MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   Widget build(BuildContext
@@ -28,6 +28,7 @@ class _OfferRideState extends
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blueAccent ,
         title: Text('Carpool'),
       ),
       body: Center(
@@ -36,7 +37,7 @@ class _OfferRideState extends
           children: [
             ElevatedButton(
               onPressed: () => setState(() => isOfferingRide = !isOfferingRide),
-        child: Text(isOfferingRide? ' Find Ride': 'Offer Ride'))],
+        child: Text(isOfferingRide? 'Find Ride': 'Offer Ride'))],
         ),
       ),
     );

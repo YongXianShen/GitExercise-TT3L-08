@@ -2,5 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/flutter" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mmu_super_app" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mmu_super_app/GitExercise-TT3L-08" vcs="Git" />
   </component>
 </project>

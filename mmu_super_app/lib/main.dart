@@ -1,63 +1,21 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+import 'pages/home.dart';
+
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  Widget build(BuildContext
-  context) {
-    return MaterialApp(
-      title: 'Carpool',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: OfferRide(),
-    );
-  }
-}
+  const MyApp({super.key});
 
-class OfferRide extends
-StatefulWidget {
-  _OfferRideState createState() =>
-      _OfferRideState();
-}
-
-class _OfferRideState extends
-State<OfferRide> {
-  bool isOfferingRide = false;
-
+  // This widget is the root of your application.
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Carpool'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-                onPressed: () => setState(() => isOfferingRide = !isOfferingRide),
-                child: Text(isOfferingRide? ' Find Ride': 'Offer Ride')
-                ),
-                if (isOfferingRide) RideDetails(),
-              ],
-        ),
-      ),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: HomePage()
     );
   }
-
 }
 
-Widget RideDetails() => Column(
-  children: [
-   TextField(
-    decoration: InputDecoration(labelText: 'Pick Up Location'),
-    ),
-   TextField(
-    decoration: InputDecoration(labelText: 'Drop Off Location'),
-    ),
-  ElevatedButton(
-    onPressed: () => print('Ride Details Submitted'),
-    child: Text('Submit Ride Details'),
-    ),
-  ],
-);

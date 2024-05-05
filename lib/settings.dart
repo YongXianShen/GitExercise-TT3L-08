@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mmusuperapp/appversion.dart';
+import 'package:mmusuperapp/userdetails.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -25,11 +27,13 @@ class SettingsPage extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const UserDetails()));
               },
               child: const Text('User Details'),
             ),
             ElevatedButton(
               onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AppVersion()));
               },
               child: const Text('App Version'),
             ),

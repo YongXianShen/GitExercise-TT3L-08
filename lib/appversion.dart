@@ -11,7 +11,7 @@ class AppVersion extends StatelessWidget {
       title:'route',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('App Version'),
+          title: const Text('Apps Version'),
             leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {

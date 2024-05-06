@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'MMU SUPER APP',
+          'MMU SUPER APPs',
           style:TextStyle(
             color:Colors.black,
             fontSize:24,

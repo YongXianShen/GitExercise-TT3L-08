@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CarpoolPage extends StatelessWidget {
-  const CarpoolPage({super.key});
-
+class CarpoolDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,11 +13,33 @@ class CarpoolPage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.redAccent,
         elevation: 0.0,
         centerTitle: true,
       ),
-      
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Welcome to the Carpool!',
+              style: TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Find or offer rides with your desired rate.',
+              style: TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                print('Button pressed! (Add your desired action here)');
+              },
+              child: const Text('Offer Ride'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,5 +1,12 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+
+import 'package:mmusuperapp/carpool.dart';
+import 'package:mmusuperapp/food.dart';
+import 'package:mmusuperapp/hostelfinder.dart';
 
 class FeaturesCards extends StatelessWidget {
   const FeaturesCards({super.key});
@@ -9,14 +16,49 @@ class FeaturesCards extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: const Text('Features')),
-        body: const Center(
+        appBar: AppBar(
+          title: Text(
+            'Welcome',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Card(child: _FeaturesCard(cardName: 'Carpool')),
-              Card(child: _FeaturesCard(cardName: 'Food Delivery')),
-              Card(child: _FeaturesCard(cardName: 'Roomate Finder')),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CarpoolDetails()),
+                  );
+                },
+                child: Card(
+                  child: _FeaturesCard(cardName: 'Carpool'),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FoodDetails()),
+                  );
+                },
+                child: Card(
+                  child: _FeaturesCard(cardName: 'Food Delivery'),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HostelFinderDetails()),
+                  );
+                },
+                child: Card(
+                  child: _FeaturesCard(cardName: 'Roommate Finder'),
+                ),
+              ),
             ],
           ),
         ),
@@ -32,8 +74,9 @@ class _FeaturesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 300,
-      height: 100,
+      width: 400,
+      height: 200,
       child: Center(child: Text(cardName)),
-    );}}
-
+    );
+  }
+}

@@ -27,15 +27,41 @@ class SettingsPage extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const UserDetails()));
-              },
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const UserDetails()),);},
+
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                
+            ),
+              
               child: const Text('User Details'),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const AppVersion()));
               },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                ),
               child: const Text('App Versions'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                
+              },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                ),
+              child: const Text('Dark Mode'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                
+              },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                ),
+              child: const Text('Language'),
             ),
           ],
         ),

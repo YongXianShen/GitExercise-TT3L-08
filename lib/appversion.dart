@@ -18,10 +18,7 @@ class AppVersion extends StatelessWidget {
               if (Navigator.canPop(context)) {
               Navigator.pop(context);
             } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("No back navigation available!"),)
-                );
+              ScaffoldMessenger.of(context);
               }
             }
           ),

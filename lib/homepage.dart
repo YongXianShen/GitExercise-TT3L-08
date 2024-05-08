@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart' ;
+import 'package:mmusuperapp/chat.dart';
 import 'package:mmusuperapp/home.dart';
 import 'package:mmusuperapp/settings.dart';
- 
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'MMU SUPER APPS',
+          'MMU SUPER APP',
           style:TextStyle(
             color:Colors.black,
             fontSize:24,
@@ -66,7 +67,7 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-}    
+}
 
 class NavigationExample extends StatefulWidget{
   const NavigationExample({super.key});
@@ -89,7 +90,7 @@ class _NavigationExampleState extends State<NavigationExample> {
         index: currentPageIndex,
         children: const [
           FeaturesCards(),
-          CommutePage(),
+          
           SettingsPage(),
         ],
       ),
@@ -105,16 +106,22 @@ class _NavigationExampleState extends State<NavigationExample> {
             icon: Icon(Icons.home),
             label: 'Homepage',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Chat',
-          ),
+          
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
         ],
       ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const Chat()),);
+          },
+          child: const Icon(Icons.chat),
+          ),
+
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      
     );
   }
 }

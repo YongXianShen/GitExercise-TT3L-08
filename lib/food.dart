@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FoodDetails extends StatelessWidget {
@@ -36,7 +37,9 @@ class FoodDetails extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                print('Button pressed! (Add your desired action here)');
+                if (kDebugMode) {
+                  print('Button pressed! (Add your desired action here)');
+                }
               },
               child: const Text('Explore Restaurants'),
             ),

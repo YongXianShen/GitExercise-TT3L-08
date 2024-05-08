@@ -1,14 +1,12 @@
 
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-
 import 'package:mmusuperapp/carpool.dart';
 import 'package:mmusuperapp/food.dart';
 import 'package:mmusuperapp/hostelfinder.dart';
-import 'package:mmusuperapp/profile.dart';
+
 
 class FeaturesCards extends StatelessWidget {
   const FeaturesCards({super.key});
@@ -29,17 +27,6 @@ class FeaturesCards extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Profile()),
-                  );
-                },
-                child: const Card(
-                  child: _FeaturesCard(cardName: 'PROFILE PICTURE'),
-                ),
-              ),
               InkWell(
                 onTap: () {
                   Navigator.push(
@@ -69,7 +56,7 @@ class FeaturesCards extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HostelFinderDetails()),
+                    MaterialPageRoute(builder: (context) => const HostelFinderDetails()),
                     
                   );
                   

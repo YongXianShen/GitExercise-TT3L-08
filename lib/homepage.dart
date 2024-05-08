@@ -85,15 +85,3 @@ class _NavigationExampleState extends State<NavigationExample> {
     );
   }
 }
-
-
-class CommutePage extends StatelessWidget {
-  const CommutePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Chat Page'),
-    );
-  }
-}

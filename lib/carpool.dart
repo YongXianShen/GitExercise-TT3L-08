@@ -42,6 +42,48 @@ class CarpoolDetails extends StatelessWidget {
           ],
         ),
       ),
+      endDrawer: Drawer(
+        child: ListView(
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 0, 81, 173),
+              ),
+              child: Icon(
+                Icons.person,
+                color: Colors.black,
+                size: 64,
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.person),
+              title:  const Text('Profile Picture'),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.face),
+              title:  const Text('Service'),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.save_alt_rounded),
+              title:  const Text('Saved Posts'),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.chat),
+              title:  const Text('Chat'),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title:  const Text('Settings'),
+              onTap: () {},
+            ),
+          ],
+        )
+
+      )
     );
   }
 }

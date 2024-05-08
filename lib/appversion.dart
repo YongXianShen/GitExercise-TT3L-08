@@ -22,7 +22,11 @@ class AppVersion extends StatelessWidget {
               }
             }
           ),
+          
         ),
+        body:  const Center(
+         child: Text('V1.1.0'),
+        )
       )
     );
   }

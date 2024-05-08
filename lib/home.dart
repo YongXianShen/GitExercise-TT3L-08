@@ -19,7 +19,7 @@ class FeaturesCards extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Welcome ,',
+            'Welcome,',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),

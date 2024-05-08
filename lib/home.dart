@@ -17,7 +17,7 @@ class FeaturesCards extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Welcome',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
@@ -33,7 +33,7 @@ class FeaturesCards extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => CarpoolDetails()),
                   );
                 },
-                child: Card(
+                child: const Card(
                   child: _FeaturesCard(cardName: 'Carpool'),
                 ),
               ),

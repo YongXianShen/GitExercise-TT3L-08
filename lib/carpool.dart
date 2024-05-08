@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CarpoolDetails extends StatelessWidget {
+  const CarpoolDetails({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -35,7 +35,7 @@ class SettingsPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const AppVersion()));
               },
-              child: const Text('App Version'),
+              child: const Text('App Versions'),
             ),
           ],
         ),

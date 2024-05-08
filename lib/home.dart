@@ -30,7 +30,7 @@ class FeaturesCards extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => CarpoolDetails()),
+                    MaterialPageRoute(builder: (context) => const CarpoolDetails()),
                   );
                 },
                 child: const Card(
@@ -41,10 +41,10 @@ class FeaturesCards extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FoodDetails()),
+                    MaterialPageRoute(builder: (context) => const FoodDetails()),
                   );
                 },
-                child: Card(
+                child: const Card(
                   child: _FeaturesCard(cardName: 'Food Delivery'),
                 ),
               ),
@@ -55,7 +55,7 @@ class FeaturesCards extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => HostelFinderDetails()),
                   );
                 },
-                child: Card(
+                child: const Card(
                   child: _FeaturesCard(cardName: 'Roommate Finder'),
                 ),
               ),

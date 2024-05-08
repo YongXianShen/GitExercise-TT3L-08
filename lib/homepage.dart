@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' ;
 import 'package:mmusuperapp/home.dart';
 import 'package:mmusuperapp/settings.dart';
- 
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
       body: const NavigationExample(),
     );
   }
-}    
+}
 
 class NavigationExample extends StatefulWidget{
   const NavigationExample({super.key});

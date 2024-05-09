@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "158574899825",
+    "project_id": "git-exercise-tt3l-08",
+    "storage_bucket": "git-exercise-tt3l-08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158574899825:android:185bed85b16f1eac84a1d0",
+        "android_client_info": {
+          "package_name": "com.example.mmusuperapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeNPGAA2tsO67hSjDMgBv-hhJaZnJjXQ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

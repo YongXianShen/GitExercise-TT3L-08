@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
           )
         ),
         toolbarHeight: 100,
-        backgroundColor: Color.fromARGB(255, 234, 195, 255),
+        backgroundColor: Colors.blueAccent,
         centerTitle:true,
       ),
       body: const NavigationExample(),

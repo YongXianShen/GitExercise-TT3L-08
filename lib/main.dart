@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mmusuperapp/authentication/signup_screen.dart';
 import 'package:mmusuperapp/homepage.dart';
 
 
@@ -11,9 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: Colors.black,
+        ),
+          home: SignUpScreen(),
+     
     );
   }
 }

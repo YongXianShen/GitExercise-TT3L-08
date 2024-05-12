@@ -1,4 +1,3 @@
-
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -19,7 +18,7 @@ class FeaturesCards extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Welcome,',
+            'Welcome',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -35,9 +34,7 @@ class FeaturesCards extends StatelessWidget {
                   );
                 },
                 child: const Card(
-                  color: Colors.redAccent,
-                  child: _FeaturesCard(cardName: 'Carpool',),
-                  
+                  child: _FeaturesCard(cardName: 'Carpool'),
                 ),
               ),
               InkWell(
@@ -48,7 +45,6 @@ class FeaturesCards extends StatelessWidget {
                   );
                 },
                 child: const Card(
-                  color: Colors.orangeAccent,
                   child: _FeaturesCard(cardName: 'Food Delivery'),
                 ),
               ),
@@ -57,12 +53,9 @@ class FeaturesCards extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HostelFinderDetails()),
-                    
                   );
-                  
                 },
                 child: const Card(
-                  color: Colors.lightBlueAccent,
                   child: _FeaturesCard(cardName: 'Roommate Finder'),
                 ),
               ),

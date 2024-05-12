@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
           )
         ),
         toolbarHeight: 100,
-        backgroundColor: Color.fromARGB(255, 234, 195, 255),
+        backgroundColor: Colors.blueAccent,
         centerTitle:true,
       ),
       body: const NavigationExample(),
@@ -82,18 +82,6 @@ class _NavigationExampleState extends State<NavigationExample> {
 
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       
-    );
-  }
-}
-
-
-class CommutePage extends StatelessWidget {
-  const CommutePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Chat Page'),
     );
   }
 }

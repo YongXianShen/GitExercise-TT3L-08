@@ -56,7 +56,7 @@ class SettingsPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                
+
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mmusuperapp/authentication/login_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -10,6 +11,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen>
 {
     TextEditingController usernameTextEditingController = TextEditingController();
+    TextEditingController userphoneTextEditingController = TextEditingController();
     TextEditingController emailTextEditingController = TextEditingController();
     TextEditingController passwordTextEditingController = TextEditingController();
 
@@ -22,7 +24,11 @@ class _SignUpScreenState extends State<SignUpScreen>
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              Text(
+
+              Image.asset(
+                "assets/images/logo.png"
+              ),
+              const Text(
                 'Create an Account',
                 style: TextStyle(
                  fontSize: 22.0,
@@ -30,7 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                 ),
               ),
 
-              // Text Fields
+              // Text Fields & Sign Up Button
               Padding(
                   padding: const EdgeInsets.all(22),
                 child: Column(
@@ -41,6 +47,23 @@ class _SignUpScreenState extends State<SignUpScreen>
                       keyboardType: TextInputType.text,
                       decoration: const InputDecoration(
                         labelText: "Username",
+                        labelStyle: TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                      style: const TextStyle(
+                        color: Colors.grey ,
+                        fontSize: 15,
+                      ),
+                    ),
+
+                    const SizedBox(height: 22,),
+
+                    TextField(
+                      controller: userphoneTextEditingController,
+                      keyboardType: TextInputType.text,
+                      decoration: const InputDecoration(
+                        labelText: "User Phone",
                         labelStyle: TextStyle(
                           fontSize: 14,
                         ),
@@ -86,11 +109,43 @@ class _SignUpScreenState extends State<SignUpScreen>
                       ),
                     ),
 
-                    const SizedBox(height: 22,),
+                    const SizedBox(height: 42,),
+
+                    ElevatedButton(
+                      onPressed: ()
+                      {
+
+                      },
+                      style:  ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10)
+                      ),
+                      child: const Text(
+                        "Sign Up"
+                      ),
+                    ),
 
                   ],
                 ),
-              )
+              ),
+
+              const SizedBox(height: 12,),
+
+              // Text Button
+              TextButton(
+                onPressed: ()
+              {
+                Navigator.push(context,MaterialPageRoute(builder: (c)=> LoginScreen()));
+              },
+                child: Text(
+                    "Already have an Account? Login here",
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+
+
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/authentication/login_screen.dart';
+import 'package:mmusuperapp/methods/common_methods.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -11,18 +12,24 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen>
 {
     TextEditingController usernameTextEditingController = TextEditingController();
-    TextEditingController userphoneTextEditingController = TextEditingController();
+    TextEditingController userPhoneTextEditingController = TextEditingController();
     TextEditingController emailTextEditingController = TextEditingController();
     TextEditingController passwordTextEditingController = TextEditingController();
+    CommonMethods cMethods = CommonMethods();
 
-  @override
-  Widget build(BuildContext context)
-  {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
+    checkIfNetworkIsAvailable()
+    {
+      cMethods.checkConnectivity(context);
+    }
+
+    @override
+    Widget build(BuildContext context)
+    {
+      return Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
             children: [
 
               Image.asset(
@@ -60,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                     const SizedBox(height: 22,),
 
                     TextField(
-                      controller: userphoneTextEditingController,
+                      controller: userPhoneTextEditingController,
                       keyboardType: TextInputType.text,
                       decoration: const InputDecoration(
                         labelText: "User Phone",
@@ -114,7 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                     ElevatedButton(
                       onPressed: ()
                       {
-
+                        checkIfNetworkIsAvailable();
                       },
                       style:  ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,

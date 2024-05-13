@@ -25,30 +25,31 @@ class LoadingDialog extends StatelessWidget
           borderRadius: BorderRadius.circular(5),
         ),
         child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
 
-                const SizedBox(width: 5,),
+              const SizedBox(width: 5,),
 
-                CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              const CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+
+              const SizedBox(width: 8,),
+
+              Text(
+                messageText,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
                 ),
+              ),
 
-                const SizedBox(width: 8,),
-
-                Text(
-                  messageText,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-
-              ],
-            ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+

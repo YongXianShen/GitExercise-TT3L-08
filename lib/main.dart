@@ -1,8 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/authentication/login_screen.dart';
-import 'package:mmusuperapp/authentication/signup_screen.dart';
-import 'package:mmusuperapp/homepage.dart';
 
 
 Future<void> main() async

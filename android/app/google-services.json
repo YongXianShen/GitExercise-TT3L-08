@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "916024686497",
+    "project_id": "mmu-super-app",
+    "storage_bucket": "mmu-super-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916024686497:android:c2e8b3e645b3b3d656fde0",
+        "android_client_info": {
+          "package_name": "com.park.mmusuperapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB53AqviTnxZ5wocKtN0KRKVE0dELsIPNM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

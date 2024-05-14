@@ -34,6 +34,7 @@ class FeaturesCards extends StatelessWidget {
                   );
                 },
                 child: const Card(
+                  color: Colors.lightBlueAccent,
                   child: _FeaturesCard(cardName: 'Carpool'),
                 ),
               ),
@@ -45,6 +46,7 @@ class FeaturesCards extends StatelessWidget {
                   );
                 },
                 child: const Card(
+                  color: Colors.lightBlue,
                   child: _FeaturesCard(cardName: 'Food Delivery'),
                 ),
               ),
@@ -56,6 +58,7 @@ class FeaturesCards extends StatelessWidget {
                   );
                 },
                 child: const Card(
+                  color: Colors.blueAccent,
                   child: _FeaturesCard(cardName: 'Roommate Finder'),
                 ),
               ),
@@ -75,7 +78,7 @@ class _FeaturesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 400,
-      height: 200,
+      height: 170,
       child: Center(child: Text(cardName)),
     );
   }

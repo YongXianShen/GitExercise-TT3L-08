@@ -16,12 +16,13 @@ class HomePage extends StatelessWidget {
           style:TextStyle(
             color:Colors.black,
             fontSize:24,
-            fontWeight:FontWeight.bold
-          )
+            fontWeight:FontWeight.bold,
+          ),
         ),
-        toolbarHeight: 100,
+        toolbarHeight: 60,
         backgroundColor: Colors.blueAccent,
         centerTitle:true,
+        automaticallyImplyLeading: false,
       ),
       body: const NavigationExample(),
       

@@ -1,89 +1,43 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class CarpoolDetails extends StatelessWidget {
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mmusuperapp/global/global_var.dart';
+
+class CarpoolDetails extends StatefulWidget {
   const CarpoolDetails({super.key});
+
+  @override
+  State<CarpoolDetails> createState() => _CarpoolDetailsState();
+}
+
+class _CarpoolDetailsState extends State<CarpoolDetails> {
+
+  final Completer<GoogleMapController> googleMapCompleterController = Completer<GoogleMapController>();
+  GoogleMapController? controllerGoogleMap;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Carpool',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.redAccent,
-        elevation: 0.0,
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Welcome to the Carpool!',
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Find or offer rides with your desired rate.',
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                print('Button pressed! (Add your desired action here)');
-              },
-              child: const Text('Offer Ride'),
-            ),
-          ],
-        ),
-      ),
-      endDrawer: Drawer(
-        child: ListView(
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 0, 81, 173),
-              ),
-              child: Icon(
-                Icons.person,
-                color: Colors.black,
-                size: 64,
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.person),
-              title:  const Text('Profile Picture'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.face),
-              title:  const Text('Service'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.save_alt_rounded),
-              title:  const Text('Saved Posts'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.chat),
-              title:  const Text('Chat'),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title:  const Text('Settings'),
-              onTap: () {},
-            ),
-          ],
-        )
+      body: Stack(
+        children: [
 
-      )
+
+          GoogleMap(
+            mapType: MapType.normal,
+            myLocationEnabled: true,
+            initialCameraPosition: googlePlexInitialPosition,
+            onMapCreated: (GoogleMapController mapController)
+            {
+              controllerGoogleMap = mapController;
+
+              googleMapCompleterController.complete(controllerGoogleMap);
+            },
+          ),
+
+        ],
+      ),
     );
   }
 }

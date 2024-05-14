@@ -3,12 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:mmusuperapp/authentication/login_screen.dart';
 import 'package:mmusuperapp/authentication/signup_screen.dart';
 import 'package:mmusuperapp/homepage.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 
 Future<void> main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  await Permission.locationWhenInUse.isDenied.then((valueOfPermission)
+  {
+    if(valueOfPermission)
+      {
+        Permission.locationWhenInUse.request();
+      }
+  });
 
   runApp(const MyApp());
 }

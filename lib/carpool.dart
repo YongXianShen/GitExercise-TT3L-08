@@ -18,7 +18,8 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
   GoogleMapController? controllerGoogleMap;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
       body: Stack(
         children: [

@@ -6,7 +6,6 @@ class MySilverAppBar extends StatelessWidget {
 
   const MySilverAppBar({
     super.key,
-    
     required this.child,
     required this.title,
   });

@@ -11,6 +11,7 @@ import 'package:mmusuperapp/food/components/my_tab_bar.dart';
 import 'package:mmusuperapp/food/models/food.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/pages/food_page.dart';
+import 'package:provider/provider.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -86,7 +87,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ), 
           ),
         ],
-        body: Column(children: [],)
+        body: Consumer<Restaurant>(
+          builder: (context, restaurant, child) => TabBarView(
+            controller: _tabController,
+            children: getFoodInThisCategory(restaurant.menu),
+            ),
+          ),
           ),
             
           

@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/food/components/my_current_location.dart';
 import 'package:mmusuperapp/food/components/my_description_box.dart';
@@ -84,12 +86,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ), 
           ),
         ],
-        body: (Consumer)<Restaurant>(
-          builder: (context, restaurant, child) => TabBarView(
-            controller: _tabController,
-            children: getFoodInThisCategory(restaurant.menu),
-            ),
-          ),
+        body: Column(children: [],)
             
           
         ),
@@ -97,3 +94,4 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
     
   }
 }
+

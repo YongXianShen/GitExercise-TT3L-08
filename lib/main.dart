@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/authentication/login_screen.dart';
 import 'package:mmusuperapp/authentication/signup_screen.dart';
+import 'package:mmusuperapp/food/themes/theme_provider.dart';
 import 'package:mmusuperapp/homepage.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -32,8 +35,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: Colors.black,
         ),
-          home: LoginScreen(),
+          home: LoginScreen(),);}
      
-    );
+    
   }
-}

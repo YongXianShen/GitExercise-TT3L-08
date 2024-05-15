@@ -43,9 +43,7 @@ class MyApp extends StatelessWidget {
       builder: (context, themeProvider, child) {
         return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: Colors.black,
-        ),
+      theme:themeProvider.themeData,
           home: LoginScreen(),);});
      
     

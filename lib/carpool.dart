@@ -33,14 +33,14 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
           ),
           // Price Card
           Positioned(
-            left: 10,
-            right: 10,
-            bottom: 10, // Adjust bottom padding as needed
+            left: 0,
+            right: 0,
+            bottom: 0,
             child: Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(0.0),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.3),
@@ -61,16 +61,16 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                         Text(
                           "From:",
                           style: TextStyle(
-                            color: Colors.lightBlue,
-                            fontSize: 16.0,
+                            color: Colors.black,
+                            fontSize: 25.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           "To:",
                           style: TextStyle(
-                            color: Colors.lightBlueAccent,
-                            fontSize: 16.0,
+                            color: Colors.black,
+                            fontSize: 25.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -78,8 +78,9 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                         Text(
                           "Price: RM",
                           style: TextStyle(
-                            color:  Colors.black,
-                            fontSize: 14.0,
+                            color:  Colors.blueAccent,
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
@@ -89,7 +90,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                   // Button to confirm or proceed with the order
                   ElevatedButton(
                     onPressed: () {
-                      // Handle order confirmation or payment logic here
+                      //
                     },
                     child: Text("Order Now"),
                   ),

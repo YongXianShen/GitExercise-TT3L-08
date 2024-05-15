@@ -20,6 +20,7 @@ class SettingsPage extends StatelessWidget {
         backgroundColor: Colors.blue,
         elevation: 0.0,
         centerTitle: true,
+          automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(

@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
             fontWeight:FontWeight.bold,
           ),
         ),
-        toolbarHeight: 60,
+        toolbarHeight: 120,
         backgroundColor: Colors.blueAccent,
         centerTitle:true,
         automaticallyImplyLeading: false,

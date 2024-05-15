@@ -70,19 +70,19 @@ class _LoginScreenState extends State<LoginScreen>
     Navigator.pop(context);
 
     if(userFirebase != null)
+    {
+      DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users").child(userFirebase!.uid);
+      usersRef.once().then((snap)
       {
-        DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users").child(userFirebase!.uid);
-        usersRef.once().then((snap)
+        if (snap.snapshot.value != null)
         {
-          if (snap.snapshot.value != null)
+          if ((snap.snapshot.value as Map)["blockStatus"] == "no")
           {
-            if ((snap.snapshot.value as Map)["blockStatus"] == "no")
-            {
-              userName = (snap.snapshot.value as Map)["name"];
-              Navigator.push(context,MaterialPageRoute(builder: (c)=> HomePage()));
-            }
-            else
-            {
+            userName = (snap.snapshot.value as Map)["name"];
+            Navigator.push(context,MaterialPageRoute(builder: (c)=> HomePage()));
+          }
+          else
+          {
             FirebaseAuth.instance.signOut();
             cMethods.displaySnackBar("Your account is blocked. If you think there is a mistake, contact 01121885185", context);
           }
@@ -198,4 +198,4 @@ class _LoginScreenState extends State<LoginScreen>
       ),
     );
   }
-}
+  }

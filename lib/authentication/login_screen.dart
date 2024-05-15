@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen>
 
     if(userFirebase != null)
     {
-      DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users").child(userFirebase!.uid);
+      DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users").child(userFirebase.uid);
       usersRef.once().then((snap)
       {
         if (snap.snapshot.value != null)
@@ -79,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen>
           if ((snap.snapshot.value as Map)["blockStatus"] == "no")
           {
             userName = (snap.snapshot.value as Map)["name"];
+            userPhone = (snap.snapshot.value as Map)["phone"];
             Navigator.push(context,MaterialPageRoute(builder: (c)=> HomePage()));
           }
           else

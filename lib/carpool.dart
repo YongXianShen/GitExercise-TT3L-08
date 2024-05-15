@@ -92,7 +92,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                     onPressed: () {
                       //
                     },
-                    child: Text("Order Now"),
+                    child: Text("Book Now"),
                   ),
                 ],
               ),

@@ -9,7 +9,9 @@ class CommonMethods {
     if (connectionResult != ConnectivityResult.mobile &&
         connectionResult != ConnectivityResult.wifi) {
       if (!context.mounted) return;
-      displaySnackBar("Check your connection and try again", context);
+      displaySnackBar(
+          "Check your connection. Try Again.",
+          context);
     }
   }
 

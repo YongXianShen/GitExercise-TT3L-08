@@ -7,6 +7,7 @@ import 'package:mmusuperapp/authentication/signup_screen.dart';
 import 'package:mmusuperapp/food/themes/theme_provider.dart';
 import 'package:mmusuperapp/homepage.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
 
 Future<void> main() async
@@ -22,7 +23,15 @@ Future<void> main() async
       }
   });
 
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+    providers:[
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider()
+    ),
+  ],
+  child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -30,12 +39,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: Colors.black,
         ),
-          home: LoginScreen(),);}
+          home: LoginScreen(),);});
      
     
-  }
+  }}

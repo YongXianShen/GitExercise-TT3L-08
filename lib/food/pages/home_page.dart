@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       drawer: const MyDrawer(),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          MySilverAppBar(
+          MySliverAppBar(
             title: MyTabBar(tabController: _tabController,),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,

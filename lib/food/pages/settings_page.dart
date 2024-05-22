@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mmusuperapp/food/themes/theme_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../themes/theme_provider.dart';
-
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});

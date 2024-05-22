@@ -111,9 +111,10 @@ class _FoodPageState extends State<FoodPage> {
               subtitle: Text ('\$${addon.price}', style: TextStyle(color: Theme.of(context).colorScheme.primary,),),
               value: widget.selectedAddons[addon], 
               onChanged: (bool? value) {
+                setState((){
                 widget.selectedAddons[addon] = value!;
             },);
-          }))],),
+          });}))],),
        ),
 
        MyButton(

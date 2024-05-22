@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 import 'package:mmusuperapp/carpool.dart';
-import 'package:mmusuperapp/food/pages/food_page.dart';
 import 'package:mmusuperapp/food/pages/home_page.dart';
 import 'package:mmusuperapp/hostelfinder.dart';
+
 
 class FeaturesCards extends StatelessWidget {
   const FeaturesCards({super.key});
@@ -43,7 +43,7 @@ class FeaturesCards extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(builder: (context) => HomePage()),
                   );
                 },
                 child: const Card(

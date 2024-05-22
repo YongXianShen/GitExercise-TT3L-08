@@ -12,7 +12,7 @@ class MyButton extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    throw GestureDetector(
+    return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(25),

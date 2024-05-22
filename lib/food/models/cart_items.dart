@@ -3,7 +3,7 @@ import 'package:mmusuperapp/food/models/food.dart';
 class CartItem {
   Food food;
   List<Addon> selectedAddons;
-  int  quantity;
+  int quantity;
 
   CartItem({
     required this.food, 

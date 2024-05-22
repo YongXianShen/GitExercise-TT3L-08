@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mmusuperapp/authentication/login_screen.dart';
 import 'package:mmusuperapp/authentication/signup_screen.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
+import 'package:mmusuperapp/food/pages/food_page.dart';
 import 'package:mmusuperapp/food/themes/theme_provider.dart';
 import 'package:mmusuperapp/homepage.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme:themeProvider.themeData,
-          home: LoginScreen(),);});
+          home: HomePage(),);});
      
     
   }}

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mmusuperapp/food/pages/cart_page.dart';
 
-class MySilverAppBar extends StatelessWidget {
+class MySliverAppBar extends StatelessWidget {
   final Widget child;
   final Widget title;
 
-  const MySilverAppBar({
+  const MySliverAppBar({
     super.key,
     required this.child,
     required this.title,
@@ -13,14 +14,18 @@ class MySilverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 340,
+      expandedHeight: 320,
       collapsedHeight: 120,
       floating: false,
       pinned: true,
       actions: [
         //cart button
         IconButton(
-          onPressed: (){}, 
+          onPressed: () {
+            //go to cart page
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const CartPage(),
+            ),);
+          }, 
           icon: const Icon(Icons.shopping_cart),
         )
       ],
@@ -29,7 +34,7 @@ class MySilverAppBar extends StatelessWidget {
       title: const Text("Sunset Diner"),
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
-          padding: const EdgeInsets.only(bottom: 50.0),
+          padding: const EdgeInsets.only(bottom: 50),
           child: child,
         ),
         title: title,

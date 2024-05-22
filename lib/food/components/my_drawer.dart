@@ -5,7 +5,6 @@ import 'package:mmusuperapp/food/pages/settings_page.dart';
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
-  
 
   @override
   Widget build(BuildContext context) {

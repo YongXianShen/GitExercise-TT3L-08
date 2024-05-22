@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/authentication/login_screen.dart';
 import 'package:mmusuperapp/authentication/signup_screen.dart';
+import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/themes/theme_provider.dart';
 import 'package:mmusuperapp/homepage.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -29,6 +30,8 @@ Future<void> main() async
     ChangeNotifierProvider(
       create: (context) => ThemeProvider()
     ),
+
+    ChangeNotifierProvider(create: (context) => Restaurant()),
   ],
   child: const MyApp(),
   ));

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/food/components/my_button.dart';
 import 'package:mmusuperapp/food/models/food.dart';
+import 'package:mmusuperapp/food/models/restaurant.dart';
+import 'package:provider/provider.dart';
 
 
 class FoodPage extends StatefulWidget {
@@ -21,6 +23,24 @@ class FoodPage extends StatefulWidget {
 }
 
 class _FoodPageState extends State<FoodPage> {
+
+   //method to add to cart
+   void addToCart(Food food, Map<Addon, bool> selectedAddons) {
+
+    //close the current food page to go back to menu
+    Navigator.pop(context);
+
+    //format the selected addons
+    List<Addon> currentSelectedAddons = [];
+    for (Addon addon in widget.food.availableAddons) {
+      if (widget.selectedAddons[addon] == true) {
+        currentSelectedAddons.add(addon);
+      }
+    }
+    // add to cart
+    context.read<Restaurant>().addToCart(food, currentSelectedAddons);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -90,32 +110,37 @@ class _FoodPageState extends State<FoodPage> {
               title: Text(addon.name),
               subtitle: Text ('\$${addon.price}', style: TextStyle(color: Theme.of(context).colorScheme.primary,),),
               value: widget.selectedAddons[addon], 
-              onChanged: (value) {
-
+              onChanged: (bool? value) {
+                widget.selectedAddons[addon] = value!;
             },);
           }))],),
        ),
 
-       MyButton(onTap: () {},
-       text: "Add to cart",),
+       MyButton(
+        onTap: () => addToCart(widget.food, widget.selectedAddons),
+        text: "Add to cart",),
        
 
         const SizedBox(height: 25),
         ],)
     )),
     SafeArea(
-    child:
-    Opacity(opacity:0.6,
+    child: Opacity(
+      opacity:0.6,
       child: Container(
         margin: const EdgeInsets.only(left: 25),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary, 
-          shape: BoxShape.circle,),
+          shape: BoxShape.circle,
+          ),
       child: IconButton(
         icon: const Icon(Icons.arrow_back_ios_rounded),
       onPressed: () => Navigator.pop(context),
-    ),
-    ),)
-    )],);
+              ),
+            ),
+          )
+        )   
+      ],
+    );
   }
 }

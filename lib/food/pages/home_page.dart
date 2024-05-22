@@ -1,6 +1,4 @@
 
-
-
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/food/components/my_current_location.dart';
 import 'package:mmusuperapp/food/components/my_description_box.dart';
@@ -12,7 +10,6 @@ import 'package:mmusuperapp/food/models/food.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/pages/food_page.dart';
 import 'package:provider/provider.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -65,6 +62,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       drawer: const MyDrawer(),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -78,28 +76,26 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                   endIndent: 25, 
                   color: Theme.of(context).colorScheme.secondary,
                 ),
+
                 //my current location
-                const MyCurrentLocation(),
+                MyCurrentLocation(),
 
                 //description box
                 const MyDescriptionBox(),
               ],
+              
             ), 
+            
           ),
         ],
+        
         body: Consumer<Restaurant>(
           builder: (context, restaurant, child) => TabBarView(
             controller: _tabController,
             children: getFoodInThisCategory(restaurant.menu),
             ),
           ),
-          ),
-            
-          
-        );
-      
-    
+        ),
+      );
   }
 }
-
-

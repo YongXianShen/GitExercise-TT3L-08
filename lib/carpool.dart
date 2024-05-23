@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mmusuperapp/global/global_var.dart';
@@ -18,6 +20,23 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
   final Completer<GoogleMapController> googleMapCompleterController = Completer<GoogleMapController>();
   GoogleMapController? controllerGoogleMap;
   Position? currentPositionOfUser;
+
+  void updateMapTheme(GoogleMapController controller)
+  {
+    getJsonFileFromThemes("themes/blue_style.json").then((value)=> setGoogleMapStyle(value,controller));
+  }
+
+  Future<String> getJsonFileFromThemes(String mapStylePath) async
+  {
+    ByteData byteData = await rootBundle.load(mapStylePath);
+    var list = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+    return utf8.decode(list);
+  }
+
+  setGoogleMapStyle(String googleMapStyle, GoogleMapController controller)
+  {
+    controller.setMapStyle(googleMapStyle);
+  }
 
   getCurrentLiveLocationOfUser() async
   {
@@ -42,6 +61,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
             initialCameraPosition: googlePlexInitialPosition,
             onMapCreated: (GoogleMapController mapController) {
               controllerGoogleMap = mapController;
+              updateMapTheme(controllerGoogleMap!);
               googleMapCompleterController.complete(controllerGoogleMap);
               getCurrentLiveLocationOfUser();
             },

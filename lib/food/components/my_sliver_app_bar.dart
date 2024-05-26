@@ -29,7 +29,7 @@ class MySliverAppBar extends StatelessWidget {
           icon: const Icon(Icons.shopping_cart),
         )
       ],
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       foregroundColor: Theme.of(context).colorScheme.inversePrimary,
       title: const Text("MMU Taste Restaurant"),
       flexibleSpace: FlexibleSpaceBar(
@@ -41,7 +41,9 @@ class MySliverAppBar extends StatelessWidget {
         centerTitle: true,
         titlePadding: const EdgeInsets.only(left: 0, right: 0, top: 0),
         expandedTitleScale: 1,
+        
       ),
+      automaticallyImplyLeading: false,
     );
   }
 }

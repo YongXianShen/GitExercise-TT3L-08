@@ -24,7 +24,7 @@ class HostelFinderDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Welcome to Roommate Finder!',
+              'Welcomes to Roommate Finder!',
               style: TextStyle(fontSize: 20),
             ),
             const SizedBox(height: 20),

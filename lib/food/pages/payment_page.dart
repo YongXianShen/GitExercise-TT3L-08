@@ -64,7 +64,7 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -103,7 +103,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
               MyButton(
                 onTap: userTappedPay, 
-                text: "Pay Now",
+                text: "Pay Nows",
                 ),
 
                 const SizedBox(height: 25),

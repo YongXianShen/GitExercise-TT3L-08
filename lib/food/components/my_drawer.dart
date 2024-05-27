@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mmusuperapp/authentication/login_screen.dart';
 import 'package:mmusuperapp/food/components/my_drawer_tile.dart';
 import 'package:mmusuperapp/food/pages/settings_page.dart';
 
@@ -9,7 +10,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
           //app logo
@@ -56,7 +57,15 @@ class MyDrawer extends StatelessWidget {
           MyDrawerTile(
             text: "L O G O U T", 
             icons: Icons.logout, 
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context, 
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                  ),
+                );
+            },
           ),
 
           const SizedBox(height: 25,)

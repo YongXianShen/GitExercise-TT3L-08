@@ -57,7 +57,7 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
           // profile pic of driver
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               shape: BoxShape.circle,
             ),
             child: IconButton(
@@ -95,7 +95,7 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
               // message button
               Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               shape: BoxShape.circle,
             ),
             child: IconButton(
@@ -110,7 +110,7 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
               //call button
               Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
               shape: BoxShape.circle,
             ),
             child: IconButton(

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -16,30 +15,27 @@ class CarpoolDetails extends StatefulWidget {
 }
 
 class _CarpoolDetailsState extends State<CarpoolDetails> {
-
   final Completer<GoogleMapController> googleMapCompleterController = Completer<GoogleMapController>();
   GoogleMapController? controllerGoogleMap;
   Position? currentPositionOfUser;
+  TextEditingController fromController = TextEditingController();
+  TextEditingController toController = TextEditingController();
 
-  void updateMapTheme(GoogleMapController controller)
-  {
-    getJsonFileFromThemes("themes/blue_style.json").then((value)=> setGoogleMapStyle(value,controller));
+  void updateMapTheme(GoogleMapController controller) {
+    getJsonFileFromThemes("themes/blue_style.json").then((value) => setGoogleMapStyle(value, controller));
   }
 
-  Future<String> getJsonFileFromThemes(String mapStylePath) async
-  {
+  Future<String> getJsonFileFromThemes(String mapStylePath) async {
     ByteData byteData = await rootBundle.load(mapStylePath);
     var list = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
     return utf8.decode(list);
   }
 
-  setGoogleMapStyle(String googleMapStyle, GoogleMapController controller)
-  {
+  setGoogleMapStyle(String googleMapStyle, GoogleMapController controller) {
     controller.setMapStyle(googleMapStyle);
   }
 
-  getCurrentLiveLocationOfUser() async
-  {
+  getCurrentLiveLocationOfUser() async {
     Position positionOfUser = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
     currentPositionOfUser = positionOfUser;
 
@@ -47,7 +43,6 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
 
     CameraPosition cameraPosition = CameraPosition(target: positionOfUserInLatLng, zoom: 15);
     controllerGoogleMap!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-
   }
 
   @override
@@ -66,7 +61,41 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
               getCurrentLiveLocationOfUser();
             },
           ),
-          // Price Card
+          Positioned(
+            top: 50,
+            left: 10,
+            right: 10,
+            child: Column(
+              children: [
+                TextField(
+                  controller: fromController,
+                  decoration: InputDecoration(
+                    hintText: 'From:',
+                    fillColor: Colors.blueAccent,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  controller: toController,
+                  decoration: InputDecoration(
+                    hintText: 'To:',
+                    hintStyle: TextStyle(color: Colors.blueAccent),
+                    fillColor: Colors.black,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           Positioned(
             left: 0,
             right: 0,
@@ -86,43 +115,25 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
               ),
               child: Row(
                 children: [
-                  // Will add image soon
-
-
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "From:",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "To:",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 10.0),
-                        Text(
-                          "Price: RM",
-                          style: TextStyle(
-                            color:  Colors.blueAccent,
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
+                        SizedBox(height: 50.0),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 45.0, left: 10.0),
+                          child: Text(
+                            "Price: RM",
+                            style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
-
-                  // Button to confirm or proceed with the order
                   ElevatedButton(
                     onPressed: () {
                       //
@@ -138,4 +149,3 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
     );
   }
 }
-

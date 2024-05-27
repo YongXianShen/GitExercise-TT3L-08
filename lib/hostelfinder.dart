@@ -29,7 +29,7 @@ class HostelFinderDetails extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Find peaceful roommates.',
+              'Finds peaceful roommates.',
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 20),

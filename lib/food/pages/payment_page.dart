@@ -103,7 +103,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
               MyButton(
                 onTap: userTappedPay, 
-                text: "Pay Now",
+                text: "Pay Nows",
                 ),
 
                 const SizedBox(height: 25),

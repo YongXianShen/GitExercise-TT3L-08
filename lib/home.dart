@@ -1,4 +1,3 @@
-import 'dart:js';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -6,25 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 import 'package:mmusuperapp/carpool.dart';
-import 'package:mmusuperapp/food/components/my_drawer.dart';
 import 'package:mmusuperapp/food/pages/home_page.dart';
 import 'package:mmusuperapp/hostelfinder.dart';
-
-import 'profile_page.dart';
 
 
 class FeaturesCards extends StatelessWidget {
   const FeaturesCards({super.key});
-
-  void goToProfilePage() {
-    Navigator.pop(context as BuildContext);
-    Navigator.push(
-      context as BuildContext, 
-      MaterialPageRoute(
-        builder: (context) => const ProfilePage(),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +22,6 @@ class FeaturesCards extends StatelessWidget {
             'Welcome',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-        ),
-        drawer: MyDrawer(
-          onProfileTap: goToProfilePage,
-          onSignOut: signOut,
         ),
         body: Center(
           child: Column(

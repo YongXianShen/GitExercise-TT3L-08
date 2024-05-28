@@ -10,8 +10,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: const MyDrawer(),  
+    return Scaffold(  
       appBar: AppBar(
         title: const Text(
           'MMU SUPER APP',

@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mmusuperapp/global/global_var.dart';
 import 'package:mmusuperapp/methods/common_methods.dart';
+import 'package:mmusuperapp/pages/search_destination_page.dart';
 
 class CarpoolDetails extends StatefulWidget {
   const CarpoolDetails({super.key});
@@ -19,8 +20,9 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
   final Completer<GoogleMapController> googleMapCompleterController = Completer<GoogleMapController>();
   GoogleMapController? controllerGoogleMap;
   Position? currentPositionOfUser;
-  TextEditingController fromController = TextEditingController();
-  TextEditingController toController = TextEditingController();
+  GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
+  CommonMethods cMethods = CommonMethods();
+  double searchContainerHeight = 276;
 
   void updateMapTheme(GoogleMapController controller) {
     getJsonFileFromThemes("themes/blue_style.json").then((value) => setGoogleMapStyle(value, controller));
@@ -46,7 +48,6 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
     controllerGoogleMap!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
     await CommonMethods.convertGeoGraphicCoordinatesIntoHumanReadableAddress(currentPositionOfUser!, context);
-
   }
 
   @override
@@ -64,41 +65,6 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
               googleMapCompleterController.complete(controllerGoogleMap);
               getCurrentLiveLocationOfUser();
             },
-          ),
-          Positioned(
-            top: 50,
-            left: 10,
-            right: 10,
-            child: Column(
-              children: [
-                TextField(
-                  controller: fromController,
-                  decoration: InputDecoration(
-                    hintText: 'From:',
-                    fillColor: Colors.blueAccent,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  controller: toController,
-                  decoration: InputDecoration(
-                    hintText: 'To:',
-                    hintStyle: TextStyle(color: Colors.blueAccent),
-                    fillColor: Colors.black,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ),
           Positioned(
             left: 0,
@@ -123,11 +89,11 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 50.0),
+                        SizedBox(height: 20.0),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 45.0, left: 10.0),
+                          padding: const EdgeInsets.only(bottom: 95.0, left: 105.0),
                           child: Text(
-                            "Price: RM",
+                            "Search Now",
                             style: TextStyle(
                               color: Colors.blueAccent,
                               fontSize: 30.0,
@@ -138,16 +104,48 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                       ],
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      //
-                    },
-                    child: Text("Book Now"),
-                  ),
                 ],
               ),
             ),
           ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: -80,
+            child: Container(
+              height: searchContainerHeight,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SizedBox(
+                  width: 200,
+                  child: ElevatedButton(
+                    onPressed: ()
+                    {
+                      Navigator.push(
+                          context,
+                      MaterialPageRoute(builder: (context) => SearchDestinationPage()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                      shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                    padding: const EdgeInsets.all(14)) ,
+                    child: const Icon(
+                      Icons.search,
+                      color: Colors.white,
+                      size: 25,
+                    ),
+                  ),
+                  ),
+                ],
+              ),
+            ),
+            
+          ) // Search Icon
+          
         ],
       ),
     );

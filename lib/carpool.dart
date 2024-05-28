@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mmusuperapp/global/global_var.dart';
+import 'package:mmusuperapp/methods/common_methods.dart';
 
 class CarpoolDetails extends StatefulWidget {
   const CarpoolDetails({super.key});
@@ -43,6 +44,9 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
 
     CameraPosition cameraPosition = CameraPosition(target: positionOfUserInLatLng, zoom: 15);
     controllerGoogleMap!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+
+    await CommonMethods.convertGeoGraphicCoordinatesIntoHumanReadableAddress(currentPositionOfUser!, context);
+
   }
 
   @override

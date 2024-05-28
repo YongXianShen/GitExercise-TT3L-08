@@ -4,7 +4,7 @@ import 'package:mmusuperapp/food/components/my_drawer_tile.dart';
 import 'package:mmusuperapp/food/pages/settings_page.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({super.key});
+  const MyDrawer({super.key, required onProfileTap, required onSignOut});
 
 
   @override

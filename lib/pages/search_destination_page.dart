@@ -17,6 +17,9 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
 
   @override
   Widget build(BuildContext context) {
+    String userAddress =  Provider.of<AppInfo>(context, listen: false).pickupLocation!.humanReadableAddress ?? "";
+    pickUpTextEditingController.text = userAddress;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -24,7 +27,7 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
             Card(
               elevation: 10,
               child: Container(
-                height: 230,
+                height: 250,
                 decoration: const BoxDecoration(
                   color: Colors.blueAccent,
                   boxShadow: [
@@ -52,7 +55,7 @@ class _SearchDestinationPageState extends State<SearchDestinationPage> {
                           ),
                           const Center(
                             child: Text(
-                              "Set Dropoff Location",
+                              "Set Destination",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,

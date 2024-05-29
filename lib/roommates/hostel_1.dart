@@ -1,77 +1,90 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/roommates/hostel_hb1.dart';
 import 'package:mmusuperapp/roommates/hostel_hb2.dart';
 import 'package:mmusuperapp/roommates/hostel_hb3.dart';
 import 'package:mmusuperapp/roommates/hostel_hb4.dart';
 
-class Hostel1 extends StatelessWidget {
-  const Hostel1({super.key});
+class Hostel extends StatelessWidget {
+  const Hostel({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      home: Hostel11(),
-    );
-  }
-}
-
-class Hostel11 extends StatelessWidget {
-  const Hostel11({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text('Welcome To Roommate Finder!'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Welcome To Roommate Finder!",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
-      child: Center(
+      body: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CupertinoButton(
-              onPressed: () {
+            InkWell(
+              onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HostelHB1()),
-                  );
+                  context,
+                  MaterialPageRoute(builder: (context) => const HostelHB1()),
+                );
               },
-              child: const Text('H B 1'),
+              child: const Card(
+                color: Colors.lightBlueAccent,
+                child: _HostelCard(cardName: 'HB1'),
+              ),
             ),
-            const SizedBox(height: 30),
-            CupertinoButton.filled(
-              onPressed: () {
+            InkWell(
+              onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HostelHB2()),
-                  );
+                  context,
+                  MaterialPageRoute(builder: (context) => const HostelHB2()),
+                );
               },
-              child: const Text('H B 2'),
+              child: const Card(
+                color: Colors.lightBlue,
+                child: _HostelCard(cardName: 'HB2'),
+              ),
             ),
-            const SizedBox(height: 30),
-            CupertinoButton.filled(
-              onPressed: () {
+            InkWell(
+              onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HostelHB3()),
-                  );
+                  context,
+                  MaterialPageRoute(builder: (context) => const HostelHB3()),
+                );
               },
-              child: const Text('H B 3'),
+              child: const Card(
+                color: Colors.blueAccent,
+                child: _HostelCard(cardName: 'HB3'),
+              ),
             ),
-            const SizedBox(height: 30),
-            CupertinoButton.filled(
-              onPressed: () {
+            InkWell(
+              onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HostelHB4()),
-                  );
+                  context,
+                  MaterialPageRoute(builder: (context) => const HostelHB4()),
+                );
               },
-              child: const Text('H B 4'),
+              child: const Card(
+                color: Colors.blueAccent,
+                child: _HostelCard(cardName: 'HB4'),
+              ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _HostelCard extends StatelessWidget {
+  const _HostelCard({required this.cardName});
+  final String cardName;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 400,
+      height: 100,
+      child: Center(child: Text(cardName)),
     );
   }
 }

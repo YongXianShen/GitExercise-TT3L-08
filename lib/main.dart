@@ -51,8 +51,10 @@ class MyApp extends StatelessWidget {
           child: MaterialApp(
                 debugShowCheckedModeBanner: false,
                 theme:themeProvider.themeData,
-            home: HomePage(),),
-        );});
-     
-    
-  }}
+            home: const HomePage(),
+          ),
+        );
+      }
+    );  
+  }
+}

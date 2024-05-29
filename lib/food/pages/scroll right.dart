@@ -102,7 +102,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage(
-                "assets/image"
+                "lib/food/images/roti-canai-roti-paratha-roti-prata.webp",
+                
+
               )
             )
           ),

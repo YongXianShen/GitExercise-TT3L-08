@@ -17,11 +17,9 @@ class Food {
 
 //food categorys
 enum FoodCategory {
-  burgers,
-  salads,
-  sides,
-  desserts,
-  drink,
+  Roti,
+  Food,
+  Beverages,
 }
 
 // food addons

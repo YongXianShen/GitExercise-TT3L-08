@@ -63,7 +63,7 @@ class _FoodPageState extends State<FoodPage> {
                   ),
 
                   Text (
-                '\$${widget.food.price}', 
+                'RM${widget.food.price}', 
                 style: TextStyle( 
                   fontSize: 16,
                   color: Theme.of(context).colorScheme.primary),
@@ -108,7 +108,7 @@ class _FoodPageState extends State<FoodPage> {
 
             return CheckboxListTile(
               title: Text(addon.name),
-              subtitle: Text ('\$${addon.price}', style: TextStyle(color: Theme.of(context).colorScheme.primary,),),
+              subtitle: Text ('RM${addon.price}', style: TextStyle(color: Theme.of(context).colorScheme.primary,),),
               value: widget.selectedAddons[addon], 
               onChanged: (bool? value) {
                 setState((){

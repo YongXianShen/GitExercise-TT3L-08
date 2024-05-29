@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/food/components/my_current_location.dart';
 import 'package:mmusuperapp/food/components/my_description_box.dart';
-import 'package:mmusuperapp/food/components/my_drawer.dart';
 import 'package:mmusuperapp/food/components/my_food_tile.dart';
 import 'package:mmusuperapp/food/components/my_sliver_app_bar.dart';
 import 'package:mmusuperapp/food/components/my_tab_bar.dart';
 import 'package:mmusuperapp/food/models/food.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/pages/food_page.dart';
+import 'package:mmusuperapp/food/pages/scroll%20right.dart';
+
+
+import 'package:mmusuperapp/food/widget/bigtext.dart';
+import 'package:mmusuperapp/food/widget/smalltext.dart';
 import 'package:provider/provider.dart';
 
 
@@ -69,21 +73,23 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Divider(
+          // showing the header
+          Divider(
                   indent: 25, 
                   endIndent: 25, 
                   color: Theme.of(context).colorScheme.secondary,
                 ),
                 //my current location
-                MyCurrentLocation(),
+                const FoodPageBody(),
 
                 //description box
-                const MyDescriptionBox(),
-              ],
+                
+        ],
             ),
              
           ),
         ],
+        
         body: Consumer<Restaurant>(
           builder: (context, restaurant, child) => TabBarView(
             controller: _tabController,

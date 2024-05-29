@@ -115,7 +115,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
               ),
               child: Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

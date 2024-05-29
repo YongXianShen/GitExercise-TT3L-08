@@ -7,6 +7,7 @@ import 'package:flutter/painting.dart';
 import 'package:mmusuperapp/carpool.dart';
 import 'package:mmusuperapp/food/pages/home_page.dart';
 import 'package:mmusuperapp/hostelfinder.dart';
+import 'package:mmusuperapp/roommates/hostel_1.dart';
 
 
 class FeaturesCards extends StatelessWidget {
@@ -43,7 +44,7 @@ class FeaturesCards extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
+                    MaterialPageRoute(builder: (context) => const HomePage()),
                   );
                 },
                 child: const Card(
@@ -55,7 +56,7 @@ class FeaturesCards extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HostelFinderDetails()),
+                    MaterialPageRoute(builder: (context) => const Hostel1()),
                   );
                 },
                 child: const Card(

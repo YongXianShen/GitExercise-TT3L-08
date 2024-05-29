@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mmusuperapp/authentication/login_screen.dart';
 import 'package:mmusuperapp/food/components/my_drawer_tile.dart';
 import 'package:mmusuperapp/food/pages/settings_page.dart';
+import 'package:mmusuperapp/profile_pictures/profile_pic.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -46,6 +47,20 @@ class MyDrawer extends StatelessWidget {
                 context, 
                 MaterialPageRoute(
                   builder: (context) => const SettingsPage(),
+                  ),
+                );
+              },
+            ),
+
+            MyDrawerTile(
+            text: "P R O F I L E", 
+            icons: Icons.person, 
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context, 
+                MaterialPageRoute(
+                  builder: (context) => const ProfilePic(),
                   ),
                 );
               },

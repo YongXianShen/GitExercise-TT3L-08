@@ -279,7 +279,7 @@ class Restaurant extends ChangeNotifier {
 
   // format double value into money
   String _formatPrice(double price) {
-    return "\$${price.toStringAsFixed(2)}";
+    return "RM${price.toStringAsFixed(2)}";
   }
 
   // format list of addons into a string summary

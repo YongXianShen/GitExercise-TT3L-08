@@ -70,44 +70,46 @@ class _PaymentPageState extends State<PaymentPage> {
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Checkout"),
       ),
-      body: Column(
-        children: [
-          //  credit card
-          CreditCardWidget(
-            cardNumber: cardNumber, 
-            expiryDate: expiryDate, 
-            cardHolderName: cardHolderName, 
-            cvvCode: cvvCode, 
-            showBackView: isCvvFocused, 
-            onCreditCardWidgetChange: (p0) {},
-            ),
-
-            // credit card form
-            CreditCardForm(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            //  credit card
+            CreditCardWidget(
               cardNumber: cardNumber, 
               expiryDate: expiryDate, 
               cardHolderName: cardHolderName, 
               cvvCode: cvvCode, 
-              onCreditCardModelChange: (data) {
-                setState(() {
-                  cardNumber = data.cardNumber;
-                  expiryDate = data.expiryDate;
-                  cardHolderName = data.cardHolderName;
-                  cvvCode = data.cvvCode;
-                });
-              },
-              formKey: formKey,
+              showBackView: isCvvFocused, 
+              onCreditCardWidgetChange: (p0) {},
               ),
-
-              const Spacer(),
-
-              MyButton(
-                onTap: userTappedPay, 
-                text: "Pay Nows",
+        
+              // credit card form
+              CreditCardForm(
+                cardNumber: cardNumber, 
+                expiryDate: expiryDate, 
+                cardHolderName: cardHolderName, 
+                cvvCode: cvvCode, 
+                onCreditCardModelChange: (data) {
+                  setState(() {
+                    cardNumber = data.cardNumber;
+                    expiryDate = data.expiryDate;
+                    cardHolderName = data.cardHolderName;
+                    cvvCode = data.cvvCode;
+                  });
+                },
+                formKey: formKey,
                 ),
-
-                const SizedBox(height: 25),
-        ],
+        
+                const SizedBox(height: 25,),
+        
+                MyButton(
+                  onTap: userTappedPay, 
+                  text: "Pay Now",
+                  ),
+        
+                  const SizedBox(height: 25),
+          ],
+        ),
       ),
     );
   }

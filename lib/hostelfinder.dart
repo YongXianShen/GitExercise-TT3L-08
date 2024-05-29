@@ -43,7 +43,6 @@ class HostelFinderDetails extends StatelessWidget {
         ),
       ),
       endDrawer: Drawer(
-        
         child: ListView(
           children: [
             const DrawerHeader(
@@ -82,9 +81,8 @@ class HostelFinderDetails extends StatelessWidget {
               onTap: () {},
             ),
           ],
-        )
-
-      )
+        ),
+      ),
     );
   }
 }

@@ -91,9 +91,9 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                       children: [
                         SizedBox(height: 20.0),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 95.0, left: 105.0),
+                          padding: const EdgeInsets.only(bottom: 95.0, left: 60.0),
                           child: Text(
-                            "Search Now",
+                            "Search Destination",
                             style: TextStyle(
                               color: Colors.blueAccent,
                               fontSize: 30.0,
@@ -118,7 +118,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
-                  width: 200,
+                  width: 350,
                   child: ElevatedButton(
                     onPressed: ()
                     {
@@ -130,9 +130,9 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
                       shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
-                    padding: const EdgeInsets.all(14)) ,
+                    padding: const EdgeInsets.all(16)) ,
                     child: const Icon(
                       Icons.search,
                       color: Colors.white,
@@ -143,9 +143,9 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                 ],
               ),
             ),
-            
+
           ) // Search Icon
-          
+
         ],
       ),
     );

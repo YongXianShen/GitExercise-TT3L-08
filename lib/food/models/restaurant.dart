@@ -8,17 +8,125 @@ import 'food.dart';
 
 class Restaurant extends ChangeNotifier {
   final List<Food> _menu = [
-    //burgers
+    //Roti
     Food(
-      name: "Burger",
-      description: "Nice",
-      imagePath: "lib/food/images/burger-with-melted-cheese.webp",
-      price: 0.99,
-      category: FoodCategory.burgers,
+      name: "Roti Canai",
+      description: "Crispy and yummy",
+      imagePath: "lib/food/images/roti-canai-roti-paratha-roti-prata.webp",
+      price: 2.50,
+      category: FoodCategory.Roti,
       availableAddons: [
-        Addon(name: "extra cheese", price: 0.99),
-        Addon(name: "bacon", price: 1.99),
-        Addon(name: "extra cheese", price: 0.99),
+        Addon(name: "extra curry", price: 1.00),
+        Addon(name: "with cutlery", price: 0.50),
+        Addon(name: "with one package teh tarik", price: 1.50),
+      ],
+    ),
+    Food(
+      name: "Roti Telur",
+      description: "Crispy and yummy",
+      imagePath: "lib/food/images/roti-canai-roti-paratha-roti-prata.webp",
+      price: 3.00,
+      category: FoodCategory.Roti,
+      availableAddons: [
+        Addon(name: "extra curry", price: 1.00),
+        Addon(name: "with cutlery", price: 0.50),
+        Addon(name: "with one package teh tarik", price: 1.50),
+      ],
+    ),
+    Food(
+      name: "Roti Tisu",
+      description: "Crispy and yummy",
+      imagePath: "lib/food/images/roti-canai-roti-paratha-roti-prata.webp",
+      price: 4.00,
+      category: FoodCategory.Roti,
+      availableAddons: [
+        Addon(name: "extra curry", price: 1.00),
+        Addon(name: "with cutlery", price: 0.50),
+        Addon(name: "with one package teh tarik", price: 1.50),
+      ],
+    ),
+
+    // Food
+    Food(
+      name: "Nasi Lemak Biasa",
+      description: "Yummy",
+      imagePath: "lib/food/images/Untitled.jpeg",
+      price: 4.00,
+      category: FoodCategory.Food,
+      availableAddons: [
+        Addon(name: "extra sambal", price: 1.00),
+        Addon(name: "with cutlery", price: 0.50),
+        Addon(name: "with one package teh tarik", price: 1.50),
+      ],
+    ),
+    Food(
+      name: "Nasi Lemak Ayam Goreng",
+      description: "Yummy",
+      imagePath: "lib/food/images/Untitled.jpeg",
+      price: 7.00,
+      category: FoodCategory.Food,
+      availableAddons: [
+        Addon(name: "extra sambal", price: 1.00),
+        Addon(name: "with cutlery", price: 0.50),
+        Addon(name: "with one package teh tarik", price: 1.50),
+      ],
+    ),
+    Food(
+      name: "Nasi Lemak Sotong",
+      description: "Yummy",
+      imagePath: "lib/food/images/Untitled.jpeg",
+      price: 9.00,
+      category: FoodCategory.Food,
+      availableAddons: [
+        Addon(name: "extra sambal", price: 1.00),
+        Addon(name: "with cutlery", price: 0.50),
+        Addon(name: "with one package teh tarik", price: 1.50),
+      ],
+    ),
+
+    //Beverages
+    Food(
+      name: "Teh Tarik",
+      description: "Juicy",
+      imagePath: "lib/food/images/Untitled1.jpeg",
+      price: 2.00,
+      category: FoodCategory.Beverages,
+      availableAddons: [
+        Addon(name: "ais", price: 0.50),
+        Addon(name: "hot", price: 0.00),
+      ],
+    ),
+    Food(
+      name: "Kopi",
+      description: "Nice",
+      imagePath: "lib/food/images/Untitled1.jpeg",
+      price: 2.00,
+      category: FoodCategory.Beverages,
+      availableAddons: [
+        Addon(name: "ais", price: 0.50),
+        Addon(name: "hot", price: 0.00),
+      ],
+    ),
+    Food(
+      name: "Milo",
+      description: "Good",
+      imagePath: "lib/food/images/Untitled1.jpeg",
+      price: 3.00,
+      category: FoodCategory.Beverages,
+      availableAddons: [
+        Addon(name: "ais", price: 0.50),
+        Addon(name: "hot", price: 0.00),
+      ],
+    ),
+    Food(
+      name: "Sirap",
+      description: "Juicy",
+      imagePath: "lib/food/images/Untitled1.jpeg",
+      price: 2.00,
+      category: FoodCategory.Beverages,
+      availableAddons: [
+        Addon(name: "ais", price: 0.00),
+        Addon(name: "hot", price: 0.00),
       ],
     ),
   ];

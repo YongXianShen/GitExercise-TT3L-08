@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mmusuperapp/roommates/hostel_hb1.dart';
-import 'package:mmusuperapp/roommates/hostel_hb2.dart';
-import 'package:mmusuperapp/roommates/hostel_hb3.dart';
-import 'package:mmusuperapp/roommates/hostel_hb4.dart';
+import 'package:mmusuperapp/roommates/hostel.dart';
 
-class Hostel extends StatelessWidget {
-  const Hostel({super.key});
+class HB3 extends StatelessWidget {
+  const HB3({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Welcome To Roommate Finder!",
+          "H B 3",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -24,48 +21,36 @@ class Hostel extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const HostelHB1()),
+                  MaterialPageRoute(builder: (context) => const Hostel()),
                 );
               },
               child: const Card(
                 color: Colors.lightBlueAccent,
-                child: _HostelCard(cardName: 'HB1'),
+                child: _HB3Card(cardName: 'Block A'),
               ),
             ),
             InkWell(
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const HostelHB2()),
+                  MaterialPageRoute(builder: (context) => const Hostel()),
                 );
               },
               child: const Card(
                 color: Colors.lightBlue,
-                child: _HostelCard(cardName: 'HB2'),
+                child: _HB3Card(cardName: 'Block B'),
               ),
             ),
             InkWell(
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const HostelHB3()),
+                  MaterialPageRoute(builder: (context) => const Hostel()),
                 );
               },
               child: const Card(
                 color: Colors.blueAccent,
-                child: _HostelCard(cardName: 'HB3'),
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HostelHB4()),
-                );
-              },
-              child: const Card(
-                color: Colors.blueAccent,
-                child: _HostelCard(cardName: 'HB4'),
+                child: _HB3Card(cardName: 'Block C'),
               ),
             ),
           ],
@@ -75,8 +60,8 @@ class Hostel extends StatelessWidget {
   }
 }
 
-class _HostelCard extends StatelessWidget {
-  const _HostelCard({required this.cardName});
+class _HB3Card extends StatelessWidget {
+  const _HB3Card({required this.cardName});
   final String cardName;
 
   @override

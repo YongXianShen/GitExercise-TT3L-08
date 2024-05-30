@@ -6,7 +6,7 @@ import 'package:flutter/painting.dart';
 
 import 'package:mmusuperapp/carpool.dart';
 import 'package:mmusuperapp/food/pages/home_page.dart';
-import 'package:mmusuperapp/roommates/hostel_1.dart';
+import 'package:mmusuperapp/roommates/hostel.dart';
 
 
 class FeaturesCards extends StatelessWidget {

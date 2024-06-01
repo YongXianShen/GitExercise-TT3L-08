@@ -23,9 +23,14 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
   GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
   CommonMethods cMethods = CommonMethods();
   double searchContainerHeight = 276;
+  bool isNightMode = false;
 
   void updateMapTheme(GoogleMapController controller) {
     getJsonFileFromThemes("themes/blue_style.json").then((value) => setGoogleMapStyle(value, controller));
+  }
+
+  void updateMapThemeToNight(GoogleMapController controller) {
+    getJsonFileFromThemes("themes/night_style.json").then((value) => setGoogleMapStyle(value, controller));
   }
 
   Future<String> getJsonFileFromThemes(String mapStylePath) async {
@@ -50,9 +55,21 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
     await CommonMethods.convertGeoGraphicCoordinatesIntoHumanReadableAddress(currentPositionOfUser!, context);
   }
 
+  void toggleMapStyle() {
+    if (isNightMode) {
+      updateMapTheme(controllerGoogleMap!);
+    } else {
+      updateMapThemeToNight(controllerGoogleMap!);
+    }
+    setState(() {
+      isNightMode = !isNightMode;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: isNightMode ? Colors.black : Colors.white,
       body: Stack(
         children: [
           GoogleMap(
@@ -68,12 +85,26 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
           ),
           Positioned(
             left: 0,
+            top: 0,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  icon: Icon(isNightMode ? Icons.wb_sunny : Icons.nights_stay),
+                  color: isNightMode ? Colors.white : Colors.black,
+                  onPressed: toggleMapStyle,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
             right: 0,
             bottom: 0,
             child: Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: isNightMode ? Colors.black : Colors.white,
                 borderRadius: BorderRadius.circular(0.0),
                 boxShadow: [
                   BoxShadow(
@@ -85,15 +116,15 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
               ),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 20.0),
+                        const SizedBox(height: 20.0),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 95.0, left: 60.0),
+                          padding: const EdgeInsets.only(bottom: 95.0, left: 45.0),
                           child: Text(
-                            "Search Destination",
+                            "List Your Destination",
                             style: TextStyle(
                               color: Colors.blueAccent,
                               fontSize: 30.0,
@@ -118,34 +149,32 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SizedBox(
-                  width: 350,
-                  child: ElevatedButton(
-                    onPressed: ()
-                    {
-                      Navigator.push(
+                    width: 350,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
                           context,
-                      MaterialPageRoute(builder: (context) => SearchDestinationPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent,
-                      shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                          MaterialPageRoute(builder: (context) => SearchDestinationPage()),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        padding: const EdgeInsets.all(16),
+                      ),
+                      child: const Icon(
+                        Icons.search,
+                        color: Colors.white,
+                        size: 25,
+                      ),
                     ),
-                    padding: const EdgeInsets.all(16)) ,
-                    child: const Icon(
-                      Icons.search,
-                      color: Colors.white,
-                      size: 25,
-                    ),
-                  ),
                   ),
                 ],
               ),
             ),
-
-          ) // Search Icon
-
+          ), // Search Icon
         ],
       ),
     );

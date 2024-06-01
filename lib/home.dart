@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-import 'package:mmusuperapp/carpool.dart';
+import 'package:mmusuperapp/carpool/carpool.dart';
+import 'package:mmusuperapp/carpool/user_or_driver.dart';
 import 'package:mmusuperapp/food/pages/home_page.dart';
 import 'package:mmusuperapp/roommates/hostel.dart';
 
@@ -31,7 +32,7 @@ class FeaturesCards extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const CarpoolDetails()),
+                    MaterialPageRoute(builder: (context) => const OptionScreen()),
                   );
                 },
                 child: const Card(

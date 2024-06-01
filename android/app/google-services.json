@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "916024686497",
+    "firebase_url": "https://mmu-super-app-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "mmu-super-app",
     "storage_bucket": "mmu-super-app.appspot.com"
   },
@@ -12,7 +13,12 @@
           "package_name": "com.park.mmusuperapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "916024686497-o02qdc4i05hfnj1btsgu7g0kvbd9i6ci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB53AqviTnxZ5wocKtN0KRKVE0dELsIPNM"
@@ -20,7 +26,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916024686497-o02qdc4i05hfnj1btsgu7g0kvbd9i6ci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

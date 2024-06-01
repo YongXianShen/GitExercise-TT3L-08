@@ -9,91 +9,67 @@ import '../methods/common_methods.dart';
 import '../widgets/loading_dialog.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-
-class _LoginScreenState extends State<LoginScreen>
-{
+class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
   CommonMethods cMethods = CommonMethods();
 
-
-
-  checkIfNetworkIsAvailable()
-  {
-    cMethods.checkConnectivity(context);
-
-    signInFormValidation();
-  }
-
-  signInFormValidation()
-  {
-    if(!emailTextEditingController.text.contains("@"))
-    {
+  signInFormValidation() {
+    if (!emailTextEditingController.text.contains("@")) {
       cMethods.displaySnackBar("Invalid Email", context);
-    }
-    else if(passwordTextEditingController.text.trim().length < 5)
-    {
+    } else if (passwordTextEditingController.text.trim().length < 5) {
       cMethods.displaySnackBar("Your password needs to have at least 6 or more characters", context);
-    }
-    else
-    {
+    } else {
       signInUser();
     }
   }
 
-  signInUser() async
-  {
+  signInUser() async {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => LoadingDialog(messageText: "Logging in...."),
     );
 
-    final User? userFirebase = (
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailTextEditingController.text.trim(),
-          password: passwordTextEditingController.text.trim(),
-        ).catchError((errorMsg)
-        {
-          Navigator.pop(context);
-          cMethods.displaySnackBar(errorMsg.toString(), context);
-        })
-    ).user;
+    try {
+      final User? userFirebase = (
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: emailTextEditingController.text.trim(),
+            password: passwordTextEditingController.text.trim(),
+          )
+      ).user;
 
-    if(!context.mounted) return;
-    Navigator.pop(context);
+      if (!context.mounted) return;
+      Navigator.pop(context);
 
-    if(userFirebase != null)
-    {
-      DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users").child(userFirebase.uid);
-      usersRef.once().then((snap)
-      {
-        if (snap.snapshot.value != null)
-        {
-          if ((snap.snapshot.value as Map)["blockStatus"] == "no")
-          {
-            userName = (snap.snapshot.value as Map)["name"];
-            userPhone = (snap.snapshot.value as Map)["phone"];
-            Navigator.push(context,MaterialPageRoute(builder: (c)=> HomePage()));
-          }
-          else
-          {
+      if (userFirebase != null) {
+        DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users").child(userFirebase.uid);
+        usersRef.once().then((snap) {
+          if (snap.snapshot.value != null) {
+            if ((snap.snapshot.value as Map)["blockStatus"] == "no") {
+              userName = (snap.snapshot.value as Map)["name"];
+              userPhone = (snap.snapshot.value as Map)["phone"];
+              // Navigate to HomePage
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => HomePage()));
+            } else {
+              FirebaseAuth.instance.signOut();
+              cMethods.displaySnackBar("Your account is blocked. If you think there is a mistake, contact 01121885185", context);
+            }
+          } else {
             FirebaseAuth.instance.signOut();
-            cMethods.displaySnackBar("Your account is blocked. If you think there is a mistake, contact 01121885185", context);
+            cMethods.displaySnackBar("The account does not exist.", context);
           }
-        }
-        else
-        {
-          FirebaseAuth.instance.signOut();
-          cMethods.displaySnackBar("The account does not exist.", context);
-        }
-      });
+        });
+      }
+    } catch (error) {
+      Navigator.pop(context);
+      cMethods.displaySnackBar(error.toString(), context);
     }
   }
 
@@ -103,12 +79,9 @@ class _LoginScreenState extends State<LoginScreen>
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: Column(        
+          child: Column(
             children: [
-
-              Image.asset(
-                  "assets/images/logo.png"
-              ),
+              Image.asset("assets/images/logo.png"),
               const Text(
                 'Login as a User',
                 style: TextStyle(
@@ -122,7 +95,6 @@ class _LoginScreenState extends State<LoginScreen>
                 padding: const EdgeInsets.all(22),
                 child: Column(
                   children: [
-
                     TextField(
                       controller: emailTextEditingController,
                       keyboardType: TextInputType.emailAddress,
@@ -133,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen>
                         ),
                       ),
                       style: const TextStyle(
-                        color: Colors.grey ,
+                        color: Colors.grey,
                         fontSize: 15,
                       ),
                     ),
@@ -151,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen>
                         ),
                       ),
                       style: const TextStyle(
-                        color: Colors.grey ,
+                        color: Colors.grey,
                         fontSize: 15,
                       ),
                     ),
@@ -159,19 +131,15 @@ class _LoginScreenState extends State<LoginScreen>
                     const SizedBox(height: 42,),
 
                     ElevatedButton(
-                      onPressed: ()
-                      {
-                        checkIfNetworkIsAvailable();
+                      onPressed: () {
+                        signInFormValidation();
                       },
-                      style:  ElevatedButton.styleFrom(
+                      style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueAccent,
                           padding: EdgeInsets.symmetric(horizontal: 60, vertical: 10)
                       ),
-                      child: const Text(
-                          "Log In"
-                      ),
+                      child: const Text("Log In"),
                     ),
-
                   ],
                 ),
               ),
@@ -180,9 +148,8 @@ class _LoginScreenState extends State<LoginScreen>
 
               // Text Button
               TextButton(
-                onPressed: ()
-                {
-                  Navigator.push(context,MaterialPageRoute(builder: (c)=> SignUpScreen()));
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (c) => SignUpScreen()));
                 },
                 child: Text(
                   "Don't have an account? Sign Up here",
@@ -191,12 +158,11 @@ class _LoginScreenState extends State<LoginScreen>
                   ),
                 ),
               ),
-
-
             ],
           ),
         ),
       ),
     );
   }
-  }
+}
+

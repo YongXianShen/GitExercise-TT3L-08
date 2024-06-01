@@ -7,113 +7,90 @@ import 'package:mmusuperapp/methods/common_methods.dart';
 import 'package:mmusuperapp/widgets/loading_dialog.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen>
-{
-    TextEditingController userNameTextEditingController = TextEditingController();
-    TextEditingController userPhoneTextEditingController = TextEditingController();
-    TextEditingController emailTextEditingController = TextEditingController();
-    TextEditingController passwordTextEditingController = TextEditingController();
-    CommonMethods cMethods = CommonMethods();
+class _SignUpScreenState extends State<SignUpScreen> {
+  TextEditingController userNameTextEditingController = TextEditingController();
+  TextEditingController userPhoneTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
+  CommonMethods cMethods = CommonMethods();
 
-    checkIfNetworkIsAvailable()
-    {
-      cMethods.checkConnectivity(context);
-
-      signUpFormValidation();
+  signUpFormValidation() {
+    if (userNameTextEditingController.text.trim().length < 3) {
+      cMethods.displaySnackBar("Your username needs to have at least 4 or more characters", context);
+    } else if (userPhoneTextEditingController.text.trim().length < 9) {
+      cMethods.displaySnackBar("Invalid Phone Number", context);
+    } else if (!emailTextEditingController.text.contains("@")) {
+      cMethods.displaySnackBar("Invalid Email", context);
+    } else if (passwordTextEditingController.text.trim().length < 5) {
+      cMethods.displaySnackBar("Your password needs to have at least 6 or more characters", context);
+    } else {
+      registerNewUser();
     }
+  }
 
-    signUpFormValidation()
-    {
-      if(userNameTextEditingController.text.trim().length < 3)
-      {
-        cMethods.displaySnackBar("Your username needs to have at least 4 or more characters", context);
-      }
-      else if(userPhoneTextEditingController.text.trim().length < 9)
-      {
-          cMethods.displaySnackBar("Invalid Phone Number", context);
-      }
-      else if(!emailTextEditingController.text.contains("@"))
-      {
-        cMethods.displaySnackBar("Invalid Email", context);
-      }
-      else if(passwordTextEditingController.text.trim().length < 5)
-      {
-        cMethods.displaySnackBar("Your password needs to have at least 6 or more characters", context);
-      }
-      else
-      {
-        registerNewUser();
-      }
+  registerNewUser() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => LoadingDialog(messageText: "Registering your account...."),
+    );
 
-    }
-
-    registerNewUser() async
-    {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) => LoadingDialog(messageText: "Registering your account...."),
-      );
-
-      final User? userFirebase = (
+    final User? userFirebase = (
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
-           email: emailTextEditingController.text.trim(),
-           password: passwordTextEditingController.text.trim(),
-          ).catchError((errorMsg)
-          {
+          email: emailTextEditingController.text.trim(),
+          password: passwordTextEditingController.text.trim(),
+        ).catchError((errorMsg) {
           Navigator.pop(context);
           cMethods.displaySnackBar(errorMsg.toString(), context);
-          })
-       ).user;
+        })
+    ).user;
 
-      if(!context.mounted) return;
-      Navigator.pop(context);
+    if (!context.mounted) return;
+    Navigator.pop(context);
 
-      DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users").child(userFirebase!.uid);
-      Map userDataMap =
-      {
-       "name": userNameTextEditingController.text.trim(),
-       "email": emailTextEditingController.text.trim(),
-       "phone": userPhoneTextEditingController.text.trim(),
-       "id": userFirebase.uid,
-       "blockStatus": "no",
-      };
-      usersRef.set(userDataMap);
+    DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users").child(userFirebase!.uid);
+    Map userDataMap = {
+      "name": userNameTextEditingController.text.trim(),
+      "email": emailTextEditingController.text.trim(),
+      "phone": userPhoneTextEditingController.text.trim(),
+      "id": userFirebase.uid,
+      "blockStatus": "no",
+    };
+    usersRef.set(userDataMap);
 
-      Navigator.push(context,MaterialPageRoute(builder: (c)=> HomePage()));
-    }
+    Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
+  }
 
-    @override
-    Widget build(BuildContext context)
-    {
-      return Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
             children: [
 
               Image.asset(
-                "assets/images/logo.png"
+                  "assets/images/logo.png"
               ),
 
               const Text(
                 'Create an Account',
                 style: TextStyle(
-                 fontSize: 22.0,
-                 fontWeight: FontWeight.bold,
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
 
               // Text Fields & Sign Up Button
               Padding(
-                  padding: const EdgeInsets.all(22),
+                padding: const EdgeInsets.all(22),
                 child: Column(
                   children: [
 
@@ -127,7 +104,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                         ),
                       ),
                       style: const TextStyle(
-                        color: Colors.grey ,
+                        color: Colors.grey,
                         fontSize: 15,
                       ),
                     ),
@@ -144,7 +121,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                         ),
                       ),
                       style: const TextStyle(
-                        color: Colors.grey ,
+                        color: Colors.grey,
                         fontSize: 15,
                       ),
                     ),
@@ -161,7 +138,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                         ),
                       ),
                       style: const TextStyle(
-                        color: Colors.grey ,
+                        color: Colors.grey,
                         fontSize: 15,
                       ),
                     ),
@@ -179,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                         ),
                       ),
                       style: const TextStyle(
-                        color: Colors.grey ,
+                        color: Colors.grey,
                         fontSize: 15,
                       ),
                     ),
@@ -187,16 +164,13 @@ class _SignUpScreenState extends State<SignUpScreen>
                     const SizedBox(height: 42,),
 
                     ElevatedButton(
-                      onPressed: ()
-                      {
-                        checkIfNetworkIsAvailable();
-                      },
-                      style:  ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10)
+                      onPressed: signUpFormValidation,
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10)
                       ),
                       child: const Text(
-                        "Sign Up"
+                          "Sign Up"
                       ),
                     ),
 
@@ -208,18 +182,16 @@ class _SignUpScreenState extends State<SignUpScreen>
 
               // Text Button
               TextButton(
-                onPressed: ()
-              {
-                Navigator.push(context,MaterialPageRoute(builder: (c)=> LoginScreen()));
-              },
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
+                },
                 child: const Text(
-                    "Already have an Account? Login here",
+                  "Already have an Account? Login here",
                   style: TextStyle(
                     color: Colors.grey,
                   ),
                 ),
               ),
-
 
             ],
           ),
@@ -228,4 +200,3 @@ class _SignUpScreenState extends State<SignUpScreen>
     );
   }
 }
-

@@ -47,7 +47,7 @@ class OptionScreen extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(bottom: 40.0),
               child: Text(
-                'Driver or Rider?',
+                'I am a',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,

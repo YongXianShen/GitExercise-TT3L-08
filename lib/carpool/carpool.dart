@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mmusuperapp/appInfo/app_info.dart';
 import 'package:mmusuperapp/global/global_var.dart';
 import 'package:mmusuperapp/methods/common_methods.dart';
 import 'package:mmusuperapp/pages/search_destination_page.dart';
+import 'package:provider/provider.dart';
 
 class CarpoolDetails extends StatefulWidget {
   const CarpoolDetails({super.key});
@@ -151,11 +153,17 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                   SizedBox(
                     width: 350,
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
+                      onPressed: () async {
+                         var responseFromSearchPage = await Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SearchDestinationPage()),
-                        );
+                          MaterialPageRoute(builder: (context) => SearchDestinationPage()));
+
+                         if(responseFromSearchPage == "placeSelected")
+                           {
+                             String dropOffLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation!.placeName ?? "";
+                             print("dropOffLocation = " + dropOffLocation);
+
+                           }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,

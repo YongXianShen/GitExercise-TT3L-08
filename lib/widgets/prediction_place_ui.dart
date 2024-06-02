@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mmusuperapp/appInfo/app_info.dart';
+import 'package:mmusuperapp/global/global_var.dart';
+import 'package:mmusuperapp/methods/common_methods.dart';
+import 'package:mmusuperapp/models/address_model.dart';
 import 'package:mmusuperapp/models/prediction_model.dart';
+import 'package:mmusuperapp/widgets/loading_dialog.dart';
+import 'package:provider/provider.dart';
 
 class PredictionPlaceUI extends StatefulWidget {
   final PredictionModel? predictedPlaceData;
@@ -11,10 +17,48 @@ class PredictionPlaceUI extends StatefulWidget {
 }
 
 class _PredictionPlaceUIState extends State<PredictionPlaceUI> {
+  Future<void> fetchClickedPlaceDetails(String placeID) async {
+    if (placeID.isEmpty) return;
+
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) => LoadingDialog(messageText: 'Getting Details...'),
+    );
+
+    String urlPlaceDetailsAPI = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeID&key=$googleMapKey";
+
+    var responseFromPlaceDetailsAPI = await CommonMethods.sendRequestToAPI(urlPlaceDetailsAPI);
+
+    Navigator.pop(context);
+
+    if (responseFromPlaceDetailsAPI == "error") {
+      // Handle error
+      return;
+    }
+
+    if (responseFromPlaceDetailsAPI["status"] == "OK") {
+      AddressModel dropOffLocation = AddressModel();
+
+      dropOffLocation.placeName = responseFromPlaceDetailsAPI["result"]["name"];
+      dropOffLocation.latitudePosition = responseFromPlaceDetailsAPI["result"]["geometry"]["location"]["lat"];
+      dropOffLocation.longitudePosition = responseFromPlaceDetailsAPI["result"]["geometry"]["location"]["lng"];
+      dropOffLocation.placeID = placeID;
+
+      Provider.of<AppInfo>(context, listen: false).updateDropOffLocation(dropOffLocation);
+
+      Navigator.pop(context, "placeSelected");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: widget.predictedPlaceData?.place_id != null
+          ? () {
+        fetchClickedPlaceDetails(widget.predictedPlaceData!.place_id!);
+      }
+          : null,
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
@@ -23,8 +67,8 @@ class _PredictionPlaceUIState extends State<PredictionPlaceUI> {
         padding: EdgeInsets.zero,
       ),
       child: SizedBox(
-        height: 80, // Fixed height for the rectangular shape
-        width: double.infinity, // Takes the full width available
+        height: 80,
+        width: double.infinity,
         child: Column(
           children: [
             const SizedBox(height: 15),

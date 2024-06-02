@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -25,7 +27,9 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
   GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
   CommonMethods cMethods = CommonMethods();
   double searchContainerHeight = 276;
+  double bottomMapPadding = 0;
   bool isNightMode = false;
+  double rideDetailsContainerHeight = 0;
 
   void updateMapTheme(GoogleMapController controller) {
     getJsonFileFromThemes("themes/blue_style.json").then((value) => setGoogleMapStyle(value, controller));
@@ -41,30 +45,46 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
     return utf8.decode(list);
   }
 
-  setGoogleMapStyle(String googleMapStyle, GoogleMapController controller) {
+  void setGoogleMapStyle(String googleMapStyle, GoogleMapController controller) {
     controller.setMapStyle(googleMapStyle);
   }
 
-  getCurrentLiveLocationOfUser() async {
-    Position positionOfUser = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
-    currentPositionOfUser = positionOfUser;
+  Future<void> getCurrentLiveLocationOfUser() async {
+    try {
+      Position positionOfUser = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
+      setState(() {
+        currentPositionOfUser = positionOfUser;
+      });
 
-    LatLng positionOfUserInLatLng = LatLng(currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
+      LatLng positionOfUserInLatLng = LatLng(currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
 
-    CameraPosition cameraPosition = CameraPosition(target: positionOfUserInLatLng, zoom: 15);
-    controllerGoogleMap!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      CameraPosition cameraPosition = CameraPosition(target: positionOfUserInLatLng, zoom: 15);
+      controllerGoogleMap?.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
-    await CommonMethods.convertGeoGraphicCoordinatesIntoHumanReadableAddress(currentPositionOfUser!, context);
+      await CommonMethods.convertGeoGraphicCoordinatesIntoHumanReadableAddress(currentPositionOfUser!, context);
+    } catch (e) {
+      print(e);
+    }
   }
 
   void toggleMapStyle() {
-    if (isNightMode) {
-      updateMapTheme(controllerGoogleMap!);
-    } else {
-      updateMapThemeToNight(controllerGoogleMap!);
+    if (controllerGoogleMap != null) {
+      if (isNightMode) {
+        updateMapTheme(controllerGoogleMap!);
+      } else {
+        updateMapThemeToNight(controllerGoogleMap!);
+      }
+      setState(() {
+        isNightMode = !isNightMode;
+      });
     }
+  }
+
+  void displayUserRideDetailsContainer() {
     setState(() {
-      isNightMode = !isNightMode;
+      searchContainerHeight = 0;
+      bottomMapPadding = 240;
+      rideDetailsContainerHeight = 242;
     });
   }
 
@@ -84,6 +104,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
               googleMapCompleterController.complete(controllerGoogleMap);
               getCurrentLiveLocationOfUser();
             },
+            padding: EdgeInsets.only(bottom: bottomMapPadding),
           ),
           Positioned(
             left: 0,
@@ -144,7 +165,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
           Positioned(
             left: 0,
             right: 0,
-            bottom: -80,
+            bottom: 0,
             child: Container(
               height: searchContainerHeight,
               child: Row(
@@ -154,16 +175,14 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                     width: 350,
                     child: ElevatedButton(
                       onPressed: () async {
-                         var responseFromSearchPage = await Navigator.push(
+                        var responseFromSearchPage = await Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SearchDestinationPage()));
+                          MaterialPageRoute(builder: (context) => SearchDestinationPage()),
+                        );
 
-                         if(responseFromSearchPage == "placeSelected")
-                           {
-                             String dropOffLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation!.placeName ?? "";
-                             print("dropOffLocation = " + dropOffLocation);
-
-                           }
+                        if (responseFromSearchPage == "placeSelected") {
+                          displayUserRideDetailsContainer();
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,
@@ -182,7 +201,70 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                 ],
               ),
             ),
-          ), // Search Icon
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              height: rideDetailsContainerHeight,
+              decoration: const BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black,
+                    spreadRadius: 0.5,
+                    offset: Offset(.7, .7),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                child: SizedBox(
+                  height: 190,
+                  child: Card(
+                    elevation: 10,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * .70,
+                      color: Colors.black,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8, bottom: 8),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.directions_car,
+                              color: Colors.white,
+                              size: 80,
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              "Heading to Destination",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              "Carpool requests will pop up if any are available.",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

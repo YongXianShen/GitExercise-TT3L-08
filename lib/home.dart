@@ -20,7 +20,7 @@ class FeaturesCards extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Welcome',
+            'Welcome back to Multimedia Univesity (MMU)!',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -61,7 +61,7 @@ class FeaturesCards extends StatelessWidget {
                 },
                 child: const Card(
                   color: Colors.blueAccent,
-                  child: _FeaturesCard(cardName: 'Roommate Finder'),
+                  child: _FeaturesCard(cardName: 'Hostel Application'),
                 ),
               ),
             ],

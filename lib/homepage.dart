@@ -76,15 +76,17 @@ class _NavigationExampleState extends State<NavigationExample> {
           ),
         ],
       ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const Chat()),);
-          },
-          child: const Icon(Icons.chat),
-          ),
-
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.push(
+            context, MaterialPageRoute(
+              builder: (context) => const Chat()
+            ),
+          );
+        },
+        child: const Icon(Icons.chat),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/roommates/hostel.dart';
 
-class HB3 extends StatelessWidget {
-  const HB3({super.key});
+class HB2A extends StatelessWidget {
+  const HB2A({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "H B 3",
+          "H B 2",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -26,7 +26,7 @@ class HB3 extends StatelessWidget {
               },
               child: const Card(
                 color: Colors.lightBlueAccent,
-                child: _HB3Card(cardName: 'Block A'),
+                child: _HB2Card(cardName: 'Block A'),
               ),
             ),
             InkWell(
@@ -38,7 +38,7 @@ class HB3 extends StatelessWidget {
               },
               child: const Card(
                 color: Colors.lightBlue,
-                child: _HB3Card(cardName: 'Block B'),
+                child: _HB2Card(cardName: 'Block B'),
               ),
             ),
             InkWell(
@@ -50,7 +50,7 @@ class HB3 extends StatelessWidget {
               },
               child: const Card(
                 color: Colors.blueAccent,
-                child: _HB3Card(cardName: 'Block C'),
+                child: _HB2Card(cardName: 'Block C'),
               ),
             ),
           ],
@@ -60,8 +60,8 @@ class HB3 extends StatelessWidget {
   }
 }
 
-class _HB3Card extends StatelessWidget {
-  const _HB3Card({required this.cardName});
+class _HB2Card extends StatelessWidget {
+  const _HB2Card({required this.cardName});
   final String cardName;
 
   @override

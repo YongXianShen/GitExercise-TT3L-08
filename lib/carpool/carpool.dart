@@ -5,11 +5,13 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mmusuperapp/appInfo/app_info.dart';
 import 'package:mmusuperapp/global/global_var.dart';
 import 'package:mmusuperapp/methods/common_methods.dart';
+import 'package:mmusuperapp/models/direction_details.dart';
 import 'package:mmusuperapp/pages/search_destination_page.dart';
 import 'package:provider/provider.dart';
 
@@ -30,23 +32,43 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
   double bottomMapPadding = 0;
   bool isNightMode = false;
   double rideDetailsContainerHeight = 0;
+  List<LatLng> polylineCoordinates = [];
+  Set<Polyline> polylineSet = {};
+  Set<Marker> markerSet = {};
+  Set<Circle> circleSet = {};
+  DirectionDetails? tripDirectionDetailsInfo;
 
   void updateMapTheme(GoogleMapController controller) {
-    getJsonFileFromThemes("themes/blue_style.json").then((value) => setGoogleMapStyle(value, controller));
+    getJsonFileFromThemes("themes/blue_style.json").then((value) {
+      setGoogleMapStyle(value, controller);
+    }).catchError((error) {
+      print('Error loading map theme: $error');
+    });
   }
 
   void updateMapThemeToNight(GoogleMapController controller) {
-    getJsonFileFromThemes("themes/night_style.json").then((value) => setGoogleMapStyle(value, controller));
+    getJsonFileFromThemes("themes/night_style.json").then((value) {
+      setGoogleMapStyle(value, controller);
+    }).catchError((error) {
+      print('Error loading night map theme: $error');
+    });
   }
 
   Future<String> getJsonFileFromThemes(String mapStylePath) async {
-    ByteData byteData = await rootBundle.load(mapStylePath);
-    var list = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
-    return utf8.decode(list);
+    try {
+      ByteData byteData = await rootBundle.load(mapStylePath);
+      var list = byteData.buffer.asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+      return utf8.decode(list);
+    } catch (error) {
+      print('Error loading map style: $error');
+      rethrow;
+    }
   }
 
   void setGoogleMapStyle(String googleMapStyle, GoogleMapController controller) {
-    controller.setMapStyle(googleMapStyle);
+    controller.setMapStyle(googleMapStyle).catchError((error) {
+      print('Error setting map style: $error');
+    });
   }
 
   Future<void> getCurrentLiveLocationOfUser() async {
@@ -63,7 +85,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
 
       await CommonMethods.convertGeoGraphicCoordinatesIntoHumanReadableAddress(currentPositionOfUser!, context);
     } catch (e) {
-      print(e);
+      print('Error getting current location: $e');
     }
   }
 
@@ -80,12 +102,125 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
     }
   }
 
-  void displayUserRideDetailsContainer() {
-    setState(() {
-      searchContainerHeight = 0;
-      bottomMapPadding = 240;
-      rideDetailsContainerHeight = 242;
-    });
+  void displayUserRideDetailsContainer() async {
+    try {
+      await retrieveDirectionDetails();
+      setState(() {
+        searchContainerHeight = 0;
+        bottomMapPadding = 240;
+        rideDetailsContainerHeight = 242;
+      });
+    } catch (e) {
+      print('Error displaying ride details: $e');
+    }
+  }
+
+  Future<void> retrieveDirectionDetails() async {
+    try {
+      var pickUpLocation = Provider.of<AppInfo>(context, listen: false).pickupLocation;
+      var dropOffDestinationLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation;
+
+      if (pickUpLocation == null || dropOffDestinationLocation == null) {
+        print('PickUp or DropOff location is null');
+        return;
+      }
+
+      var pickupGeoGraphicCoOrdinates = LatLng(pickUpLocation.latitudePosition!, pickUpLocation.longitudePosition!);
+      var dropOffDestinationGeoGraphicCoOrdinates = LatLng(dropOffDestinationLocation.latitudePosition!, dropOffDestinationLocation.longitudePosition!);
+
+      var detailsFromDirectionAPI = await CommonMethods.getDirectionDetailsFromAPI(pickupGeoGraphicCoOrdinates, dropOffDestinationGeoGraphicCoOrdinates);
+      setState(() {
+        tripDirectionDetailsInfo = detailsFromDirectionAPI;
+      });
+
+      PolylinePoints pointsPolyline = PolylinePoints();
+      List<PointLatLng> latLngPointsFromPickUpToDestination = pointsPolyline.decodePolyline(tripDirectionDetailsInfo!.encodedPoints!);
+
+      polylineCoordinates.clear();
+      if (latLngPointsFromPickUpToDestination.isNotEmpty) {
+        latLngPointsFromPickUpToDestination.forEach((PointLatLng latLngPoint) {
+          polylineCoordinates.add(LatLng(latLngPoint.latitude, latLngPoint.longitude));
+        });
+      }
+
+      polylineSet.clear();
+      setState(() {
+        Polyline polyline = Polyline(
+          polylineId: const PolylineId("polylineID"),
+          color: Colors.blue,
+          points: polylineCoordinates,
+          jointType: JointType.round,
+          width: 4,
+          startCap: Cap.roundCap,
+          endCap: Cap.roundCap,
+          geodesic: true,
+        );
+
+        polylineSet.add(polyline);
+      });
+
+      LatLngBounds boundsLatLng;
+      if (pickupGeoGraphicCoOrdinates.latitude > dropOffDestinationGeoGraphicCoOrdinates.latitude &&
+          pickupGeoGraphicCoOrdinates.longitude > dropOffDestinationGeoGraphicCoOrdinates.longitude) {
+        boundsLatLng = LatLngBounds(
+          southwest: dropOffDestinationGeoGraphicCoOrdinates,
+          northeast: pickupGeoGraphicCoOrdinates,
+        );
+      } else if (pickupGeoGraphicCoOrdinates.longitude > dropOffDestinationGeoGraphicCoOrdinates.longitude) {
+        boundsLatLng = LatLngBounds(
+          southwest: LatLng(pickupGeoGraphicCoOrdinates.latitude, dropOffDestinationGeoGraphicCoOrdinates.longitude),
+          northeast: LatLng(dropOffDestinationGeoGraphicCoOrdinates.latitude, pickupGeoGraphicCoOrdinates.longitude),
+        );
+      } else if (pickupGeoGraphicCoOrdinates.latitude > dropOffDestinationGeoGraphicCoOrdinates.latitude) {
+        boundsLatLng = LatLngBounds(
+          southwest: LatLng(dropOffDestinationGeoGraphicCoOrdinates.latitude, pickupGeoGraphicCoOrdinates.longitude),
+          northeast: LatLng(pickupGeoGraphicCoOrdinates.latitude, dropOffDestinationGeoGraphicCoOrdinates.longitude),
+        );
+      } else {
+        boundsLatLng = LatLngBounds(
+          southwest: pickupGeoGraphicCoOrdinates,
+          northeast: dropOffDestinationGeoGraphicCoOrdinates,
+        );
+      }
+      controllerGoogleMap!.animateCamera(CameraUpdate.newLatLngBounds(boundsLatLng, 72));
+
+
+      Marker dropOffDestinationPointMarker = Marker(
+        markerId: const MarkerId("dropOffDestinationPointMarkerID"),
+        position: dropOffDestinationGeoGraphicCoOrdinates,
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+        infoWindow: InfoWindow(title: dropOffDestinationLocation.placeName, snippet: "Destination Location"),
+      );
+
+      setState(() {
+        markerSet.add(dropOffDestinationPointMarker);
+      });
+
+      Circle pickUpPointCircle = Circle(
+        circleId: const CircleId('pickupCircleID'),
+        strokeColor: Colors.blue,
+        strokeWidth: 4,
+        radius: 14,
+        center: pickupGeoGraphicCoOrdinates,
+        fillColor: Colors.lightBlueAccent,
+      );
+
+      Circle dropOffDestinationPointCircle = Circle(
+        circleId: const CircleId('dropOffDestinationCircleID'),
+        strokeColor: Colors.blue,
+        strokeWidth: 4,
+        radius: 14,
+        center: dropOffDestinationGeoGraphicCoOrdinates,
+        fillColor: Colors.lightBlueAccent,
+      );
+
+      setState(() {
+        circleSet.add(pickUpPointCircle);
+        circleSet.add(dropOffDestinationPointCircle);
+      });
+    } catch (e) {
+      print('Error retrieving direction details: $e');
+    }
   }
 
   @override
@@ -104,6 +239,9 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
               googleMapCompleterController.complete(controllerGoogleMap);
               getCurrentLiveLocationOfUser();
             },
+            polylines: polylineSet,
+            markers: markerSet,
+            circles: circleSet,
             padding: EdgeInsets.only(bottom: bottomMapPadding),
           ),
           Positioned(
@@ -128,7 +266,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: isNightMode ? Colors.black : Colors.white,
-                borderRadius: BorderRadius.circular(0.0),
+                borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.3),
@@ -137,40 +275,19 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                   ),
                 ],
               ),
-              child: Row(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 20.0),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 95.0, left: 45.0),
-                          child: Text(
-                            "List Your Destination",
-                            style: TextStyle(
-                              color: Colors.blueAccent,
-                              fontSize: 30.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
+                  Text(
+                    "List Your Destination",
+                    style: TextStyle(
+                      color: Colors.blueAccent,
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              height: searchContainerHeight,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
+                  const SizedBox(height: 20.0),
                   SizedBox(
                     width: 350,
                     child: ElevatedButton(
@@ -208,8 +325,8 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
             bottom: 0,
             child: Container(
               height: rideDetailsContainerHeight,
-              decoration: const BoxDecoration(
-                color: Colors.black54,
+              decoration: BoxDecoration(
+                color: isNightMode ? Colors.black54 : Colors.white,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
                 boxShadow: [
                   BoxShadow(
@@ -225,9 +342,9 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                   height: 190,
                   child: Card(
                     elevation: 10,
+                    color: isNightMode ? Colors.black : Colors.white,
                     child: Container(
                       width: MediaQuery.of(context).size.width * .70,
-                      color: Colors.black,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8, bottom: 8),
                         child: Column(
@@ -235,7 +352,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                           children: [
                             Icon(
                               Icons.directions_car,
-                              color: Colors.white,
+                              color: isNightMode ? Colors.white : Colors.black,
                               size: 80,
                             ),
                             SizedBox(height: 8),
@@ -243,7 +360,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                               "Heading to Destination",
                               style: TextStyle(
                                 fontSize: 18,
-                                color: Colors.white,
+                                color: isNightMode ? Colors.white : Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -252,7 +369,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                               "Carpool requests will pop up if any are available.",
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Colors.grey,
+                                color: isNightMode ? Colors.grey : Colors.black54,
                               ),
                               textAlign: TextAlign.center,
                             ),

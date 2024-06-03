@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/carpool/carpool.dart';
+import 'package:mmusuperapp/carpool/rider_page.dart';
 
 void main() {
   runApp(const OptionScreenApp());
@@ -20,12 +21,12 @@ class OptionScreen extends StatelessWidget {
   const OptionScreen({Key? key}) : super(key: key);
 
   void _navigateToPage(BuildContext context, String option) {
-    if (option == 'Driver') {
+    if (option == 'Rider') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => CarpoolDetails()),
+        MaterialPageRoute(builder: (context) => RiderPage()),
       );
-    } else if (option == 'Rider') {
+    } else if (option == 'Driver') {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => CarpoolDetails()),
@@ -47,7 +48,7 @@ class OptionScreen extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.only(bottom: 40.0),
               child: Text(
-                'I am a',
+                'User or Driver',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -55,7 +56,7 @@ class OptionScreen extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () => _navigateToPage(context, 'Driver'),
+              onTap: () => _navigateToPage(context, 'Rider'),
               child: SizedBox(
                 width: 390,
                 height: 200,
@@ -63,7 +64,7 @@ class OptionScreen extends StatelessWidget {
                   color: Colors.blueAccent,
                   child: Center(
                     child: const Text(
-                      'Driver',
+                      'I am a Rider',
                       style: TextStyle(
                         fontSize: 24,
                         color: Colors.white,
@@ -75,7 +76,7 @@ class OptionScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             GestureDetector(
-              onTap: () => _navigateToPage(context, 'Rider'),
+              onTap: () => _navigateToPage(context, 'Driver'),
               child: SizedBox(
                 width: 390,
                 height: 200,
@@ -83,7 +84,7 @@ class OptionScreen extends StatelessWidget {
                   color: Colors.lightBlueAccent,
                   child: Center(
                     child: const Text(
-                      'Rider',
+                      'I am a Driver',
                       style: TextStyle(
                         fontSize: 24,
                         color: Colors.white,

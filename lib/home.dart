@@ -6,7 +6,7 @@ import 'package:flutter/painting.dart';
 
 import 'package:mmusuperapp/carpool/user_or_driver.dart';
 import 'package:mmusuperapp/food/pages/home_page.dart';
-import 'package:mmusuperapp/hostel/hostel_codes/hostel.dart';
+import 'package:mmusuperapp/hostel/codes/hostel.dart';
 
 
 class FeaturesCards extends StatelessWidget {
@@ -19,7 +19,7 @@ class FeaturesCards extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Welcome back to Multimedia Univesity (MMU)!',
+            'Welcome back to Multimedia Univesity!',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),

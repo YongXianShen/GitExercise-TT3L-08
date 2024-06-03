@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:mmusuperapp/roommates/hb1_a.dart';
-import 'package:mmusuperapp/roommates/hb1_b.dart';
-import 'package:mmusuperapp/roommates/hb1_c.dart';
-import 'package:mmusuperapp/roommates/hb2_a.dart';
-import 'package:mmusuperapp/roommates/hb2_b.dart';
-import 'package:mmusuperapp/roommates/hb2_c.dart';
-import 'package:mmusuperapp/roommates/hb3_a.dart';
-import 'package:mmusuperapp/roommates/hb3_b.dart';
-import 'package:mmusuperapp/roommates/hb3_c.dart';
-import 'package:mmusuperapp/roommates/hb4_a.dart';
-import 'package:mmusuperapp/roommates/hb4_b.dart';
-import 'package:mmusuperapp/roommates/hb4_c.dart';
+import 'package:mmusuperapp/hostel/hostel_codes/hb1_a.dart';
+import 'package:mmusuperapp/hostel/hostel_codes/hb1_b.dart';
+import 'package:mmusuperapp/hostel/hostel_codes/hb1_c.dart';
+import 'package:mmusuperapp/hostel/hostel_codes/hb2_a.dart';
+import 'package:mmusuperapp/hostel/hostel_codes/hb2_b.dart';
+import 'package:mmusuperapp/hostel/hostel_codes/hb2_c.dart';
+import 'package:mmusuperapp/hostel/hostel_codes/hb3_a.dart';
+import 'package:mmusuperapp/hostel/hostel_codes/hb3_b.dart';
+import 'package:mmusuperapp/hostel/hostel_codes/hb3_c.dart';
+import 'package:mmusuperapp/hostel/hostel_codes/hb4_a.dart';
+import 'package:mmusuperapp/hostel/hostel_codes/hb4_b.dart';
+import 'package:mmusuperapp/hostel/hostel_codes/hb4_c.dart';
 
 class Hostel extends StatefulWidget {
   const Hostel({super.key});

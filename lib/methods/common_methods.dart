@@ -13,7 +13,8 @@ import 'package:provider/provider.dart';
 
 import '../models/direction_details.dart';
 
-class CommonMethods {
+class CommonMethods
+{
   displaySnackBar(String messageText, BuildContext context) {
     var snackBar = SnackBar(content: Text(messageText));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -88,6 +89,19 @@ class CommonMethods {
 
     return detailsModel;
   }
+  calculateFareAmount(DirectionDetails directionDetails)
+  {
+    double distancePerKmAmount = 0.4;
+    double durationPerMinuteAmount = 0.3;
+    double baseFareAmount = 2;
+
+    double totalDistanceTravelFareAmount = (directionDetails.distanceValueDigits! / 1000) * distancePerKmAmount;
+    double totalDurationSpendFareAmount = (directionDetails.durationValueDigits! / 60) * durationPerMinuteAmount;
+
+    double overAllTotalFareAmount = baseFareAmount + totalDistanceTravelFareAmount + totalDurationSpendFareAmount;
+
+    return overAllTotalFareAmount.toStringAsFixed(1);
+  }
 
   static Future<List<Driver>> getNearbyDrivers() async {
     return [
@@ -108,3 +122,5 @@ class Driver {
 
   Driver({required this.id, required this.name, required this.latitude, required this.longitude, required this.carDetails, required this.destination, required this.payment});
 }
+
+

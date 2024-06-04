@@ -54,6 +54,7 @@ dependencies:
   dots_indicator: ^2.0.0
   flutter_polyline_points:
   flutter_geofire:
+  loading_animation_widget:
 
 
 

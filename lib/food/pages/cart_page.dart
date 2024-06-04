@@ -3,6 +3,7 @@ import 'package:mmusuperapp/food/components/my_button.dart';
 import 'package:mmusuperapp/food/components/my_cart_tile.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/pages/payment_page.dart';
+import 'package:mmusuperapp/food/pages/settlement_page.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
@@ -83,7 +84,7 @@ class CartPage extends StatelessWidget {
 
             // button to pay
             MyButton(
-              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const PaymentPage(),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettlementPage(),
               ),
               ), 
               text: "Go to checkout",),

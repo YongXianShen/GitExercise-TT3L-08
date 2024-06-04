@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/authentication/login_screen.dart';
 import 'package:mmusuperapp/food/components/my_drawer_tile.dart';
-import 'package:mmusuperapp/food/pages/settings_page.dart';
+import 'package:mmusuperapp/food/pages/dartmode_page.dart';
+import 'package:mmusuperapp/food/widget/bigtext.dart';
+import 'package:mmusuperapp/food/widget/smalltext.dart';
 import 'package:mmusuperapp/profile_pictures/profile_pic.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -30,29 +32,7 @@ class MyDrawer extends StatelessWidget {
             ),
           ),
 
-          //home list tile
           MyDrawerTile(
-            text: "H O M E", 
-            icons: Icons.home, 
-            onTap: () => Navigator.pop(context),
-          ),
-
-          //settings list tile
-          MyDrawerTile(
-            text: "S E T T I N G S", 
-            icons: Icons.settings, 
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context, 
-                MaterialPageRoute(
-                  builder: (context) => const SettingsPage(),
-                  ),
-                );
-              },
-            ),
-
-            MyDrawerTile(
             text: "P R O F I L E", 
             icons: Icons.person, 
             onTap: () {
@@ -65,8 +45,29 @@ class MyDrawer extends StatelessWidget {
                 );
               },
             ),
+          
+
+          //settings list tile
+          MyDrawerTile(
+            text: "D A R K M O D E", 
+            icons: Icons.settings, 
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context, 
+                MaterialPageRoute(
+                  builder: (context) => const SettingsPage(),
+                  ),
+                );
+              },
+            ),
+
+            
+
+
 
           const Spacer(),
+      BigText(text: "v1.1.5"),
 
           //logout list
           MyDrawerTile(

@@ -2,10 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -41,6 +44,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
   String titleToShow = "GO ONLINE NOW";
   bool isDriverAvailable = false;
   Color colorToShow = Colors.green;
+  DatabaseReference? newTripRequestReference;
 
   void updateMapTheme(GoogleMapController controller) {
     getJsonFileFromThemes("themes/blue_style.json").then((value) {
@@ -225,6 +229,57 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
     } catch (e) {
       print('Error retrieving direction details: $e');
     }
+  }
+  goOnlineNow()
+  {
+    //all drivers who are Available for new trip requests
+    Geofire.initialize("onlineDrivers");
+
+    Geofire.setLocation(
+      FirebaseAuth.instance.currentUser!.uid,
+      currentPositionOfUser!.latitude,
+      currentPositionOfUser!.longitude,
+    );
+
+    newTripRequestReference = FirebaseDatabase.instance.ref()
+        .child("drivers")
+        .child(FirebaseAuth.instance.currentUser!.uid)
+        .child("newTripStatus");
+    newTripRequestReference!.set("waiting");
+
+    newTripRequestReference!.onValue.listen((event) { });
+  }
+
+  setAndGetLocationUpdates()
+  {
+    positionStreamHomePage = Geolocator.getPositionStream()
+        .listen((Position position)
+    {
+      currentPositionOfUser = position;
+
+      if(isDriverAvailable == true)
+      {
+        Geofire.setLocation(
+          FirebaseAuth.instance.currentUser!.uid,
+          currentPositionOfUser!.latitude,
+          currentPositionOfUser!.longitude,
+        );
+      }
+
+      LatLng positionLatLng = LatLng(position.latitude, position.longitude);
+      controllerGoogleMap!.animateCamera(CameraUpdate.newLatLng(positionLatLng));
+    });
+  }
+
+  goOfflineNow()
+  {
+    //Stop Sharing Driver Location
+    Geofire.removeLocation(FirebaseAuth.instance.currentUser!.uid);
+
+    //Stop Listening to newTripStatus
+    newTripRequestReference!.onDisconnect();
+    newTripRequestReference!.remove();
+    newTripRequestReference = null;
   }
 
   @override
@@ -456,7 +511,9 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                                           onPressed: () {
                                             if (!isDriverAvailable) {
                                               // Go Online
+                                              goOnlineNow();
                                               // Get driver location updates
+                                              setAndGetLocationUpdates();
 
                                               Navigator.pop(context);
 
@@ -467,6 +524,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                                               });
                                             } else {
                                               // Go Offline
+                                              goOfflineNow();
 
                                               Navigator.pop(context);
 

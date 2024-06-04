@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mmusuperapp/hostel/codes/hb1_a.dart';
 import 'package:mmusuperapp/hostel/codes/hb1_b.dart';
 import 'package:mmusuperapp/hostel/codes/hb1_c.dart';
@@ -41,16 +38,42 @@ class _HostelState extends State<Hostel> {
         child: Column(
           children: [
             const SizedBox(height: 20.0),
-            const Text(
-              "Find your roommates whom you find suitable, comfortable and peaceful to live with!",
-              style: TextStyle(
-                fontSize: 20.0
-              ),
+            const Stack(
+              children: [
+                Card(
+                  elevation: 10.0,
+                  color: Color.fromARGB(255, 26, 35, 126),
+                  child: SizedBox(
+                    height: 150,
+                    width: 400,
+                    child: Center()
+                  ),
+                ),
+                Card(
+                  elevation: 10.0,
+                  color: Color.fromARGB(255, 159, 168, 218),
+                  child: SizedBox(
+                    height: 140,
+                    width: 390,
+                    child: Center(
+                      child: Text(
+                        "Find your roommates whom you find suitable, comfortable and peaceful to live with!",
+                        style: TextStyle(
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.bold
+                        ),
+                        textAlign: TextAlign.center,
+                      )
+                    )
+                  ),
+                )
+              ],
             ),
             const SizedBox(height: 40.0),
             Stack(
               children: [
                 Card(
+                  color: Colors.orange[200],
                   elevation: 10.0,
                   child: Opacity(
                     opacity: 0.5,
@@ -130,6 +153,7 @@ class _HostelState extends State<Hostel> {
             Stack(
               children: [
                 Card(
+                  color: Colors.blue[200],
                   elevation: 10.0,
                   child: Opacity(
                     opacity: 0.5,
@@ -209,6 +233,7 @@ class _HostelState extends State<Hostel> {
             Stack(
               children: [
                 Card(
+                  color: Colors.red[200],
                   elevation: 10.0,
                   child: Opacity(
                     opacity: 0.5,
@@ -288,6 +313,7 @@ class _HostelState extends State<Hostel> {
             Stack(
               children: [
                 Card(
+                  color: Colors.purple[200],
                   elevation: 10.0,
                   child: Opacity(
                     opacity: 0.5,

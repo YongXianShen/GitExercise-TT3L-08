@@ -10,7 +10,7 @@ class HB2C extends StatefulWidget {
 class _HB2CState extends State<HB2C> {
 
   List<String> items = [
-    "Floor 0",
+    "Floor G",
     "Floor 1",
     "Floor 2",
     "Floor 3",

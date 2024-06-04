@@ -19,11 +19,9 @@ class FeaturesCards extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text(
-<<<<<<< parkzhong
+
             'Welcome back to MMU!',
-=======
-            'Welcome back to Multimedia Univesity!',
->>>>>>> main
+
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),

@@ -10,7 +10,7 @@ class HB4A extends StatefulWidget {
 class _HB4AState extends State<HB4A> {
 
   List<String> items = [
-    "Floor 0",
+    "Floor G",
     "Floor 1",
     "Floor 2",
     "Floor 3",

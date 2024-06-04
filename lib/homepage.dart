@@ -2,7 +2,6 @@ import 'package:flutter/material.dart' ;
 import 'package:mmusuperapp/chat.dart';
 import 'package:mmusuperapp/food/components/my_drawer.dart';
 import 'package:mmusuperapp/home.dart';
-import 'package:mmusuperapp/settings.dart';
 
 
 class HomePage extends StatelessWidget {

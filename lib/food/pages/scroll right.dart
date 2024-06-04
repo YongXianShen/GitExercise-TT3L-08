@@ -1,5 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:mmusuperapp/food/models/food.dart';
+import 'package:mmusuperapp/food/pages/food_page.dart';
 
 import 'package:mmusuperapp/food/widget/bigtext.dart';
 import 'package:mmusuperapp/food/widget/iconandtext.dart';
@@ -17,6 +19,22 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   var _currPageValue = 0.0;
   double _scaleFactor = 0.8;
   double _height = 320;
+
+  List<String> imagePaths = [
+    "lib/food/images/roti-canai-roti-paratha-roti-prata.webp",
+    "lib/food/images/roti-canai-roti-paratha-roti-prata.webp",
+    "lib/food/images/Untitled1.jpeg",
+    "lib/food/images/Untitled.jpeg",
+    "lib/food/images/Untitled.jpeg",
+  ];
+
+  List<String> foodNames = [
+    "Roti Canai",
+    "Roti Telur",
+    "Teh Tarik",
+    "Nasi Lemak Biasa",
+    "Nasi Lemak Ayam",
+  ];
 
   @override
   void initState() {
@@ -45,14 +63,14 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           height: 320,
           child: PageView.builder(
             controller: pageController,
-            itemCount: 5,
+            itemCount: imagePaths.length,
             itemBuilder: (context, position) {
               return _buildPageItem(position);
             }
           ),
         ),
         DotsIndicator(
-        dotsCount: 5,
+        dotsCount: imagePaths.length,
         position: _currPageValue,
         decorator: DotsDecorator(
           activeColor: Colors.black,
@@ -102,7 +120,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage(
-                "lib/food/images/roti-canai-roti-paratha-roti-prata.webp",
+                imagePaths[index],
                 
 
               )
@@ -138,7 +156,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BigText(text: "Chinese Side"),
+                  BigText(text: foodNames[index]),
                   SizedBox(height: 10,),
                   Row(
                     children: [

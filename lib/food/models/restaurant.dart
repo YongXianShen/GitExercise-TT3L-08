@@ -135,7 +135,7 @@ class Restaurant extends ChangeNotifier {
   final List<CartItem> _cart = [];
 
   // delivery address (which user can change/update)
-  String _deliveryAddress = '99 Hollywood Blv';
+  String _deliveryAddress = '';
 
   /* 
   
@@ -247,6 +247,8 @@ class Restaurant extends ChangeNotifier {
   // generate a receipt
   String displayCartReceipt() {
     final receipt = StringBuffer();
+    receipt.writeln("MMU TASTE RESTAURANT");
+    receipt.writeln();
     receipt.writeln("Here's your receipt.");
     receipt.writeln();
 
@@ -256,7 +258,7 @@ class Restaurant extends ChangeNotifier {
 
     receipt.writeln(formattedDate);
     receipt.writeln();
-    receipt.writeln("----------");
+    receipt.writeln("-----------------------------------------------------------------------");
 
     for (final CartItem in _cart) {
       receipt.writeln(
@@ -267,7 +269,7 @@ class Restaurant extends ChangeNotifier {
       receipt.writeln();
     }
 
-    receipt.writeln("----------");
+    receipt.writeln("-----------------------------------------------------------------------");
     receipt.writeln();
     receipt.writeln("Total Items: ${getTotalItemCount()}");
     receipt.writeln("Total Price: ${_formatPrice(getTotalPrice())}");

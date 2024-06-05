@@ -25,23 +25,32 @@ class _HB1AState extends State<HB1A> {
     Icons.person
   ];
 
-  List<String> rooms = [
-    "Room 001",
-    "Room 002",
-    "Room 003",
-    "Room 004",
-    "Room 005",
-    "Room 006",
-    "Room 007",
-    "Room 008",
-    "Room 009",
-    "Room 010",
-    "Room 011",
-    "Room 012",
-    "Room 013",
-    "Room 014",
-    "Room 015",
-    "Room 016"
+  List<SizedBox> floor = [
+    const SizedBox(
+      width: double.infinity,
+      height: 550,
+      child: HB1AFloor()
+    ),
+    const SizedBox(
+      width: double.infinity,
+      height: 550,
+      child: HB1AFloor()
+    ),
+    const SizedBox(
+      width: double.infinity,
+      height: 550,
+      child: HB1AFloor()
+    ),
+    const SizedBox(
+      width: double.infinity,
+      height: 550,
+      child: HB1AFloor()
+    ),
+    const SizedBox(
+      width: double.infinity,
+      height: 550,
+      child: HB1AFloor()
+    )
   ];
 
   int current = 0;
@@ -58,7 +67,7 @@ class _HB1AState extends State<HB1A> {
             color: Colors.white
           ),
         ),
-        backgroundColor: Colors.orange[600],
+        backgroundColor: Colors.orange[800],
       ),
       body: Container(
         margin: const EdgeInsets.all(5.0),
@@ -149,152 +158,98 @@ class _HB1AState extends State<HB1A> {
                       color: Color.fromARGB(255, 239, 108, 0)
                     ),
                   ),
+                  const SizedBox(height: 10.0),
                   SizedBox(
                     width: double.infinity,
-                    height: 500.0,
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: 18,
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 001")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 002")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 003")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 004")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 005")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 006")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 007")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 008")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 009")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 010")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 011")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 012")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 013")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 014")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 015")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 016")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 017")
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Card(
-                                color: Color.fromARGB(255, 239, 108, 0),
-                                child: _HB1ACard(cardName: "Room 018")
-                              ),
-                            )
-                          ],
-                        );
-                      }
-                    )
-                  ),
-                ]
+                    height: 550.0,
+                    child: floor[current]
+                  )
+                ],
               )
-            ),
-          ]
+            )
+          ],
         )
+      )
+    );
+  }
+}
+
+class HB1AFloor extends StatefulWidget {
+  const HB1AFloor({super.key});
+
+  @override
+  State<HB1AFloor> createState() => _HB1AFloorState();
+}
+
+class _HB1AFloorState extends State<HB1AFloor> {
+
+  int index = 1;
+
+  List<int> rooms = [
+    01,
+    02,
+    03,
+    04,
+    05,
+    06,
+    07,
+    08,
+    09,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 550,
+      child: ListView.builder(
+        physics:  const BouncingScrollPhysics(),
+        itemCount: rooms.length,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (_, index) {
+          return ListTile(
+            title: Text("Room $index"),
+            subtitle: const Text("Available now"),
+            leading: const Icon(Icons.people),
+            trailing: IconButton(
+              icon: const Icon(Icons.arrow_forward),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => SimpleDialog(
+                    title: const Text("Apply here?"),
+                    contentPadding: const EdgeInsets.all(20.0),
+                    children: [
+                      const Text(
+                        "Press 'Yes' to cofirm your decision"
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("Yes"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text("No"),
+                      )
+                    ],
+                  )
+                );
+              },
+            )
+          );
+        }
       )
     );
   }

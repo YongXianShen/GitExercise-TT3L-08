@@ -91,7 +91,7 @@ class _SettlementPageState extends State<SettlementPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settlement Page'),
+        title: Text('Settlement'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),

@@ -243,7 +243,23 @@ class Restaurant extends ChangeNotifier {
   H E L P E R S 
   
   */
+  Map<String, dynamic> generateOrderData() {
+    List<Map<String, dynamic>> foodList = _cart.map((cartItem) {
+      return {
+        'name': cartItem.food.name,
+        'price': cartItem.food.price,
+        'addons': cartItem.selectedAddons.map((addon) => addon.name).toList(),
+        'quantity': cartItem.quantity,
+      };
+    }).toList();
 
+    return {
+      'food': foodList,
+      'quantity': getTotalItemCount(),
+      'payment': getTotalPrice(),
+      'address': _deliveryAddress,
+    };
+  }
   // generate a receipt
   String displayCartReceipt() {
     final receipt = StringBuffer();

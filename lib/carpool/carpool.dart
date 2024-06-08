@@ -1,23 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mmusuperapp/appInfo/app_info.dart';
-import 'package:mmusuperapp/global/global_var.dart';
-import 'package:mmusuperapp/methods/common_methods.dart';
-import 'package:mmusuperapp/models/direction_details.dart';
-import 'package:mmusuperapp/pages/search_destination_page.dart';
 import 'package:provider/provider.dart';
+
+import '../appInfo/app_info.dart';
+import '../global/global_var.dart';
+import '../methods/common_methods.dart';
+import '../models/direction_details.dart';
+import '../pages/search_destination_page.dart';
+
 
 class CarpoolDetails extends StatefulWidget {
   const CarpoolDetails({super.key});
@@ -30,8 +27,6 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
   final Completer<GoogleMapController> googleMapCompleterController = Completer<GoogleMapController>();
   GoogleMapController? controllerGoogleMap;
   Position? currentPositionOfUser;
-  GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
-  CommonMethods cMethods = CommonMethods();
   double searchContainerHeight = 276;
   double bottomMapPadding = 0;
   bool isNightMode = false;
@@ -41,10 +36,6 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
   Set<Marker> markerSet = {};
   Set<Circle> circleSet = {};
   DirectionDetails? tripDirectionDetailsInfo;
-  String titleToShow = "GO ONLINE NOW";
-  bool isDriverAvailable = false;
-  Color colorToShow = Colors.green;
-  DatabaseReference? newTripRequestReference;
 
   void updateMapTheme(GoogleMapController controller) {
     getJsonFileFromThemes("themes/blue_style.json").then((value) {
@@ -230,57 +221,6 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
       print('Error retrieving direction details: $e');
     }
   }
-  goOnlineNow()
-  {
-    //all drivers who are Available for new trip requests
-    Geofire.initialize("onlineDrivers");
-
-    Geofire.setLocation(
-      FirebaseAuth.instance.currentUser!.uid,
-      currentPositionOfUser!.latitude,
-      currentPositionOfUser!.longitude,
-    );
-
-    newTripRequestReference = FirebaseDatabase.instance.ref()
-        .child("drivers")
-        .child(FirebaseAuth.instance.currentUser!.uid)
-        .child("newTripStatus");
-    newTripRequestReference!.set("waiting");
-
-    newTripRequestReference!.onValue.listen((event) { });
-  }
-
-  setAndGetLocationUpdates()
-  {
-    positionStreamHomePage = Geolocator.getPositionStream()
-        .listen((Position position)
-    {
-      currentPositionOfUser = position;
-
-      if(isDriverAvailable == true)
-      {
-        Geofire.setLocation(
-          FirebaseAuth.instance.currentUser!.uid,
-          currentPositionOfUser!.latitude,
-          currentPositionOfUser!.longitude,
-        );
-      }
-
-      LatLng positionLatLng = LatLng(position.latitude, position.longitude);
-      controllerGoogleMap!.animateCamera(CameraUpdate.newLatLng(positionLatLng));
-    });
-  }
-
-  goOfflineNow()
-  {
-    //Stop Sharing Driver Location
-    Geofire.removeLocation(FirebaseAuth.instance.currentUser!.uid);
-
-    //Stop Listening to newTripStatus
-    newTripRequestReference!.onDisconnect();
-    newTripRequestReference!.remove();
-    newTripRequestReference = null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -439,132 +379,6 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                   ),
                 ),
               ),
-            ),
-          ),
-          Positioned(
-            top: 61,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    showModalBottomSheet(
-                        context: context,
-                        isDismissible: false,
-                        builder: (BuildContext context) {
-                          return Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.black,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 5.0,
-                                  spreadRadius: 0.5,
-                                  offset: Offset(
-                                    0.7,
-                                    0.7,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            height: 221,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-                              child: Column(
-                                children: [
-                                  const SizedBox(height: 11),
-                                  Text(
-                                    (!isDriverAvailable) ? "GO ONLINE NOW" : "GO OFFLINE NOW",
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 22,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 21),
-                                  Text(
-                                    (!isDriverAvailable)
-                                        ? "You are about to go online, you will become available to receive trip requests from users."
-                                        : "You are about to go offline, you will stop receiving new trip requests from users.",
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 25),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text("BACK"),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 16),
-                                      Expanded(
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            if (!isDriverAvailable) {
-                                              // Go Online
-                                              goOnlineNow();
-                                              // Get driver location updates
-                                              setAndGetLocationUpdates();
-
-                                              Navigator.pop(context);
-
-                                              setState(() {
-                                                colorToShow = Colors.redAccent;
-                                                titleToShow = "GO OFFLINE NOW";
-                                                isDriverAvailable = true;
-                                              });
-                                            } else {
-                                              // Go Offline
-                                              goOfflineNow();
-
-                                              Navigator.pop(context);
-
-                                              setState(() {
-                                                colorToShow = Colors.green;
-                                                titleToShow = "GO ONLINE NOW";
-                                                isDriverAvailable = false;
-                                              });
-                                            }
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: (titleToShow == "GO ONLINE NOW")
-                                                ? Colors.green
-                                                : Colors.redAccent,
-
-                                          ),
-                                          child: const Text(
-                                            "CONFIRM",
-                                          style: TextStyle(color: Colors.white,
-                                          )
-                                          )
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: colorToShow,
-                  ),
-                  child: Text(
-                    titleToShow,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
             ),
           ),
         ],

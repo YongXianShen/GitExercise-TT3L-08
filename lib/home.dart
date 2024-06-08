@@ -31,7 +31,7 @@ class FeaturesCards extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const OptionScreen()),
+                    MaterialPageRoute(builder: (context) => OptionScreen()),
                   );
                 },
                 child: const Card(

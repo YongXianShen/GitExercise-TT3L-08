@@ -499,7 +499,7 @@ class _RiderPageState extends State<RiderPage> {
             child: Container(
               height: requestContainerHeight,
               decoration: const BoxDecoration(
-                color: Colors.black54,
+                color: Colors.black,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
                 boxShadow: [
                   BoxShadow(
@@ -589,7 +589,7 @@ class _RiderPageState extends State<RiderPage> {
                     (tripDirectionDetailsInfo != null) ? "\$ ${(cMethods.calculateFareAmount(tripDirectionDetailsInfo!)).toString()}" : "",
                     style: const TextStyle(
                       fontSize: 18,
-                      color: Colors.white70,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

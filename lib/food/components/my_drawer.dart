@@ -4,7 +4,7 @@ import 'package:mmusuperapp/food/components/my_drawer_tile.dart';
 import 'package:mmusuperapp/food/pages/dartmode_page.dart';
 import 'package:mmusuperapp/food/widget/bigtext.dart';
 import 'package:mmusuperapp/food/widget/smalltext.dart';
-import 'package:mmusuperapp/profile_pictures/profile_pic.dart';
+import 'package:mmusuperapp/profile_pictures/profile_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});

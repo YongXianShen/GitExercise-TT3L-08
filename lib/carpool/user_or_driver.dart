@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/carpool/carpool.dart';
 import 'package:mmusuperapp/carpool/rider_page.dart';
+import 'package:mmusuperapp/pages/driver_details.dart';
+import 'package:mmusuperapp/pages/rider_details.dart';
 
 void main() {
   runApp(const OptionScreenApp());
@@ -24,12 +26,12 @@ class OptionScreen extends StatelessWidget {
     if (option == 'Rider') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => RiderPage()),
+        MaterialPageRoute(builder: (context) => RiderDetailsPage()),
       );
     } else if (option == 'Driver') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => CarpoolDetails()),
+        MaterialPageRoute(builder: (context) => DriverDetailsPage()),
       );
     }
   }

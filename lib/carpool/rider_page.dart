@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
@@ -17,6 +15,9 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../global/trip_var.dart';
 import '../methods/manage_drivers_methods.dart';
+import '../models/driver_list_mock.dart';
+import '../pages/driver_details.dart';
+import '../pages/driver_listings.dart';
 import '../pages/search_destination_page.dart';
 import 'online_nearby_drivers.dart';
 
@@ -48,6 +49,8 @@ class _RiderPageState extends State<RiderPage> {
   double requestContainerHeight = 0;
   bool isDrawerOpened = true;
   double searchContainerHeight = 276;
+
+  List<CarpoolRequest> carpoolRequests = [];
 
   void updateMapTheme(GoogleMapController controller) {
     getJsonFileFromThemes("themes/blue_style.json").then((value) {
@@ -113,7 +116,7 @@ class _RiderPageState extends State<RiderPage> {
     var pickUpLocation = Provider.of<AppInfo>(context, listen: false).pickupLocation;
     var dropOffDestinationLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation;
 
-        var pickupGeoGraphicCoOrdinates = LatLng(pickUpLocation!.latitudePosition!, pickUpLocation.longitudePosition!);
+    var pickupGeoGraphicCoOrdinates = LatLng(pickUpLocation!.latitudePosition!, pickUpLocation.longitudePosition!);
     var dropOffDestinationGeoGraphicCoOrdinates = LatLng(dropOffDestinationLocation!.latitudePosition!, dropOffDestinationLocation.longitudePosition!);
 
     var detailsFromDirectionAPI = await CommonMethods.getDirectionDetailsFromAPI(pickupGeoGraphicCoOrdinates, dropOffDestinationGeoGraphicCoOrdinates);
@@ -326,13 +329,6 @@ class _RiderPageState extends State<RiderPage> {
     });
   }
 
-  void displayUserRideDetailsContainer() {
-    setState(() {
-      searchContainerHeight = 0;
-      rideDetailsContainerHeight = 240;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -369,229 +365,53 @@ class _RiderPageState extends State<RiderPage> {
             ),
           ),
           Positioned(
+            bottom: 0,
             left: 0,
             right: 0,
-            bottom: 0,
             child: Container(
-              padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: isNightMode ? Colors.black : Colors.white,
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    blurRadius: 5.0,
-                    spreadRadius: 1.0,
-                  ),
-                ],
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
               ),
+              padding: EdgeInsets.all(16.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "List Your Destination",
-                    style: TextStyle(
-                      color: Colors.blueAccent,
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
+                  Center(
+                    child: Column(
+                      children: [
+                        Icon(
+                            Icons.directions_car,
+                            color: Colors.grey,
+                            size: 80
+                        ),
+                        SizedBox(height: 10),
+                        Text('Finding Nearby Drivers',
+                            style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold)),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 20.0),
-                  SizedBox(
-                    width: 350,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        var responseFromSearchPage = await Navigator.push(
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () async {
+                      var responseFromSearchPage = await Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => SearchDestinationPage()),
+                      );
+                      if (responseFromSearchPage == "placeSelected") {
+                        Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SearchDestinationPage()),
+                          MaterialPageRoute(builder: (context) => DriverListPage(carpoolRequests: carpoolRequests)),
                         );
-
-                        if (responseFromSearchPage == "placeSelected") {
-                          displayUserRideDetailsContainer();
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                        ),
-                        padding: const EdgeInsets.all(16),
-                      ),
-                      child: const Icon(
-                        Icons.search,
-                        color: Colors.white,
-                        size: 25,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              height: rideDetailsContainerHeight,
-              decoration: BoxDecoration(
-                color: isNightMode ? Colors.black54 : Colors.white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black,
-                    spreadRadius: 0.5,
-                    offset: Offset(.7, .7),
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: SizedBox(
-                  height: 190,
-                  child: Card(
-                    elevation: 10,
-                    color: isNightMode ? Colors.black : Colors.white,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * .70,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 8, bottom: 8),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.directions_car,
-                              color: isNightMode ? Colors.white : Colors.black,
-                              size: 80,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              "Finding Nearby Drivers",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: isNightMode ? Colors.white : Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              "Finding drivers that are heading near your destination",
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: isNightMode ? Colors.grey : Colors.black54,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              height: requestContainerHeight,
-              decoration: const BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 15.0,
-                    spreadRadius: 0.5,
-                    offset: Offset(
-                      0.7,
-                      0.7,
-                    ),
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      width: 200,
-                      child: LoadingAnimationWidget.flickr(
-                        leftDotColor: Colors.greenAccent,
-                        rightDotColor: Colors.pinkAccent,
-                        size: 50,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () {
-                        resetAppNow();
-                        cancelRideRequest();
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white70,
-                          borderRadius: BorderRadius.circular(25),
-                          border: Border.all(width: 1.5, color: Colors.grey),
-                        ),
-                        child: const Icon(
-                          Icons.close,
-                          color: Colors.black,
-                          size: 25,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: isNightMode ? Colors.black : Colors.white,
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    blurRadius: 5.0,
-                    spreadRadius: 1.0,
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        stateOfApp = "requesting";
-                      });
-
-                      displayRequestContainer();
-                      // get nearest available online drivers
-                      // search driver
+                      }
                     },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     ),
-                  Text(
-                    (tripDirectionDetailsInfo != null) ? "\$ ${(cMethods.calculateFareAmount(tripDirectionDetailsInfo!)).toString()}" : "",
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    child: Text('Check Drivers', style: TextStyle(fontSize: 16,color: Colors.white)),
                   ),
                 ],
               ),

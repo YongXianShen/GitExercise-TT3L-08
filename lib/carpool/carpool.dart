@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -13,6 +12,7 @@ import '../appInfo/app_info.dart';
 import '../global/global_var.dart';
 import '../methods/common_methods.dart';
 import '../models/direction_details.dart';
+import '../pages/rider_request.dart';
 import '../pages/search_destination_page.dart';
 
 
@@ -183,7 +183,6 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
       }
       controllerGoogleMap!.animateCamera(CameraUpdate.newLatLngBounds(boundsLatLng, 72));
 
-
       Marker dropOffDestinationPointMarker = Marker(
         markerId: const MarkerId("dropOffDestinationPointMarkerID"),
         position: dropOffDestinationGeoGraphicCoOrdinates,
@@ -339,43 +338,46 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 child: SizedBox(
                   height: 190,
-                  child: Card(
-                    elevation: 10,
-                    color: isNightMode ? Colors.black : Colors.white,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * .70,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 8, bottom: 8),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.directions_car,
-                              color: isNightMode ? Colors.white : Colors.black,
-                              size: 80,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              "Heading to Destination",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: isNightMode ? Colors.white : Colors.black,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              "Carpool requests will pop up if any are available.",
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: isNightMode ? Colors.grey : Colors.black54,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.directions_car,
+                        color: isNightMode ? Colors.white : Colors.black,
+                        size: 80,
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        "Receiving Requests",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: isNightMode ? Colors.white : Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
+                      SizedBox(height: 4),
+                      Text(
+                        "Carpool requests will show up if any are available.",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: isNightMode ? Colors.grey : Colors.black54,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => RiderRequestsPage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                        ),
+                        child: Text("Check Request",style: TextStyle(color: Colors.white),),
+                      ),
+                    ],
                   ),
                 ),
               ),

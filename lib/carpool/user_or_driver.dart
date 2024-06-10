@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/carpool/carpool.dart';
 import 'package:mmusuperapp/carpool/rider_page.dart';
-import 'package:mmusuperapp/models/driver_details.dart';
-import 'package:mmusuperapp/models/rider_details.dart';
+import 'package:mmusuperapp/pages/driver_details.dart';
+import 'package:mmusuperapp/pages/rider_details.dart';
 
 void main() {
   runApp(const OptionScreenApp());

@@ -10,6 +10,7 @@ import 'package:mmusuperapp/appInfo/app_info.dart';
 import 'package:mmusuperapp/global/global_var.dart';
 import 'package:mmusuperapp/methods/common_methods.dart';
 import 'package:mmusuperapp/models/direction_details.dart';
+import 'package:mmusuperapp/pages/rider_details.dart';
 import 'package:provider/provider.dart';
 
 import '../global/trip_var.dart';
@@ -367,6 +368,24 @@ class _RiderPageState extends State<RiderPage> {
                   icon: Icon(isNightMode ? Icons.wb_sunny : Icons.nights_stay),
                   color: isNightMode ? Colors.white : Colors.black,
                   onPressed: toggleMapStyle,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            right: 0,
+            top: 0,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RiderDetails()),
+                    );
+                  },
                 ),
               ),
             ),

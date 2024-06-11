@@ -31,7 +31,7 @@ class OptionScreen extends StatelessWidget {
     } else if (option == 'Driver') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => DriverDetails()),
+        MaterialPageRoute(builder: (context) => CarpoolDetails()),
       );
     }
   }

@@ -1,8 +1,62 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mmusuperapp/pages/rider_details.dart';
+import 'rider_details.dart';
 
-class DriverListPage extends StatelessWidget {
+class DriverListPage extends StatefulWidget {
+  @override
+  _DriverListPageState createState() => _DriverListPageState();
+}
+
+class _DriverListPageState extends State<DriverListPage> {
+  final _formKey = GlobalKey<FormState>();
+  Map<String, dynamic> _details = {
+    'name': '',
+    'age': '',
+    'gender': '',
+    'bookingtime': '',
+    'pickup': '',
+    'note': '',
+    'driverId': '',
+    'requested': false,
+    'userId': ''
+  };
+
+  void _handleSubmit(BuildContext context, String driverId) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('User not logged in')),
+      );
+      return;
+    }
+
+    _details['userId'] = user.uid;
+    _details['driverId'] = driverId;  // Add driverId to the rider details
+    _details['requested'] = true; // Set requested to true
+
+    var snapshot = await FirebaseFirestore.instance
+        .collection('riders')
+        .where('userId', isEqualTo: user.uid)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      var doc = snapshot.docs.first;
+      await FirebaseFirestore.instance.collection('riders').doc(doc.id).update(_details);
+    } else {
+      await FirebaseFirestore.instance.collection('riders').add(_details);
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Request sent to driver ${driverId}')),
+    );
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RiderDetails()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,21 +107,11 @@ class DriverListPage extends StatelessWidget {
                             children: [
                               Text('Age: ${driver['age']}', style: TextStyle(color: Colors.black)),
                               Text('Gender: ${driver['gender']}', style: TextStyle(color: Colors.black)),
-                              Text('Model: ${driver['model']}', style: TextStyle(color: Colors.black)),
-                              Text('Color: ${driver['color']}', style: TextStyle(color: Colors.black)),
-                              Text('Plate: ${driver['plate']}', style: TextStyle(color: Colors.black)),
-                              Text('Pickup: ${driver['pickup']}', style: TextStyle(color: Colors.black)),
+                              Text('Preferred Pickup Point: ${driver['pickup']}', style: TextStyle(color: Colors.black)),
                             ],
                           ),
                           trailing: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RiderDetails(),
-                                ),
-                              );
-                            },
+                            onPressed: () => _handleSubmit(context, drivers[index].id),
                             style: TextButton.styleFrom(
                               foregroundColor: Colors.white,
                               backgroundColor: Colors.blueAccent,

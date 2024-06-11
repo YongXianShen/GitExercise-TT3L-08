@@ -21,6 +21,19 @@ class Restaurant extends ChangeNotifier {
         Addon(name: "with one package teh tarik", price: 1.50),
       ],
     ),
+
+    Food(
+      name: "Teh Tarik",
+      description: "Juicy",
+      imagePath: "lib/food/images/Untitled1.jpeg",
+      price: 2.00,
+      category: FoodCategory.Beverages,
+      availableAddons: [
+        Addon(name: "ais", price: 0.50),
+        Addon(name: "hot", price: 0.00),
+      ],
+    ),
+    
     Food(
       name: "Roti Telur",
       description: "Crispy and yummy",

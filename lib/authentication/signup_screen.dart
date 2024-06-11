@@ -35,37 +35,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   registerNewUser() async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) => LoadingDialog(messageText: "Registering your account...."),
-    );
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) => LoadingDialog(messageText: "Registering your account...."),
+  );
 
+  try {
     final User? userFirebase = (
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailTextEditingController.text.trim(),
-          password: passwordTextEditingController.text.trim(),
-        ).catchError((errorMsg) {
-          Navigator.pop(context);
-          cMethods.displaySnackBar(errorMsg.toString(), context);
-        })
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailTextEditingController.text.trim(),
+        password: passwordTextEditingController.text.trim(),
+      )
     ).user;
 
     if (!context.mounted) return;
     Navigator.pop(context);
 
-    DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users").child(userFirebase!.uid);
-    Map userDataMap = {
-      "name": userNameTextEditingController.text.trim(),
-      "email": emailTextEditingController.text.trim(),
-      "phone": userPhoneTextEditingController.text.trim(),
-      "id": userFirebase.uid,
-      "blockStatus": "no",
-    };
-    usersRef.set(userDataMap);
+    if (userFirebase != null) {
+      DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users").child(userFirebase.uid);
+      Map userDataMap = {
+        "name": userNameTextEditingController.text.trim(),
+        "email": emailTextEditingController.text.trim(),
+        "phone": userPhoneTextEditingController.text.trim(),
+        "id": userFirebase.uid,
+        "blockStatus": "no",
+      };
 
-    Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
+      print("User data to be saved: $userDataMap"); // Debugging print
+      usersRef.set(userDataMap).then((_) {
+        print("User data saved successfully");
+        Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
+      }).catchError((error) {
+        print("Error saving user data: $error");
+        cMethods.displaySnackBar("Error saving user data", context);
+      });
+    }
+  } catch (error) {
+    Navigator.pop(context);
+    cMethods.displaySnackBar(error.toString(), context);
   }
+}
+
 
   @override
   Widget build(BuildContext context) {

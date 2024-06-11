@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mmusuperapp/hostel/codes/hb1_a.dart';
 import 'package:mmusuperapp/hostel/codes/hb1_b.dart';
 import 'package:mmusuperapp/hostel/codes/hb1_c.dart';
@@ -11,6 +12,8 @@ import 'package:mmusuperapp/hostel/codes/hb3_c.dart';
 import 'package:mmusuperapp/hostel/codes/hb4_a.dart';
 import 'package:mmusuperapp/hostel/codes/hb4_b.dart';
 import 'package:mmusuperapp/hostel/codes/hb4_c.dart';
+import 'package:mmusuperapp/hostel/codes/hostel_female.dart';
+import 'package:mmusuperapp/hostel/codes/hostel_male.dart';
 
 class Hostel extends StatefulWidget {
   const Hostel({super.key});
@@ -26,7 +29,7 @@ class _HostelState extends State<Hostel> {
       backgroundColor: Colors.indigo[100],
       appBar: AppBar(
         title: const Text(
-          "Hostel Application",
+          "Finding Your Roommate!",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -66,6 +69,105 @@ class _HostelState extends State<Hostel> {
                       )
                     )
                   ),
+                )
+              ],
+            ),
+            const SizedBox(height: 40.0),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                const Card(
+                  elevation: 10.0,
+                  color: Color.fromARGB(255, 26, 35, 126),
+                  child: SizedBox(
+                    height: 400,
+                    width: 400,
+                    child: Center()
+                  ),
+                ),
+                const Card(
+                  elevation: 10.0,
+                  color: Color.fromARGB(255, 159, 168, 218),
+                  child: SizedBox(
+                    height: 380,
+                    width: 380,
+                  ),
+                ),
+                Column(
+                  children: [
+                    const Card(
+                      elevation: 10.0,
+                      color: Color.fromARGB(255, 121, 134, 203),
+                      child: SizedBox(
+                        height: 50,
+                        width: 250,
+                        child: Center(
+                          child: Text(
+                            "Select Your Gender:",
+                            style: TextStyle(
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                        )
+                      ),
+                    ),
+                    const SizedBox(height: 60),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HostelMale())
+                        );
+                      },
+                      child: const Card(
+                        elevation: 10.0,
+                        color: Color.fromARGB(255, 121, 134, 203),
+                        child: SizedBox(
+                          height: 50,
+                          width: 120,
+                          child: Center(
+                            child: Text(
+                              "Male",
+                              style: TextStyle(
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          )
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HostelFemale(),)
+                        );
+                      },
+                      child: const Card(
+                        elevation: 10.0,
+                        color: Color.fromARGB(255, 121, 134, 203),
+                        child: SizedBox(
+                          height: 50,
+                          width: 120,
+                          child: Center(
+                            child: Text(
+                              "Female",
+                              style: TextStyle(
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          )
+                        ),
+                      ),
+                    ),
+                  ]
                 )
               ],
             ),

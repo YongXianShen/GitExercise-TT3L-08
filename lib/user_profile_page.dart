@@ -63,8 +63,8 @@ class _UserProfileState extends State<UserProfile> {
     }
   }
 
-  Future<void> _pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedFile = await ImagePicker().pickImage(source: source);
     if (pickedFile != null) {
       setState(() {
         _imageFile = File(pickedFile.path);
@@ -111,14 +111,42 @@ class _UserProfileState extends State<UserProfile> {
                       radius: 50,
                       backgroundImage: _profileImageUrl.isNotEmpty
                           ? NetworkImage(_profileImageUrl)
-                          : AssetImage('assets/profile_picture.png') as ImageProvider,
+                          : AssetImage('lib/profile/images/man_smiling.jpg') as ImageProvider,
                     ),
                     Positioned(
                       bottom: 0,
                       right: 0,
                       child: IconButton(
                         icon: Icon(Icons.camera_alt),
-                        onPressed: _pickImage,
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) => BottomSheet(
+                              onClosing: () {},
+                              builder: (context) => Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ListTile(
+                                    leading: Icon(Icons.camera),
+                                    title: Text('Take a picture'),
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                      _pickImage(ImageSource.camera);
+                                    },
+                                  ),
+                                  ListTile(
+                                    leading: Icon(Icons.photo_album),
+                                    title: Text('Choose from gallery'),
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                      _pickImage(ImageSource.gallery);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ],

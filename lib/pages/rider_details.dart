@@ -17,7 +17,7 @@ class _RiderDetailsState extends State<RiderDetails> {
     'bookingtime': '',
     'pickup': '',
     'note': '',
-    'driverId': '', // Added driverId field
+    'driverId': '',
   };
   bool _isReadOnly = true;
   String? _documentId;
@@ -28,7 +28,6 @@ class _RiderDetailsState extends State<RiderDetails> {
   final _bookingTimeController = TextEditingController();
   final _pickupController = TextEditingController();
   final _noteController = TextEditingController();
-  final _driverIdController = TextEditingController(); // Controller for driverId
 
   @override
   void initState() {
@@ -53,6 +52,7 @@ class _RiderDetailsState extends State<RiderDetails> {
           _details['bookingtime'] = doc['bookingtime'];
           _details['pickup'] = doc['pickup'];
           _details['note'] = doc['note'];
+          _details['driverId'] = doc['driverId'];
           _nameController.text = doc['name'];
           _ageController.text = doc['age'];
           _genderController.text = doc['gender'];
@@ -115,9 +115,8 @@ class _RiderDetailsState extends State<RiderDetails> {
             'requested': false,
           });
         }
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => RiderPage()),
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Details saved successfully')),
         );
       }
     }

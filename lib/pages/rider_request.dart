@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'rider_full_details.dart';
 
 class RidersRequest extends StatelessWidget {
   void _acceptRider(BuildContext context, String riderId, Map<String, dynamic> rider) async {
-    // Update rider's request status
     await FirebaseFirestore.instance.collection('riders').doc(riderId).update({
       'requested': true,
     });
 
-    // Assuming the rider document contains a field 'driverId' referencing the driver
     String driverId = rider['driverId'];
-
-    // Update the driver's document to include the rider's info
     await FirebaseFirestore.instance.collection('drivers').doc(driverId).update({
       'riders': FieldValue.arrayUnion([{
         'riderId': riderId,
@@ -27,6 +23,11 @@ class RidersRequest extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Accepted ${rider['name']}')),
     );
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => RiderFullDetails(riderId: riderId)),
+    );
   }
 
   void _rejectRider(BuildContext context, String riderId) async {
@@ -38,8 +39,6 @@ class RidersRequest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -62,7 +61,7 @@ class RidersRequest extends StatelessWidget {
           ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('riders').where('requested', isEqualTo: true).snapshots(),
+              stream: FirebaseFirestore.instance.collection('riders').where('requested', isEqualTo: false).snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
@@ -86,62 +85,10 @@ class RidersRequest extends StatelessWidget {
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'Age: ',
-                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                                    ),
-                                    TextSpan(
-                                      text: '${rider['age']}',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'Gender: ',
-                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                                    ),
-                                    TextSpan(
-                                      text: '${rider['gender']}',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'Preferred Pickup Point: ',
-                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                                    ),
-                                    TextSpan(
-                                      text: '${rider['pickup']}',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'Note: ',
-                                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                                    ),
-                                    TextSpan(
-                                      text: '${rider['note']}',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              Text('Age: ${rider['age']}', style: TextStyle(color: Colors.black)),
+                              Text('Gender: ${rider['gender']}', style: TextStyle(color: Colors.black)),
+                              Text('Preferred Pickup Point: ${rider['pickup']}', style: TextStyle(color: Colors.black)),
+                              Text('Note: ${rider['note']}', style: TextStyle(color: Colors.black)),
                             ],
                           ),
                           trailing: Row(

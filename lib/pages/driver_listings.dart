@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'rider_details.dart';
+import '../carpool/rider_page.dart';
 
 class DriverListPage extends StatefulWidget {
   @override
@@ -9,19 +9,6 @@ class DriverListPage extends StatefulWidget {
 }
 
 class _DriverListPageState extends State<DriverListPage> {
-  final _formKey = GlobalKey<FormState>();
-  Map<String, dynamic> _details = {
-    'name': '',
-    'age': '',
-    'gender': '',
-    'bookingtime': '',
-    'pickup': '',
-    'note': '',
-    'driverId': '',
-    'requested': false,
-    'userId': ''
-  };
-
   void _handleSubmit(BuildContext context, String driverId) async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user == null) {
@@ -31,10 +18,6 @@ class _DriverListPageState extends State<DriverListPage> {
       return;
     }
 
-    _details['userId'] = user.uid;
-    _details['driverId'] = driverId;  // Add driverId to the rider details
-    _details['requested'] = true; // Set requested to true
-
     var snapshot = await FirebaseFirestore.instance
         .collection('riders')
         .where('userId', isEqualTo: user.uid)
@@ -42,18 +25,22 @@ class _DriverListPageState extends State<DriverListPage> {
 
     if (snapshot.docs.isNotEmpty) {
       var doc = snapshot.docs.first;
-      await FirebaseFirestore.instance.collection('riders').doc(doc.id).update(_details);
+      await FirebaseFirestore.instance.collection('riders').doc(doc.id).update({
+        'driverId': driverId,
+        'requested': false,
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Request sent to driver ${driverId}')),
+      );
     } else {
-      await FirebaseFirestore.instance.collection('riders').add(_details);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('No rider details found. Please fill in your details first.')),
+      );
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Request sent to driver ${driverId}')),
-    );
-
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => RiderDetails()),
+      MaterialPageRoute(builder: (context) => RiderPage()),
     );
   }
 

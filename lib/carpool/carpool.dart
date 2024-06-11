@@ -369,7 +369,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => RiderRequestsPage()),
+                            MaterialPageRoute(builder: (context) => RidersRequest()),
                           );
                         },
                         style: ElevatedButton.styleFrom(

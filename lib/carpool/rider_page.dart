@@ -11,18 +11,17 @@ import 'package:mmusuperapp/global/global_var.dart';
 import 'package:mmusuperapp/methods/common_methods.dart';
 import 'package:mmusuperapp/models/direction_details.dart';
 import 'package:provider/provider.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../global/trip_var.dart';
 import '../methods/manage_drivers_methods.dart';
-import '../models/driver_list_mock.dart';
-import '../pages/driver_details.dart';
 import '../pages/driver_listings.dart';
 import '../pages/search_destination_page.dart';
 import 'online_nearby_drivers.dart';
 
 class RiderPage extends StatefulWidget {
-  const RiderPage({super.key});
+  const RiderPage({super.key,
+
+  });
 
   @override
   State<RiderPage> createState() => _RiderPageState();
@@ -85,18 +84,24 @@ class _RiderPageState extends State<RiderPage> {
     });
   }
 
-  getCurrentLiveLocationOfUser() async {
-    Position positionOfUser = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
-    currentPositionOfUser = positionOfUser;
+  Future<void> getCurrentLiveLocationOfUser() async {
+    try {
+      Position positionOfUser = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
+      setState(() {
+        currentPositionOfUser = positionOfUser;
+      });
 
-    LatLng positionOfUserInLatLng = LatLng(currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
+      LatLng positionOfUserInLatLng = LatLng(currentPositionOfUser!.latitude, currentPositionOfUser!.longitude);
 
-    CameraPosition cameraPosition = CameraPosition(target: positionOfUserInLatLng, zoom: 15);
-    controllerGoogleMap!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      CameraPosition cameraPosition = CameraPosition(target: positionOfUserInLatLng, zoom: 15);
+      controllerGoogleMap?.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
-    await CommonMethods.convertGeoGraphicCoordinatesIntoHumanReadableAddress(currentPositionOfUser!, context);
+      await CommonMethods.convertGeoGraphicCoordinatesIntoHumanReadableAddress(currentPositionOfUser!, context);
 
-    await initializeGeoFireListener();
+      await initializeGeoFireListener();
+    } catch (e) {
+      print('Error getting current location: $e');
+    }
   }
 
   void toggleMapStyle() {
@@ -112,43 +117,45 @@ class _RiderPageState extends State<RiderPage> {
     }
   }
 
-  retrieveDirectionDetails() async {
+  Future<void> retrieveDirectionDetails() async {
     var pickUpLocation = Provider.of<AppInfo>(context, listen: false).pickupLocation;
     var dropOffDestinationLocation = Provider.of<AppInfo>(context, listen: false).dropOffLocation;
 
-    var pickupGeoGraphicCoOrdinates = LatLng(pickUpLocation!.latitudePosition!, pickUpLocation.longitudePosition!);
-    var dropOffDestinationGeoGraphicCoOrdinates = LatLng(dropOffDestinationLocation!.latitudePosition!, dropOffDestinationLocation.longitudePosition!);
+    if (pickUpLocation == null || dropOffDestinationLocation == null) {
+      print('PickUp or DropOff location is null');
+      return;
+    }
+
+    var pickupGeoGraphicCoOrdinates = LatLng(pickUpLocation.latitudePosition!, pickUpLocation.longitudePosition!);
+    var dropOffDestinationGeoGraphicCoOrdinates = LatLng(dropOffDestinationLocation.latitudePosition!, dropOffDestinationLocation.longitudePosition!);
 
     var detailsFromDirectionAPI = await CommonMethods.getDirectionDetailsFromAPI(pickupGeoGraphicCoOrdinates, dropOffDestinationGeoGraphicCoOrdinates);
     setState(() {
       tripDirectionDetailsInfo = detailsFromDirectionAPI;
     });
 
-    Navigator.pop(context);
-
     PolylinePoints pointsPolyline = PolylinePoints();
     List<PointLatLng> latLngPointsFromPickUpToDestination = pointsPolyline.decodePolyline(tripDirectionDetailsInfo!.encodedPoints!);
 
-    polylineCoOrdinates.clear();
+    polylineSet.clear();
     if (latLngPointsFromPickUpToDestination.isNotEmpty) {
       latLngPointsFromPickUpToDestination.forEach((PointLatLng latLngPoint) {
         polylineCoOrdinates.add(LatLng(latLngPoint.latitude, latLngPoint.longitude));
       });
     }
 
-    polylineSet.clear();
-    setState(() {
-      Polyline polyline = Polyline(
-        polylineId: const PolylineId("polylineID"),
-        color: Colors.pink,
-        points: polylineCoOrdinates,
-        jointType: JointType.round,
-        width: 4,
-        startCap: Cap.roundCap,
-        endCap: Cap.roundCap,
-        geodesic: true,
-      );
+    Polyline polyline = Polyline(
+      polylineId: const PolylineId("polylineID"),
+      color: Colors.pink,
+      points: polylineCoOrdinates,
+      jointType: JointType.round,
+      width: 4,
+      startCap: Cap.roundCap,
+      endCap: Cap.roundCap,
+      geodesic: true,
+    );
 
+    setState(() {
       polylineSet.add(polyline);
     });
 
@@ -383,14 +390,9 @@ class _RiderPageState extends State<RiderPage> {
                   Center(
                     child: Column(
                       children: [
-                        Icon(
-                            Icons.directions_car,
-                            color: Colors.grey,
-                            size: 80
-                        ),
-                        SizedBox(height: 10),
-                        Text('Finding Nearby Drivers',
-                            style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.bold)),
+                        Icon(Icons.directions_car, color: Colors.grey, size: 80),
+                        SizedBox(height: 20),
+                        Text('Finding Nearby Driver', style: TextStyle(fontSize: 20, color: Colors.black,fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
@@ -398,12 +400,13 @@ class _RiderPageState extends State<RiderPage> {
                   ElevatedButton(
                     onPressed: () async {
                       var responseFromSearchPage = await Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => SearchDestinationPage()),
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchDestinationPage()),
                       );
                       if (responseFromSearchPage == "placeSelected") {
-                        Navigator.push(
+                        var result = await Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => DriverListPage(carpoolRequests: carpoolRequests)),
+                          MaterialPageRoute(builder: (context) => DriverListPage())
                         );
                       }
                     },
@@ -411,7 +414,7 @@ class _RiderPageState extends State<RiderPage> {
                       backgroundColor: Colors.blue,
                       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     ),
-                    child: Text('Check Drivers', style: TextStyle(fontSize: 16,color: Colors.white)),
+                    child: Text('Check Drivers', style: TextStyle(fontSize: 16, color: Colors.white)),
                   ),
                 ],
               ),
@@ -422,3 +425,4 @@ class _RiderPageState extends State<RiderPage> {
     );
   }
 }
+

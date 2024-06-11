@@ -14,7 +14,7 @@ import '../methods/common_methods.dart';
 import '../models/direction_details.dart';
 import '../pages/rider_request.dart';
 import '../pages/search_destination_page.dart';
-
+import '../pages/driver_details.dart';
 
 class CarpoolDetails extends StatefulWidget {
   const CarpoolDetails({super.key});
@@ -252,6 +252,24 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                   icon: Icon(isNightMode ? Icons.wb_sunny : Icons.nights_stay),
                   color: isNightMode ? Colors.white : Colors.black,
                   onPressed: toggleMapStyle,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            right: 0,
+            top: 0,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DriverDetails()),
+                    );
+                  },
                 ),
               ),
             ),

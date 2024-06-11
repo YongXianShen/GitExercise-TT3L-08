@@ -1,7 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'rider_full_details.dart';
 
 class RidersRequest extends StatelessWidget {
+  void _acceptRider(BuildContext context, String riderId, Map<String, dynamic> rider) async {
+    await FirebaseFirestore.instance.collection('riders').doc(riderId).update({
+      'requested': true,
+    });
+
+    String driverId = rider['driverId'];
+    await FirebaseFirestore.instance.collection('drivers').doc(driverId).update({
+      'riders': FieldValue.arrayUnion([{
+        'riderId': riderId,
+        'name': rider['name'],
+        'age': rider['age'],
+        'gender': rider['gender'],
+        'pickup': rider['pickup'],
+        'note': rider['note'],
+      }]),
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Accepted ${rider['name']}')),
+    );
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => RiderFullDetails(riderId: riderId)),
+    );
+  }
+
+  void _rejectRider(BuildContext context, String riderId) async {
+    await FirebaseFirestore.instance.collection('riders').doc(riderId).delete();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Rejected rider')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +61,7 @@ class RidersRequest extends StatelessWidget {
           ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('riders').snapshots(),
+              stream: FirebaseFirestore.instance.collection('riders').where('requested', isEqualTo: false).snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
@@ -44,24 +79,23 @@ class RidersRequest extends StatelessWidget {
                       child: Card(
                         color: Colors.white,
                         shadowColor: Colors.lightBlueAccent,
-                        elevation: 8.0, // Add elevation for shadow on all sides
+                        elevation: 8.0,
                         child: ListTile(
                           title: Text(rider['name']),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('Age: ${rider['age']}'),
-                              Text('Gender: ${rider['gender']}'),
+                              Text('Age: ${rider['age']}', style: TextStyle(color: Colors.black)),
+                              Text('Gender: ${rider['gender']}', style: TextStyle(color: Colors.black)),
+                              Text('Preferred Pickup Point: ${rider['pickup']}', style: TextStyle(color: Colors.black)),
+                              Text('Note: ${rider['note']}', style: TextStyle(color: Colors.black)),
                             ],
                           ),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               TextButton(
-                                onPressed: () {
-                                  // Implement accept functionality here
-                                  print('Accepted ${rider['name']}');
-                                },
+                                onPressed: () => _acceptRider(context, riders[index].id, rider),
                                 style: TextButton.styleFrom(
                                   foregroundColor: Colors.white,
                                   backgroundColor: Colors.green,
@@ -70,10 +104,7 @@ class RidersRequest extends StatelessWidget {
                               ),
                               SizedBox(width: 8),
                               TextButton(
-                                onPressed: () {
-                                  // Implement reject functionality here
-                                  print('Rejected ${rider['name']}');
-                                },
+                                onPressed: () => _rejectRider(context, riders[index].id),
                                 style: TextButton.styleFrom(
                                   foregroundColor: Colors.white,
                                   backgroundColor: Colors.red,

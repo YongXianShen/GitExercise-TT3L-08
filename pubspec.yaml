@@ -55,6 +55,7 @@ dependencies:
   flutter_polyline_points:
   flutter_geofire:
   loading_animation_widget:
+  image_picker: ^1.1.2
 
 
 
@@ -87,6 +88,7 @@ flutter:
     - themes/
     - lib/hostel/images/
     - lib/profile/images/
+    
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,8 +1,10 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/food/models/food.dart';
+import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/pages/food_page.dart';
-
+import 'dart:math';
+import 'dart:async';
 import 'package:mmusuperapp/food/widget/bigtext.dart';
 import 'package:mmusuperapp/food/widget/iconandtext.dart';
 import 'package:mmusuperapp/food/widget/smalltext.dart';
@@ -19,22 +21,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   var _currPageValue = 0.0;
   double _scaleFactor = 0.8;
   double _height = 320;
+  late Timer _timer;
 
-  List<String> imagePaths = [
-    "lib/food/images/roti-canai-roti-paratha-roti-prata.webp",
-    "lib/food/images/roti-canai-roti-paratha-roti-prata.webp",
-    "lib/food/images/Untitled1.jpeg",
-    "lib/food/images/Untitled.jpeg",
-    "lib/food/images/Untitled.jpeg",
-  ];
-
-  List<String> foodNames = [
-    "Roti Canai",
-    "Roti Telur",
-    "Teh Tarik",
-    "Nasi Lemak Biasa",
-    "Nasi Lemak Ayam",
-  ];
+  
 
   @override
   void initState() {
@@ -45,10 +34,25 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         
       });
     });
+     _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+      if (_currPageValue < 4) {
+        _currPageValue++;
+      } else {
+        _currPageValue = 0;
+      }
+
+      pageController.animateToPage(
+        _currPageValue.toInt(),
+        duration: Duration(milliseconds: 350),
+        curve: Curves.easeIn,
+      );
+    });
   }
 
   @override
   void dispose() {
+    _timer.cancel();
+    pageController.dispose();
     super.dispose();
     
     pageController.dispose();
@@ -63,14 +67,14 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           height: 320,
           child: PageView.builder(
             controller: pageController,
-            itemCount: imagePaths.length,
+            itemCount: 5,
             itemBuilder: (context, position) {
               return _buildPageItem(position);
             }
           ),
         ),
         DotsIndicator(
-        dotsCount: imagePaths.length,
+        dotsCount: 5,
         position: _currPageValue,
         decorator: DotsDecorator(
           activeColor: Colors.black,
@@ -85,6 +89,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       
   }
   Widget _buildPageItem(int index) {
+    Food foodItem = Restaurant().menu[index % Restaurant().menu.length];
     Matrix4 matrix = Matrix4.identity();
     if(index==_currPageValue.floor()) {
       var currScale = 1-(_currPageValue-index)*(1-_scaleFactor);
@@ -107,7 +112,14 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       var currScale = 0.8;
       matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0, _height*(1-_scaleFactor)/2, 1);
     }
-    return Transform(
+    return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => FoodPage(food: foodItem)),
+      );
+    },
+    child: Transform(
       transform: matrix,
     child:Stack(
       children: [
@@ -120,7 +132,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage(
-                imagePaths[index],
+                foodItem.imagePath
                 
 
               )
@@ -156,7 +168,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BigText(text: foodNames[index]),
+                  BigText(text: foodItem.name),
                   SizedBox(height: 10,),
                   Row(
                     children: [
@@ -192,6 +204,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         )
       ],
-    ));
+    )));
   }
 }

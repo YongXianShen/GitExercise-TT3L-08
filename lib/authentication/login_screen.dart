@@ -65,7 +65,10 @@ class _LoginScreenState extends State<LoginScreen> {
             FirebaseAuth.instance.signOut();
             cMethods.displaySnackBar("The account does not exist.", context);
           }
-        });
+        }).catchError((error) {
+        Navigator.pop(context);
+        cMethods.displaySnackBar(error.toString(), context);
+      });
       }
     } catch (error) {
       Navigator.pop(context);
@@ -75,7 +78,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Theme(
+      data: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: Colors.black,
+        ), // Force light theme for this page
+      child:  Scaffold(
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -162,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-    );
+    ));
   }
 }
 

@@ -5,6 +5,8 @@ import 'package:mmusuperapp/food/pages/dartmode_page.dart';
 import 'package:mmusuperapp/food/widget/bigtext.dart';
 import 'package:mmusuperapp/food/widget/smalltext.dart';
 import 'package:mmusuperapp/profile/codes/profile_screen.dart';
+import 'package:mmusuperapp/user_profile_page.dart';
+import 'package:mmusuperapp/userdetails.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -40,7 +42,7 @@ class MyDrawer extends StatelessWidget {
               Navigator.push(
                 context, 
                 MaterialPageRoute(
-                  builder: (context) => const ProfileScreen(),
+                  builder: (context) =>  UserProfile(),
                   ),
                 );
               },

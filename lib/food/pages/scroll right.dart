@@ -4,6 +4,7 @@ import 'package:mmusuperapp/food/models/food.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/pages/food_page.dart';
 import 'dart:math';
+import 'dart:async';
 import 'package:mmusuperapp/food/widget/bigtext.dart';
 import 'package:mmusuperapp/food/widget/iconandtext.dart';
 import 'package:mmusuperapp/food/widget/smalltext.dart';
@@ -20,6 +21,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   var _currPageValue = 0.0;
   double _scaleFactor = 0.8;
   double _height = 320;
+  late Timer _timer;
 
   
 
@@ -32,10 +34,25 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         
       });
     });
+     _timer = Timer.periodic(Duration(seconds: 3), (Timer timer) {
+      if (_currPageValue < 4) {
+        _currPageValue++;
+      } else {
+        _currPageValue = 0;
+      }
+
+      pageController.animateToPage(
+        _currPageValue.toInt(),
+        duration: Duration(milliseconds: 350),
+        curve: Curves.easeIn,
+      );
+    });
   }
 
   @override
   void dispose() {
+    _timer.cancel();
+    pageController.dispose();
     super.dispose();
     
     pageController.dispose();

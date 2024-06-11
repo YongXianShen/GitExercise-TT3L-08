@@ -65,7 +65,10 @@ class _LoginScreenState extends State<LoginScreen> {
             FirebaseAuth.instance.signOut();
             cMethods.displaySnackBar("The account does not exist.", context);
           }
-        });
+        }).catchError((error) {
+        Navigator.pop(context);
+        cMethods.displaySnackBar(error.toString(), context);
+      });
       }
     } catch (error) {
       Navigator.pop(context);

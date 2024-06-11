@@ -26,12 +26,12 @@ class OptionScreen extends StatelessWidget {
     if (option == 'Rider') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => RiderDetailsPage()),
+        MaterialPageRoute(builder: (context) => RiderPage()),
       );
     } else if (option == 'Driver') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => DriverDetailsPage()),
+        MaterialPageRoute(builder: (context) => DriverDetails()),
       );
     }
   }

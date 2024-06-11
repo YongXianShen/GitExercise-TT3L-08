@@ -1,118 +1,115 @@
 import 'package:flutter/material.dart';
-import 'package:mmusuperapp/carpool/carpool.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../carpool/carpool.dart';
 
-class DriverDetailsPage extends StatelessWidget {
+
+class DriverDetails extends StatefulWidget {
+  @override
+  _DriverDetailsState createState() => _DriverDetailsState();
+}
+
+class _DriverDetailsState extends State<DriverDetails> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _ageController = TextEditingController();
-  final _genderController = TextEditingController();
-  final _carModelController = TextEditingController();
-  final _carColorController = TextEditingController();
-  final _carPlateController = TextEditingController();
-  final _pickupPointController = TextEditingController();
+  final Map<String, String> _details = {
+    'name': '',
+    'age': '',
+    'gender': '',
+    'model': '',
+    'color': '',
+    'plate': '',
+  };
+
+  void _handleSubmit() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      await FirebaseFirestore.instance.collection('drivers').add(_details);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => CarpoolDetails()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Insert Your Details'),
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.lightBlueAccent,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 100, left: 20, right: 20),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(labelText: 'Name'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
-                  }
-                  return null;
+      appBar: AppBar(title: Text('Driver Details'), backgroundColor: Colors.lightBlueAccent),
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: EdgeInsets.all(16.0),
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                decoration: InputDecoration(labelText: 'Name', border: OutlineInputBorder()),
+                onSaved: (value) => _details['name'] = value!,
+                validator: (value) => value!.isEmpty ? 'Enter a name' : null,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                decoration: InputDecoration(labelText: 'Age', border: OutlineInputBorder()),
+                onSaved: (value) => _details['age'] = value!,
+                validator: (value) => value!.isEmpty ? 'Enter an age' : null,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DropdownButtonFormField<String>(
+                decoration: InputDecoration(labelText: 'Gender', border: OutlineInputBorder()),
+                value: _details['gender']!.isEmpty ? null : _details['gender'],
+                items: ['Male', 'Female'].map((String gender) {
+                  return DropdownMenuItem<String>(
+                    value: gender,
+                    child: Text(gender),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _details['gender'] = newValue!;
+                  });
                 },
+                onSaved: (value) => _details['gender'] = value!,
+                validator: (value) => value == null || value.isEmpty ? 'Select a gender' : null,
               ),
-              TextFormField(
-                controller: _ageController,
-                decoration: InputDecoration(labelText: 'Age'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your age';
-                  }
-                  return null;
-                },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                decoration: InputDecoration(labelText: 'Model', border: OutlineInputBorder()),
+                onSaved: (value) => _details['model'] = value!,
+                validator: (value) => value!.isEmpty ? 'Enter a model' : null,
               ),
-              TextFormField(
-                controller: _genderController,
-                decoration: InputDecoration(labelText: 'Gender'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your gender';
-                  }
-                  return null;
-                },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                decoration: InputDecoration(labelText: 'Color', border: OutlineInputBorder()),
+                onSaved: (value) => _details['color'] = value!,
+                validator: (value) => value!.isEmpty ? 'Enter a color' : null,
               ),
-              TextFormField(
-                controller: _carModelController,
-                decoration: InputDecoration(labelText: 'Car Model'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your car model';
-                  }
-                  return null;
-                },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                decoration: InputDecoration(labelText: 'Plate', border: OutlineInputBorder()),
+                onSaved: (value) => _details['plate'] = value!,
+                validator: (value) => value!.isEmpty ? 'Enter a plate number' : null,
               ),
-              TextFormField(
-                controller: _carColorController,
-                decoration: InputDecoration(labelText: 'Car Color'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your car color';
-                  }
-                  return null;
-                },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: _handleSubmit,
+                child: Text('Submit', style: TextStyle(color: Colors.white)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.lightBlueAccent, // Button color
+                ),
               ),
-              TextFormField(
-                controller: _carPlateController,
-                decoration: InputDecoration(labelText: 'Car Number Plate'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your car number plate';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _pickupPointController,
-                decoration: InputDecoration(labelText: 'Pickup Point'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your pickup point';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CarpoolDetails()),
-                      );
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.lightBlueAccent,
-                  ),
-                  child: Text('Submit',style: TextStyle(color: Colors.white),)
-
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

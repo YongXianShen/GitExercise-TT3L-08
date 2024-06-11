@@ -55,6 +55,7 @@ dependencies:
   flutter_polyline_points:
   flutter_geofire:
   loading_animation_widget:
+  image_picker: ^1.1.2
 
 
 

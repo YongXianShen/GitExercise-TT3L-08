@@ -18,7 +18,7 @@ class _UserProfileState extends State<UserProfile> {
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
 
-  String _profileImageUrl = 'assets/images/default_profile.png';
+  String _profileImageUrl = 'lib/food/images/avatar1.jpg';
 
   @override
   void initState() {

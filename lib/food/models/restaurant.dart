@@ -8,6 +8,19 @@ import 'food.dart';
 
 class Restaurant extends ChangeNotifier {
   final List<Food> _menu = [
+
+    Food(
+      name: "Sirap",
+      description: "Juicy",
+      imagePath: "lib/food/images/sirap.jpg",
+      price: 2.00,
+      category: FoodCategory.Beverages,
+      availableAddons: [
+        Addon(name: "ais", price: 0.00),
+        Addon(name: "hot", price: 0.00),
+      ],
+    ),
+
     //Roti
     Food(
       name: "Roti Canai",
@@ -33,33 +46,7 @@ class Restaurant extends ChangeNotifier {
         Addon(name: "hot", price: 0.00),
       ],
     ),
-    
-    Food(
-      name: "Roti Telur",
-      description: "Crispy and yummy",
-      imagePath: "lib/food/images/roti-canai-roti-paratha-roti-prata.webp",
-      price: 3.00,
-      category: FoodCategory.Roti,
-      availableAddons: [
-        Addon(name: "extra curry", price: 1.00),
-        Addon(name: "with cutlery", price: 0.50),
-        Addon(name: "with one package teh tarik", price: 1.50),
-      ],
-    ),
-    Food(
-      name: "Roti Tisu",
-      description: "Crispy and yummy",
-      imagePath: "lib/food/images/roti-canai-roti-paratha-roti-prata.webp",
-      price: 4.00,
-      category: FoodCategory.Roti,
-      availableAddons: [
-        Addon(name: "extra curry", price: 1.00),
-        Addon(name: "with cutlery", price: 0.50),
-        Addon(name: "with one package teh tarik", price: 1.50),
-      ],
-    ),
 
-    // Food
     Food(
       name: "Nasi Lemak Biasa",
       description: "Yummy",
@@ -72,6 +59,34 @@ class Restaurant extends ChangeNotifier {
         Addon(name: "with one package teh tarik", price: 1.50),
       ],
     ),
+    
+    Food(
+      name: "Roti Telur",
+      description: "Crispy and yummy",
+      imagePath: "lib/food/images/rotitelur.jpg",
+      price: 3.00,
+      category: FoodCategory.Roti,
+      availableAddons: [
+        Addon(name: "extra curry", price: 1.00),
+        Addon(name: "with cutlery", price: 0.50),
+        Addon(name: "with one package teh tarik", price: 1.50),
+      ],
+    ),
+    Food(
+      name: "Roti Tisu",
+      description: "Crispy and yummy",
+      imagePath: "lib/food/images/rotitisu.jpg",
+      price: 4.00,
+      category: FoodCategory.Roti,
+      availableAddons: [
+        Addon(name: "extra curry", price: 1.00),
+        Addon(name: "with cutlery", price: 0.50),
+        Addon(name: "with one package teh tarik", price: 1.50),
+      ],
+    ),
+
+    // Food
+    
     Food(
       name: "Nasi Lemak Ayam Goreng",
       description: "Yummy",
@@ -98,21 +113,11 @@ class Restaurant extends ChangeNotifier {
     ),
 
     //Beverages
-    Food(
-      name: "Teh Tarik",
-      description: "Juicy",
-      imagePath: "lib/food/images/Untitled1.jpeg",
-      price: 2.00,
-      category: FoodCategory.Beverages,
-      availableAddons: [
-        Addon(name: "ais", price: 0.50),
-        Addon(name: "hot", price: 0.00),
-      ],
-    ),
+    
     Food(
       name: "Kopi",
       description: "Nice",
-      imagePath: "lib/food/images/Untitled1.jpeg",
+      imagePath: "lib/food/images/kopi.jpg",
       price: 2.00,
       category: FoodCategory.Beverages,
       availableAddons: [
@@ -123,7 +128,7 @@ class Restaurant extends ChangeNotifier {
     Food(
       name: "Milo",
       description: "Good",
-      imagePath: "lib/food/images/Untitled1.jpeg",
+      imagePath: "lib/food/images/milo.jpg",
       price: 3.00,
       category: FoodCategory.Beverages,
       availableAddons: [
@@ -131,17 +136,7 @@ class Restaurant extends ChangeNotifier {
         Addon(name: "hot", price: 0.00),
       ],
     ),
-    Food(
-      name: "Sirap",
-      description: "Juicy",
-      imagePath: "lib/food/images/Untitled1.jpeg",
-      price: 2.00,
-      category: FoodCategory.Beverages,
-      availableAddons: [
-        Addon(name: "ais", price: 0.00),
-        Addon(name: "hot", price: 0.00),
-      ],
-    ),
+    
   ];
 
   // user cart

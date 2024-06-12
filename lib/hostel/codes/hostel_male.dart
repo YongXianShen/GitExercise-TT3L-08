@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'user.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mmusuperapp/hostel/codes/swipe_state.dart';
+import 'package:mmusuperapp/hostel/codes/hostel_male_user.dart';
 
 class HostelMale extends StatelessWidget {
   const HostelMale({super.key,});
@@ -45,46 +47,94 @@ class HostelMale extends StatelessWidget {
           backgroundColor: Colors.indigo[900],
         )
       ),
-      body: Column(
-        children: [
-          UserCard(user: User.users[0]),
-          const SizedBox(height: 10.0),
-          const Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 8.0,
-              horizontal: 60.0
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: BlocBuilder<SwipeBloc, SwipeState>(
+        builder: (context, state) {
+          if (state is SwipeLoading) {
+            return const Center(
+              child: CircularProgressIndicator()
+            );
+          }
+          else if (state is SwipeLoaded) {
+            return Column(
               children: [
-                ChoiceButton(
-                  width: 60,
-                  height: 60,
-                  size: 25,
-                  color: Colors.black,
-                  hasGradient: false,
-                  icon: Icons.cabin_rounded
+                Draggable(
+                  feedback: UserCard(user: state.users[0]),
+                  childWhenDragging:  UserCard(user: state.users[1]),
+                  onDragEnd: (drag) {
+                    if (drag.velocity.pixelsPerSecond.dx < 0) {
+                      context.read<SwipeBloc>().add(
+                        SwipeLeft(user: state.users[0])
+                      );
+                      ("Swipe left!");
+                    }
+                    else {
+                      context.read<SwipeBloc>().add(
+                        SwipeRight(user: state.users[0])
+                      );
+                      ("Swipe right!");
+                    }
+                  },
+                  child: UserCard(user: state.users[0]),
                 ),
-                ChoiceButton(
-                  width: 80,
-                  height: 80,
-                  size: 30,
-                  color: Colors.white,
-                  hasGradient: true,
-                  icon: Icons.favorite
-                ),
-                ChoiceButton(
-                  width: 60,
-                  height: 60,
-                  size: 25,
-                  color: Colors.black,
-                  hasGradient: false,
-                  icon: Icons.watch_later
-                ),
+                const SizedBox(height: 10.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 60.0
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          context.read<SwipeBloc>().add(
+                            SwipeLeft(user: state.users[0])
+                          );
+                          ("Swipe left!");
+                        },
+                        child: const ChoiceButton(
+                          width: 60,
+                          height: 60,
+                          size: 25,
+                          color: Colors.black,
+                          hasGradient: false,
+                          icon: Icons.cabin_rounded
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          context.read<SwipeBloc>().add(
+                            SwipeRight(user: state.users[0])
+                          );
+                          ("Swipe right!");
+                        },
+                        child: const ChoiceButton(
+                          width: 80,
+                          height: 80,
+                          size: 30,
+                          color: Colors.white,
+                          hasGradient: true,
+                          icon: Icons.favorite
+                        ),
+                      ),
+                      const ChoiceButton(
+                        width: 60,
+                        height: 60,
+                        size: 25,
+                        color: Colors.black,
+                        hasGradient: false,
+                        icon: Icons.watch_later
+                      ),
+                    ]
+                  ),
+                )
               ]
-            ),
-          )
-        ]
+            );
+          }
+          else {
+            return const Text("Something went wrong...  :(");
+          }
+        }
       )
     );
   }
@@ -174,6 +224,21 @@ class UserCard extends StatelessWidget {
                         width: 60.0,
                         decoration: BoxDecoration(
                           image: DecorationImage(
+                            image: NetworkImage(user.imageUrls[1]),
+                            fit: BoxFit.cover
+                          ),
+                          borderRadius: BorderRadius.circular(5.0)
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          top: 8.0,
+                          right: 8.0,
+                        ),
+                        height: 60.0,
+                        width: 60.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
                             image: NetworkImage(user.imageUrls[2]),
                             fit: BoxFit.cover
                           ),
@@ -190,21 +255,6 @@ class UserCard extends StatelessWidget {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(user.imageUrls[3]),
-                            fit: BoxFit.cover
-                          ),
-                          borderRadius: BorderRadius.circular(5.0)
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                          top: 8.0,
-                          right: 8.0,
-                        ),
-                        height: 60.0,
-                        width: 60.0,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(user.imageUrls[1]),
                             fit: BoxFit.cover
                           ),
                           borderRadius: BorderRadius.circular(5.0)

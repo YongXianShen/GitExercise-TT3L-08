@@ -12,17 +12,18 @@ import 'package:mmusuperapp/methods/common_methods.dart';
 import 'package:mmusuperapp/models/direction_details.dart';
 import 'package:mmusuperapp/pages/rider_details.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../global/trip_var.dart';
 import '../methods/manage_drivers_methods.dart';
+import '../pages/driver_full_details.dart';
 import '../pages/driver_listings.dart';
 import '../pages/search_destination_page.dart';
 import 'online_nearby_drivers.dart';
 
 class RiderPage extends StatefulWidget {
-  const RiderPage({super.key,
-
-  });
+  const RiderPage({super.key});
 
   @override
   State<RiderPage> createState() => _RiderPageState();
@@ -49,8 +50,34 @@ class _RiderPageState extends State<RiderPage> {
   double requestContainerHeight = 0;
   bool isDrawerOpened = true;
   double searchContainerHeight = 276;
+  bool tripAccepted = false;
+  String? riderId;
+  String? driverId;
 
-  List<CarpoolRequest> carpoolRequests = [];
+  @override
+  void initState() {
+    super.initState();
+    checkForAcceptedTrip();
+  }
+
+  Future<void> checkForAcceptedTrip() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var snapshot = await FirebaseFirestore.instance
+          .collection('riders')
+          .where('userId', isEqualTo: user.uid)
+          .where('accepted', isEqualTo: true)
+          .get();
+      if (snapshot.docs.isNotEmpty) {
+        var doc = snapshot.docs.first;
+        setState(() {
+          tripAccepted = true;
+          riderId = doc.id;
+          driverId = doc['driverId'];
+        });
+      }
+    }
+  }
 
   void updateMapTheme(GoogleMapController controller) {
     getJsonFileFromThemes("themes/blue_style.json").then((value) {
@@ -251,7 +278,6 @@ class _RiderPageState extends State<RiderPage> {
   }
 
   cancelRideRequest() {
-    // remove ride request from database
 
     setState(() {
       stateOfApp = "normal";
@@ -411,7 +437,7 @@ class _RiderPageState extends State<RiderPage> {
                       children: [
                         Icon(Icons.directions_car, color: Colors.grey, size: 80),
                         SizedBox(height: 20),
-                        Text('Finding Nearby Driver', style: TextStyle(fontSize: 20, color: Colors.black,fontWeight: FontWeight.bold)),
+                        Text('Finding Nearby Driver', style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
@@ -424,8 +450,8 @@ class _RiderPageState extends State<RiderPage> {
                       );
                       if (responseFromSearchPage == "placeSelected") {
                         var result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => DriverListPage())
+                            context,
+                            MaterialPageRoute(builder: (context) => DriverListPage())
                         );
                       }
                     },
@@ -439,9 +465,22 @@ class _RiderPageState extends State<RiderPage> {
               ),
             ),
           ),
+          if (tripAccepted) Positioned(
+            bottom: 16,
+            right: 16,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DriverFullDetails(driverId: driverId!)),
+                );
+              },
+              backgroundColor: Colors.blueAccent,
+              child: Icon(Icons.directions_car,),
+            ),
+          ),
         ],
       ),
     );
   }
 }
-

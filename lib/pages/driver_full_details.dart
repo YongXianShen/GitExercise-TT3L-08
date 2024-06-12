@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class RiderFullDetails extends StatelessWidget {
-  final String riderId;
+class DriverFullDetails extends StatelessWidget {
+  final String driverId;
 
-  RiderFullDetails({required this.riderId});
+  DriverFullDetails({required this.driverId});
 
-  Future<Map<String, dynamic>> _getRiderDetails() async {
-    var doc = await FirebaseFirestore.instance.collection('riders').doc(riderId).get();
+  Future<Map<String, dynamic>> _getDriverDetails() async {
+    var doc = await FirebaseFirestore.instance.collection('drivers').doc(driverId).get();
     return doc.data() as Map<String, dynamic>;
   }
 
@@ -19,14 +19,14 @@ class RiderFullDetails extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       body: FutureBuilder<Map<String, dynamic>>(
-        future: _getRiderDetails(),
+        future: _getDriverDetails(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           }
 
-          final rider = snapshot.data!;
-          final phone = rider['phone'];
+          final driver = snapshot.data!;
+          final phone = driver['phone'];
 
           return Padding(
             padding: const EdgeInsets.all(16.0),
@@ -35,18 +35,19 @@ class RiderFullDetails extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Text(
-                    "Rider's Details",
+                    "Driver's Details",
                     style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.left,
                   ),
                 ),
-                _buildDetailItem('Name', rider['name']),
-                _buildDetailItem('Age', rider['age']),
-                _buildDetailItem('Gender', rider['gender']),
-                _buildDetailItem('Booking Time', rider['bookingtime']),
-                _buildDetailItem('Phone Number', rider['phone']),
-                _buildDetailItem('Pickup Point', rider['pickup']),
-                _buildDetailItem('Note', rider['note']),
+                _buildDetailItem('Name', driver['name']),
+                _buildDetailItem('Age', driver['age']),
+                _buildDetailItem('Gender', driver['gender']),
+                _buildDetailItem('Phone Number', phone),
+                _buildDetailItem('Preferred Pickup Point', driver['pickup']),
+                _buildDetailItem('Car Model', driver['carModel']),
+                _buildDetailItem('Car Color', driver['carColor']),
+                _buildDetailItem('Car Number Plate', driver['carNumberPlate']),
                 SizedBox(height: 20),
                 ElevatedButton.icon(
                   icon: Image.asset(
@@ -73,6 +74,13 @@ class RiderFullDetails extends StatelessWidget {
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blueAccent,
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        child: Icon(Icons.directions_car, color: Colors.white),
       ),
     );
   }
@@ -103,6 +111,6 @@ class RiderFullDetails extends StatelessWidget {
 
 void main() {
   runApp(MaterialApp(
-    home: RiderFullDetails(riderId: 'RiderId'),
+    home: DriverFullDetails(driverId: 'DriverId'),
   ));
 }

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 class UserProfile extends StatefulWidget {
   @override
@@ -13,7 +10,6 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final DatabaseReference _database = FirebaseDatabase.instance.ref();
-  final FirebaseStorage _storage = FirebaseStorage.instance;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -22,8 +18,7 @@ class _UserProfileState extends State<UserProfile> {
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
 
-  File? _imageFile;
-  String _profileImageUrl = '';
+  String _profileImageUrl = 'assets/images/default_profile.png';
 
   @override
   void initState() {
@@ -38,11 +33,11 @@ class _UserProfileState extends State<UserProfile> {
       DataSnapshot userDataSnapshot = await userRef.get();
       Map userData = userDataSnapshot.value as Map;
       setState(() {
-        _nameController.text = userData['name'];
-        _emailController.text = userData['email'];
-        _phoneController.text = userData['phone'];
-        _addressController.text = userData['address'];
-        _profileImageUrl = userData['profileImageUrl'] ?? '';
+        _nameController.text = userData['name']  ;
+        _emailController.text = userData['email'] ;
+        _phoneController.text = userData['phone'] ;
+        _addressController.text = userData['address'] ;
+        _profileImageUrl = userData['profileImageUrl'] ?? 'lib/food/images/avatar1.jpg';
       });
     }
   }
@@ -63,32 +58,41 @@ class _UserProfileState extends State<UserProfile> {
     }
   }
 
-  Future<void> _pickImage(ImageSource source) async {
-    final pickedFile = await ImagePicker().pickImage(source: source);
-    if (pickedFile != null) {
-      setState(() {
-        _imageFile = File(pickedFile.path);
-      });
-      await _uploadImage();
-    }
+  void _showImageSelectionDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Select Profile Picture'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildImageOption('lib/food/images/avatar2.jpg'),
+                _buildImageOption('lib/food/images/avatar3.jpg'),
+                _buildImageOption('lib/food/images/avatar4.jpg'),
+                _buildImageOption('lib/food/images/avatar5.jpg'),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
-  Future<void> _uploadImage() async {
-    User? user = _auth.currentUser;
-    if (user != null && _imageFile != null) {
-      try {
-        String fileName = 'profile_images/${user.uid}.jpg';
-        Reference ref = _storage.ref().child(fileName);
-        await ref.putFile(_imageFile!);
-        String downloadUrl = await ref.getDownloadURL();
+  Widget _buildImageOption(String imagePath) {
+    return GestureDetector(
+      onTap: () {
         setState(() {
-          _profileImageUrl = downloadUrl;
+          _profileImageUrl = imagePath;
         });
-        await _saveUserData(); // Save the updated profile URL
-      } catch (e) {
-        print("Error uploading image: $e");
-      }
-    }
+        _saveUserData(); // Save the selected image URL to the database
+        Navigator.of(context).pop(); // Close the dialog
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Image.asset(imagePath, width: 100, height: 100),
+      ),
+    );
   }
 
   @override
@@ -109,44 +113,14 @@ class _UserProfileState extends State<UserProfile> {
                   children: [
                     CircleAvatar(
                       radius: 50,
-                      backgroundImage: _profileImageUrl.isNotEmpty
-                          ? NetworkImage(_profileImageUrl)
-                          : AssetImage('lib/profile/images/man_smiling.jpg') as ImageProvider,
+                      backgroundImage: AssetImage(_profileImageUrl),
                     ),
                     Positioned(
                       bottom: 0,
                       right: 0,
                       child: IconButton(
                         icon: Icon(Icons.camera_alt),
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) => BottomSheet(
-                              onClosing: () {},
-                              builder: (context) => Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  ListTile(
-                                    leading: Icon(Icons.camera),
-                                    title: Text('Take a picture'),
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                      _pickImage(ImageSource.camera);
-                                    },
-                                  ),
-                                  ListTile(
-                                    leading: Icon(Icons.photo_album),
-                                    title: Text('Choose from gallery'),
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                      _pickImage(ImageSource.gallery);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
+                        onPressed: _showImageSelectionDialog,
                       ),
                     ),
                   ],

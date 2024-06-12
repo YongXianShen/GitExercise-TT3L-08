@@ -26,6 +26,7 @@ class _RiderDetailsState extends State<RiderDetails> {
   final _ageController = TextEditingController();
   final _genderController = TextEditingController();
   final _bookingTimeController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _pickupController = TextEditingController();
   final _noteController = TextEditingController();
 
@@ -50,6 +51,7 @@ class _RiderDetailsState extends State<RiderDetails> {
           _details['age'] = doc['age'];
           _details['gender'] = doc['gender'];
           _details['bookingtime'] = doc['bookingtime'];
+          _details['phone'] = doc['phone'];
           _details['pickup'] = doc['pickup'];
           _details['note'] = doc['note'];
           _details['driverId'] = doc['driverId'];
@@ -57,6 +59,7 @@ class _RiderDetailsState extends State<RiderDetails> {
           _ageController.text = doc['age'];
           _genderController.text = doc['gender'];
           _bookingTimeController.text = doc['bookingtime'];
+          _phoneController.text = doc['phone'];
           _pickupController.text = doc['pickup'];
           _noteController.text = doc['note'];
         });
@@ -279,6 +282,31 @@ class _RiderDetailsState extends State<RiderDetails> {
                       value!.isEmpty ? 'Select a date and time' : null,
                     ),
                   ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.blueAccent.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: TextFormField(
+                  controller: _phoneController,
+                  readOnly: _isReadOnly,
+                  decoration: InputDecoration(
+                    labelText: 'Phone Number',
+                    border: OutlineInputBorder(),
+                  ),
+                  onSaved: (value) => _details['phone'] = value!,
+                  validator: (value) => value!.isEmpty ? 'Enter your phone number' : null,
                 ),
               ),
             ),

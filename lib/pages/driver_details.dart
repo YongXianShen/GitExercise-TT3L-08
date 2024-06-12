@@ -16,6 +16,9 @@ class _DriverDetailsState extends State<DriverDetails> {
     'gender': '',
     'phone': '',
     'pickup': '',
+    'carModel': '',
+    'carColor': '',
+    'carNumberPlate': '',
   };
 
   bool _isReadOnly = true;
@@ -25,6 +28,9 @@ class _DriverDetailsState extends State<DriverDetails> {
   final _ageController = TextEditingController();
   final _phoneController = TextEditingController();
   final _pickupController = TextEditingController();
+  final _carModelController = TextEditingController();
+  final _carColorController = TextEditingController();
+  final _carNumberPlateController = TextEditingController();
 
   @override
   void initState() {
@@ -48,10 +54,16 @@ class _DriverDetailsState extends State<DriverDetails> {
           _details['gender'] = doc['gender'];
           _details['phone'] = doc['phone'];
           _details['pickup'] = doc['pickup'];
+          _details['carModel'] = doc['carModel'];
+          _details['carColor'] = doc['carColor'];
+          _details['carNumberPlate'] = doc['carNumberPlate'];
           _nameController.text = doc['name'];
           _ageController.text = doc['age'];
           _phoneController.text = doc['phone'];
           _pickupController.text = doc['pickup'];
+          _carModelController.text = doc['carModel'];
+          _carColorController.text = doc['carColor'];
+          _carNumberPlateController.text = doc['carNumberPlate'];
         });
       }
     }
@@ -91,6 +103,9 @@ class _DriverDetailsState extends State<DriverDetails> {
     _ageController.dispose();
     _phoneController.dispose();
     _pickupController.dispose();
+    _carModelController.dispose();
+    _carColorController.dispose();
+    _carNumberPlateController.dispose();
     super.dispose();
   }
 
@@ -255,6 +270,81 @@ class _DriverDetailsState extends State<DriverDetails> {
                   ),
                   onSaved: (value) => _details['pickup'] = value!,
                   validator: (value) => value!.isEmpty ? 'Enter a pickup point' : null,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.lightBlueAccent.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: TextFormField(
+                  controller: _carModelController,
+                  readOnly: _isReadOnly,
+                  decoration: InputDecoration(
+                    labelText: 'Car Model',
+                    border: OutlineInputBorder(),
+                  ),
+                  onSaved: (value) => _details['carModel'] = value!,
+                  validator: (value) => value!.isEmpty ? 'Enter a car model' : null,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.lightBlueAccent.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: TextFormField(
+                  controller: _carColorController,
+                  readOnly: _isReadOnly,
+                  decoration: InputDecoration(
+                    labelText: 'Car Color',
+                    border: OutlineInputBorder(),
+                  ),
+                  onSaved: (value) => _details['carColor'] = value!,
+                  validator: (value) => value!.isEmpty ? 'Enter a car color' : null,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.lightBlueAccent.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: TextFormField(
+                  controller: _carNumberPlateController,
+                  readOnly: _isReadOnly,
+                  decoration: InputDecoration(
+                    labelText: 'Car Number Plate',
+                    border: OutlineInputBorder(),
+                  ),
+                  onSaved: (value) => _details['carNumberPlate'] = value!,
+                  validator: (value) => value!.isEmpty ? 'Enter a car number plate' : null,
                 ),
               ),
             ),

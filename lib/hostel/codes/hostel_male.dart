@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'user.dart';
 
 class HostelMale extends StatelessWidget {
@@ -47,7 +45,47 @@ class HostelMale extends StatelessWidget {
           backgroundColor: Colors.indigo[900],
         )
       ),
-      body: UserCard(user: User.users[0])
+      body: Column(
+        children: [
+          UserCard(user: User.users[0]),
+          const SizedBox(height: 10.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: 60.0
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ChoiceButton(
+                  width: 60,
+                  height: 60,
+                  size: 25,
+                  color: Colors.black,
+                  hasGradient: false,
+                  icon: Icons.cabin_rounded
+                ),
+                ChoiceButton(
+                  width: 80,
+                  height: 80,
+                  size: 30,
+                  color: Colors.white,
+                  hasGradient: true,
+                  icon: Icons.favorite
+                ),
+                ChoiceButton(
+                  width: 60,
+                  height: 60,
+                  size: 25,
+                  color: Colors.black,
+                  hasGradient: false,
+                  icon: Icons.watch_later
+                ),
+              ]
+            ),
+          )
+        ]
+      )
     );
   }
 }
@@ -136,10 +174,68 @@ class UserCard extends StatelessWidget {
                         width: 60.0,
                         decoration: BoxDecoration(
                           image: DecorationImage(
+                            image: NetworkImage(user.imageUrls[2]),
+                            fit: BoxFit.cover
+                          ),
+                          borderRadius: BorderRadius.circular(5.0)
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          top: 8.0,
+                          right: 8.0,
+                        ),
+                        height: 60.0,
+                        width: 60.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(user.imageUrls[3]),
+                            fit: BoxFit.cover
+                          ),
+                          borderRadius: BorderRadius.circular(5.0)
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          top: 8.0,
+                          right: 8.0,
+                        ),
+                        height: 60.0,
+                        width: 60.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
                             image: NetworkImage(user.imageUrls[1]),
                             fit: BoxFit.cover
                           ),
                           borderRadius: BorderRadius.circular(5.0)
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          top: 8.0,
+                          right: 8.0,
+                        ),
+                        height: 60.0,
+                        width: 60.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(user.imageUrls[4]),
+                            fit: BoxFit.cover
+                          ),
+                          borderRadius: BorderRadius.circular(5.0)
+                        ),
+                      ),
+                      const SizedBox(width: 20.0),
+                      Container(
+                        width: 35.0,
+                        height: 35.0,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white
+                        ),
+                        child: Icon(
+                          Icons.info_outline,
+                          color: Theme.of(context).primaryColor
                         ),
                       )
                     ],
@@ -149,6 +245,62 @@ class UserCard extends StatelessWidget {
             ),
           ],
         )
+      ),
+    );
+  }
+}
+
+class ChoiceButton extends StatelessWidget {
+  final double width;
+  final double height;
+  final double size;
+  final Color color;
+  final bool hasGradient;
+  final IconData icon;
+
+  const ChoiceButton({
+    required this.width,
+    required this.height,
+    required this.size,
+    required this.color,
+    required this.hasGradient,
+    required this.icon,
+    super.key
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white,
+        gradient: hasGradient
+        ? const LinearGradient(
+          colors: [
+            Color.fromARGB(255, 26, 35, 126),
+            Color.fromARGB(255, 63, 81, 181)
+          ]
+        )
+        : const LinearGradient(
+          colors: [
+            Color.fromARGB(255, 92, 107, 192),
+            Color.fromARGB(255, 159, 168, 218)
+          ]
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withAlpha(50),
+            spreadRadius: 4.0,
+            blurRadius: 4.0,
+            offset: const Offset(3, 3)
+          )
+        ]
+      ),
+      child: Icon(
+        icon,
+        color: color
       ),
     );
   }

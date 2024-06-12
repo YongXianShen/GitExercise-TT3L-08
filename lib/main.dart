@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mmusuperapp/appInfo/app_info.dart';
+import 'package:mmusuperapp/authentication/login_screen.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/themes/theme_provider.dart';
 import 'package:mmusuperapp/homepage.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
           child: MaterialApp(
                 debugShowCheckedModeBanner: false,
                 theme:themeProvider.themeData,
-            home: const HomePage(),
+            home: const LoginScreen(),
           ),
         );
       }

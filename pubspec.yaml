@@ -49,13 +49,14 @@ dependencies:
   intl: ^0.19.0
   collection: ^1.18.0
   geolocator:
-  http:
+  http: ^1.2.1
   get: ^4.1.4
   dots_indicator: ^2.0.0
   flutter_polyline_points:
   flutter_geofire:
   loading_animation_widget:
   image_picker: ^1.1.2
+  google_sign_in: ^6.2.1
 
 
 

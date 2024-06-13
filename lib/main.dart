@@ -7,9 +7,11 @@ import 'package:mmusuperapp/authentication/login_screen.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/themes/theme_provider.dart';
 import 'package:mmusuperapp/homepage.dart';
+import 'package:mmusuperapp/hostel/codes/swipe_state.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mmusuperapp/hostel/codes/hostel_male_user.dart';
 
 Future<void> main() async
 {

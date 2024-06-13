@@ -56,7 +56,6 @@ dependencies:
   flutter_geofire:
   loading_animation_widget:
   image_picker: ^1.1.2
-  flutter_bloc: 
 
 
 

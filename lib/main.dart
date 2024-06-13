@@ -46,26 +46,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => SwipeBloc()..add(
-            LoadUsers(users: User.users)
-          )
-        )
-      ],
-      child: Consumer<ThemeProvider>(
-        builder: (context, themeProvider, child) {
-          return ChangeNotifierProvider(
-            create: (context) => AppInfo(),
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme:themeProvider.themeData,
-              home: const HomePage(),
-            ),
-          );
-        }
-      )
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return ChangeNotifierProvider(
+          create: (context) => AppInfo(),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme:themeProvider.themeData,
+            home: const HomePage(),
+          ),
+        );
+      }
     );  
   }
 }

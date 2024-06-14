@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mmusuperapp/hostel/codes/hostel_female.dart';
 import 'package:mmusuperapp/hostel/codes/hostel_male.dart';
 
@@ -166,7 +168,7 @@ class _HostelState extends State<Hostel> {
                   elevation: 10.0,
                   color: Colors.orange[800],
                   child: const SizedBox(
-                    height: 600,
+                    height: 650,
                     width: 400,
                     child: Center()
                   ),
@@ -175,7 +177,7 @@ class _HostelState extends State<Hostel> {
                   elevation: 10.0,
                   color: Colors.orange[200],
                   child: const SizedBox(
-                    height: 580,
+                    height: 630,
                     width: 380,
                     child: Center()
                   ),
@@ -200,59 +202,156 @@ class _HostelState extends State<Hostel> {
                       ),
                     ),
                     const SizedBox(height: 20.0),
-                    Card(
-                      elevation: 10.0,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Image.asset(
-                          "lib/hostel/images/hb1.jpg",
-                          height: 250,
-                          width: 350,
-                          fit: BoxFit.fill, 
-                        )
-                      )
-                    ),
-                    const SizedBox(height: 20.0),
-                    Card(
-                      elevation: 10.0,
-                      color: Colors.orange[800],
-                      child: const SizedBox(
-                        height: 200,
-                        width: 200,
-                        child: Column(
+                    SizedBox(
+                      height: 250.0,
+                      width: 350.0,
+                      child: Card(
+                        child: Stack(
                           children: [
-                            Text(
-                              "List of blocks:",
-                              style: TextStyle(
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold
-                              ),
+                            Container(
+                              decoration: BoxDecoration(
+                                image: const DecorationImage(
+                                  image: AssetImage("lib/hostel/images/hb1.jpg"),
+                                  fit: BoxFit.fill
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
+                              )
                             ),
-                            Text(
-                              "Block A",
-                              style: TextStyle(
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                            Text(
-                              "Block B",
-                              style: TextStyle(
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                            Text(
-                              "Block C",
-                              style: TextStyle(
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold
+                            Container(
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color.fromARGB(150, 0, 0, 0),
+                                    Colors.transparent
+                                  ],
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
                             )
                           ]
                         ),
                       ),
                     ),
+                    const SizedBox(height: 20.0),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Card(
+                          elevation: 10.0,
+                          color: Colors.orange[800],
+                          child: const SizedBox(
+                            height: 220,
+                            width: 350,
+                            child: Center()
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 200,
+                          width: 320,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "Gender: ",
+                                    style: TextStyle(
+                                      fontSize: 30.0,
+                                      fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                  Card(
+                                    elevation: 10.0,
+                                    color: Color.fromARGB(255, 150, 50, 0),
+                                    child: SizedBox(
+                                      height: 50.0,
+                                      width: 120.0,
+                                      child: Center(
+                                        child: Text(
+                                          "Male",
+                                          style: TextStyle(
+                                            fontSize: 30.0,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white
+                                          ),
+                                        )
+                                      ),
+                                    ),
+                                  )
+                                ]
+                              ),
+                              Text(
+                                "List of blocks:",
+                                style: TextStyle(
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
+                              Row(
+                                children: [
+                                  Card(
+                                    elevation: 10.0,
+                                    color: Color.fromARGB(255, 150, 50, 0),
+                                    child: SizedBox(
+                                      height: 50.0,
+                                      width: 90.0,
+                                      child: Center(
+                                        child: Text(
+                                          "Block A",
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white
+                                          ),
+                                        )
+                                      ),
+                                    ),
+                                  ),
+                                  Card(
+                                    elevation: 10.0,
+                                    color: Color.fromARGB(255, 150, 50, 0),
+                                    child: SizedBox(
+                                      height: 50.0,
+                                      width: 90.0,
+                                      child: Center(
+                                        child: Text(
+                                          "Block B",
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white
+                                          ),
+                                        )
+                                      ),
+                                    ),
+                                  ),
+                                  Card(
+                                    elevation: 10.0,
+                                    color: Color.fromARGB(255, 150, 50, 0),
+                                    child: SizedBox(
+                                      height: 50.0,
+                                      width: 90.0,
+                                      child: Center(
+                                        child: Text(
+                                          "Block C",
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white
+                                          ),
+                                        )
+                                      ),
+                                    ),
+                                  )
+                                ]
+                              ),
+                            ],
+                          ),
+                        ),
+                      ]
+                    )
                   ]
                 ),
               ],

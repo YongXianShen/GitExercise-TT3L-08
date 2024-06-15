@@ -8,6 +8,7 @@ import 'package:mmusuperapp/food/models/food.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/pages/food_page.dart';
 import 'package:mmusuperapp/food/pages/scroll%20right.dart';
+import 'package:mmusuperapp/food/pages/transaction.dart';
 
 
 import 'package:mmusuperapp/food/widget/bigtext.dart';
@@ -83,6 +84,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 const FoodPageBody(),
 
                 //description box
+              
                 
         ],
             ),

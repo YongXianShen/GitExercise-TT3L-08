@@ -11,7 +11,6 @@ Features:
 
 Links for download (Android Only) : 
 - https://mmusuperapp.my.canva.site/
-- https://www.upload-apk.com/en/dKN9LtBaq7eOGLn
 
 Made with Flutter.
 

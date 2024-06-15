@@ -85,8 +85,8 @@ class _UserProfileState extends State<UserProfile> {
         setState(() {
           _profileImageUrl = imagePath;
         });
-        _saveUserData(); // Save the selected image URL to the database
-        Navigator.of(context).pop(); // Close the dialog
+        _saveUserData(); 
+        Navigator.of(context).pop(); 
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

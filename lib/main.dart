@@ -6,7 +6,6 @@ import 'package:mmusuperapp/appInfo/app_info.dart';
 import 'package:mmusuperapp/authentication/login_screen.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/themes/theme_provider.dart';
-import 'package:mmusuperapp/homepage.dart';
 import 'package:mmusuperapp/hostel/codes/swiping.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +60,7 @@ class MyApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme:themeProvider.themeData,
-              home: const HomePage(),
+              home: const LoginScreen(),
             ),
           );
         }

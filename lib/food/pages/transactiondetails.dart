@@ -19,8 +19,9 @@ class TransactionDetailsPage extends StatelessWidget {
           children: [
             Text('Order ID: ${data.id}'),
             Text('Total Payment: \$${data['payment']}'),
-            Text('Food: \$${data['name']}'),
-            Text('Addons: \$${data['addons']}'),
+            Text('Date: \$${data['date']}'),
+            Text('Address: \$${data['address']}'),
+            
             Text('Quantity: \$${data['quantity']}'),
             // Add more details as needed
           ],

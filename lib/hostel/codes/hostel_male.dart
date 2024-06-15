@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mmusuperapp/hostel/codes/swipe_state.dart';
+import 'package:mmusuperapp/hostel/codes/swiping.dart';
 import 'package:mmusuperapp/hostel/codes/hostel_male_user.dart';
 
 class HostelMale extends StatelessWidget {
@@ -114,7 +114,7 @@ class HostelMale extends StatelessWidget {
                           size: 30,
                           color: Colors.white,
                           hasGradient: true,
-                          icon: Icons.favorite
+                          icon: Icons.face
                         ),
                       ),
                       const ChoiceButton(
@@ -165,7 +165,7 @@ class UserCard extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage(user.imageUrls[0])
+                  image: AssetImage(user.imageUrls[0])
                 ),
                 borderRadius: BorderRadius.circular(5.0),
                 boxShadow: [
@@ -224,7 +224,7 @@ class UserCard extends StatelessWidget {
                         width: 60.0,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(user.imageUrls[1]),
+                            image: AssetImage(user.imageUrls[1]),
                             fit: BoxFit.cover
                           ),
                           borderRadius: BorderRadius.circular(5.0)
@@ -239,7 +239,7 @@ class UserCard extends StatelessWidget {
                         width: 60.0,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(user.imageUrls[2]),
+                            image: AssetImage(user.imageUrls[2]),
                             fit: BoxFit.cover
                           ),
                           borderRadius: BorderRadius.circular(5.0)
@@ -254,7 +254,7 @@ class UserCard extends StatelessWidget {
                         width: 60.0,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(user.imageUrls[3]),
+                            image: AssetImage(user.imageUrls[3]),
                             fit: BoxFit.cover
                           ),
                           borderRadius: BorderRadius.circular(5.0)
@@ -269,7 +269,7 @@ class UserCard extends StatelessWidget {
                         width: 60.0,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(user.imageUrls[4]),
+                            image: AssetImage(user.imageUrls[4]),
                             fit: BoxFit.cover
                           ),
                           borderRadius: BorderRadius.circular(5.0)

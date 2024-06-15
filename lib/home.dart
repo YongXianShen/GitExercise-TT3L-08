@@ -7,6 +7,7 @@ import 'package:flutter/painting.dart';
 import 'package:mmusuperapp/carpool/user_or_driver.dart';
 import 'package:mmusuperapp/food/pages/home_page.dart';
 import 'package:mmusuperapp/hostel/codes/hostel.dart';
+import 'package:mmusuperapp/hostel/codes/hostel_room.dart';
 
 
 class FeaturesCards extends StatelessWidget {
@@ -31,7 +32,7 @@ class FeaturesCards extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => OptionScreen()),
+                    MaterialPageRoute(builder: (context) => const OptionScreen()),
                   );
                 },
                 child: const Card(
@@ -60,7 +61,7 @@ class FeaturesCards extends StatelessWidget {
                 },
                 child: const Card(
                   color: Colors.blueAccent,
-                  child: _FeaturesCard(cardName: 'Hostel Application'),
+                  child: _FeaturesCard(cardName: 'Roommate Finder'),
                 ),
               ),
             ],

@@ -1,17 +1,13 @@
 
 # mmusuperapp
 
-A new Flutter project.
+Made by MMU Students, Made for MMU Students.
 
-## Getting Started
+Features: 
+- Carpool
+- Food Delivery
+- Roommate Finders
 
-This project is a starting point for a Flutter application.
+Link for download: https://www.upload-apk.com/en/dKN9LtBaq7eOGLn (Android Only)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

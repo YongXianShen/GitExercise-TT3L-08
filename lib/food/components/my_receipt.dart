@@ -38,13 +38,13 @@ class MyReceipt extends StatelessWidget {
               const SizedBox(height: 25),
               const Text("Estimated delivery time is: 4:10 PM"),
               const SizedBox(height: 25),
-              /*ElevatedButton(
+              ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()),);
 
                 },
                 child: const Text("Done"),
-              ),*/
+              ),
             ],
           ),
         ),

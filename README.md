@@ -1,5 +1,5 @@
 
-# mmusuperapp
+# MMU Super App
 
 Made by MMU Students, Made for MMU Students.
 

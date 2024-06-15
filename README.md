@@ -9,7 +9,7 @@ Features:
 - Food Delivery
 - Roommate Finders
 
-Links for download (Android Only) : 
+Link for download (Android Only) : 
 - https://mmusuperapp.my.canva.site/
 
 Made with Flutter.

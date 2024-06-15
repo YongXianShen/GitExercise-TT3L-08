@@ -15,6 +15,7 @@ import '../appInfo/app_info.dart';
 import '../global/global_var.dart';
 import '../methods/common_methods.dart';
 import '../models/direction_details.dart';
+import '../pages/driverhelp.dart';
 import '../pages/rider_request.dart';
 import '../pages/search_destination_page.dart';
 import '../pages/driver_details.dart';
@@ -295,10 +296,30 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
                   icon: Icon(Icons.edit),
+                  color: isNightMode ? Colors.white : Colors.black,
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => DriverDetails()),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            top: 50,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  icon: Icon(Icons.info),
+                  color: isNightMode ? Colors.white : Colors.black,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DriverHelpPage()),
                     );
                   },
                 ),
@@ -336,7 +357,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                   ),
                   const SizedBox(height: 20.0),
                   SizedBox(
-                    width: 350,
+                    width: 250,
                     child: ElevatedButton(
                       onPressed: () async {
                         var responseFromSearchPage = await Navigator.push(
@@ -419,7 +440,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => RidersRequest()),
-                          );
+                          ).then((_) => checkForAcceptedTrip());
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,
@@ -439,7 +460,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RiderFullDetails(riderId: driverId!)),
+                  MaterialPageRoute(builder: (context) => RiderFullDetails(riderId: riderId!)),
                 );
               },
               backgroundColor: Colors.blueAccent,
@@ -451,3 +472,4 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
     );
   }
 }
+

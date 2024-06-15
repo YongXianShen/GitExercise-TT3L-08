@@ -11,6 +11,7 @@ import 'package:mmusuperapp/global/global_var.dart';
 import 'package:mmusuperapp/methods/common_methods.dart';
 import 'package:mmusuperapp/models/direction_details.dart';
 import 'package:mmusuperapp/pages/rider_details.dart';
+import 'package:mmusuperapp/pages/riderhelp.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -406,10 +407,30 @@ class _RiderPageState extends State<RiderPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
                   icon: Icon(Icons.edit),
+                  color: isNightMode ? Colors.white : Colors.black,
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => RiderDetails()),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            top: 50,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  icon: Icon(Icons.info),
+                  color: isNightMode ? Colors.white : Colors.black,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RiderHelpPage()),
                     );
                   },
                 ),
@@ -422,7 +443,7 @@ class _RiderPageState extends State<RiderPage> {
             right: 0,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: isNightMode ? Colors.black : Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -435,9 +456,9 @@ class _RiderPageState extends State<RiderPage> {
                   Center(
                     child: Column(
                       children: [
-                        Icon(Icons.directions_car, color: Colors.grey, size: 80),
+                        Icon(Icons.directions_car, color: isNightMode ? Colors.white : Colors.black, size: 80),
                         SizedBox(height: 20),
-                        Text('Finding Nearby Driver', style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold)),
+                        Text('Finding Nearby Driver', style: TextStyle(fontSize: 20, color: isNightMode ? Colors.white : Colors.black, fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
@@ -456,10 +477,10 @@ class _RiderPageState extends State<RiderPage> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: isNightMode? Colors.white : Colors.blueAccent,
                       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     ),
-                    child: Text('Check Drivers', style: TextStyle(fontSize: 16, color: Colors.white)),
+                    child: Text('Check Drivers', style: TextStyle(fontSize: 16, color: isNightMode ? Colors.blueAccent : Colors.white,)),
                   ),
                 ],
               ),

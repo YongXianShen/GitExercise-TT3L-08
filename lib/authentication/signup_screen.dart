@@ -35,183 +35,157 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   registerNewUser() async {
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) => LoadingDialog(messageText: "Registering your account...."),
-  );
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => LoadingDialog(messageText: "Registering your account...."),
+    );
 
-  try {
-    final User? userFirebase = (
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailTextEditingController.text.trim(),
-        password: passwordTextEditingController.text.trim(),
-      )
-    ).user;
+    try {
+      final User? userFirebase = (
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailTextEditingController.text.trim(),
+            password: passwordTextEditingController.text.trim(),
+          )
+      ).user;
 
-    if (!context.mounted) return;
-    Navigator.pop(context);
+      if (!context.mounted) return;
+      Navigator.pop(context);
 
-    if (userFirebase != null) {
-      DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users").child(userFirebase.uid);
-      Map userDataMap = {
-        "name": userNameTextEditingController.text.trim(),
-        "email": emailTextEditingController.text.trim(),
-        "phone": userPhoneTextEditingController.text.trim(),
-        "id": userFirebase.uid,
-        "blockStatus": "no",
-      };
+      if (userFirebase != null) {
+        DatabaseReference usersRef = FirebaseDatabase.instance.ref().child("users").child(userFirebase.uid);
+        Map userDataMap = {
+          "name": userNameTextEditingController.text.trim(),
+          "email": emailTextEditingController.text.trim(),
+          "phone": userPhoneTextEditingController.text.trim(),
+          "id": userFirebase.uid,
+          "blockStatus": "no",
+        };
 
-      print("User data to be saved: $userDataMap"); // Debugging print
-      usersRef.set(userDataMap).then((_) {
-        print("User data saved successfully");
-        Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
-      }).catchError((error) {
-        print("Error saving user data: $error");
-        cMethods.displaySnackBar("Error saving user data", context);
-      });
+        await usersRef.set(userDataMap);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => HomePage()));
+      }
+    } catch (error) {
+      Navigator.pop(context);
+      cMethods.displaySnackBar(error.toString(), context);
     }
-  } catch (error) {
-    Navigator.pop(context);
-    cMethods.displaySnackBar(error.toString(), context);
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: Colors.black,
-        ), // Force light theme for this page
+        scaffoldBackgroundColor: Colors.black,
+      ), // Force dark theme for this page
       child: Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-
-              Image.asset(
-                  "assets/images/logo.png"
-              ),
-
-              const Text(
-                'Create an Account',
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              // Text Fields & Sign Up Button
-              Padding(
-                padding: const EdgeInsets.all(22),
-                child: Column(
-                  children: [
-
-                    TextField(
-                      controller: userNameTextEditingController,
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
-                        labelText: "Username",
-                        labelStyle: TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                      ),
-                    ),
-
-                    const SizedBox(height: 22,),
-
-                    TextField(
-                      controller: userPhoneTextEditingController,
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
-                        labelText: "User Phone",
-                        labelStyle: TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                      ),
-                    ),
-
-                    const SizedBox(height: 22,),
-
-                    TextField(
-                      controller: emailTextEditingController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        labelText: "User Email",
-                        labelStyle: TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                      ),
-                    ),
-
-                    const SizedBox(height: 22,),
-
-                    TextField(
-                      controller: passwordTextEditingController,
-                      obscureText: true,
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
-                        labelText: "User Password",
-                        labelStyle: TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                      ),
-                    ),
-
-                    const SizedBox(height: 42,),
-
-                    ElevatedButton(
-                      onPressed: signUpFormValidation,
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blueAccent,
-                          padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10)
-                      ),
-                      child: const Text(
-                          "Sign Up"
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 12,),
-
-              // Text Button
-              TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
-                },
-                child: const Text(
-                  "Already have an Account? Login here",
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Image.asset("assets/images/logo.png"),
+                const Text(
+                  'Create an Account',
                   style: TextStyle(
-                    color: Colors.grey,
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-
-            ],
+                // Text Fields & Sign Up Button
+                Padding(
+                  padding: const EdgeInsets.all(22),
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: userNameTextEditingController,
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          labelText: "Username",
+                          labelStyle: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(height: 22),
+                      TextField(
+                        controller: userPhoneTextEditingController,
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          labelText: "User Phone",
+                          labelStyle: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(height: 22),
+                      TextField(
+                        controller: emailTextEditingController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                          labelText: "User Email",
+                          labelStyle: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(height: 22),
+                      TextField(
+                        controller: passwordTextEditingController,
+                        obscureText: true,
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          labelText: "User Password",
+                          labelStyle: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(height: 42),
+                      ElevatedButton(
+                        onPressed: signUpFormValidation,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 10),
+                        ),
+                        child: const Text("Sign Up"),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                // Text Button
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (c) => const LoginScreen()));
+                  },
+                  child: const Text(
+                    "Already have an Account? Login here",
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }

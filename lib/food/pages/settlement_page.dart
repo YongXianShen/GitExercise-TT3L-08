@@ -3,10 +3,8 @@ import 'package:mmusuperapp/food/components/my_cart_tile.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/pages/delivery_progress.dart';
 import 'package:mmusuperapp/food/pages/payment_page.dart';
-import 'package:mmusuperapp/food/widget/bigtext.dart';
-import 'package:mmusuperapp/food/widget/smalltext.dart';
 import 'package:provider/provider.dart';
- // Update the import to match your file structure
+ 
 
 void main() {
   runApp(MyApp());
@@ -81,7 +79,6 @@ class _SettlementPageState extends State<SettlementPage> {
     } else if (selectedPaymentMethod == 'Cash on Delivery') {
       _navigateToDeliveryProgressPage();
     } else {
-      // Handle other payment methods or show a message
       print('Address: ${addressController.text}');
       print('Payment Method: $selectedPaymentMethod');
     }
@@ -98,7 +95,6 @@ class _SettlementPageState extends State<SettlementPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            // Address Section
             Text(
               'Address',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -107,7 +103,6 @@ class _SettlementPageState extends State<SettlementPage> {
             TextField(
               controller: addressController,
               onChanged: (newAddress) {
-                // Update the delivery address in the provider
                 context.read<Restaurant>().updateDeliveryAddress(newAddress);
               },
               decoration: InputDecoration(
@@ -118,7 +113,6 @@ class _SettlementPageState extends State<SettlementPage> {
             ),
             Divider(thickness: 2, height: 32),
             
-            // Cart Details Section
             Text(
               'Cart Details',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -142,7 +136,6 @@ class _SettlementPageState extends State<SettlementPage> {
             ),
             Divider(thickness: 2, height: 32),
             
-            // Payment Method Section
             Text(
               'Payment Method',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -164,11 +157,8 @@ class _SettlementPageState extends State<SettlementPage> {
               }).toList(),
             ),
             SizedBox(height: 16),
-            
-            // Conditional Payment Method Pages
             if (selectedPaymentMethod == 'Cash on Delivery') _buildCashOnDeliveryPage(),
-            
-            // Checkout Button
+        
             SizedBox(height: 32),
             Center(
               child: ElevatedButton(

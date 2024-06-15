@@ -28,7 +28,6 @@ class QuantitySelector extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
 
-          // decrease button
           GestureDetector(
             onTap: onDecrement,
             child: Icon(
@@ -38,7 +37,6 @@ class QuantitySelector extends StatelessWidget {
             ),
           ),
 
-          // quantity count
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: SizedBox(
@@ -51,7 +49,6 @@ class QuantitySelector extends StatelessWidget {
             ),
           ),
 
-          // increase button
           GestureDetector(
             onTap: onIncrement,
             child: Icon(

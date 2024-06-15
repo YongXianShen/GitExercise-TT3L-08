@@ -18,10 +18,8 @@ class _PaymentPageState extends State<PaymentPage> {
   String cvvCode = '';
   bool isCvvFocused = false;
 
-  //user wants to pay
   void userTappedPay() {
     if (formKey.currentState!.validate()) {
-      //only show dialog if form is valid
       showDialog(
         context: context, 
         builder: (context) => AlertDialog(
@@ -36,13 +34,11 @@ class _PaymentPageState extends State<PaymentPage> {
               ],),
           ),
           actions: [
-            // cancel button
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text("Cancel"),
               ),
 
-            // yes button
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -73,7 +69,6 @@ class _PaymentPageState extends State<PaymentPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            //  credit card
             CreditCardWidget(
               cardNumber: cardNumber, 
               expiryDate: expiryDate, 
@@ -82,8 +77,6 @@ class _PaymentPageState extends State<PaymentPage> {
               showBackView: isCvvFocused, 
               onCreditCardWidgetChange: (p0) {},
               ),
-        
-              // credit card form
               CreditCardForm(
                 cardNumber: cardNumber, 
                 expiryDate: expiryDate, 

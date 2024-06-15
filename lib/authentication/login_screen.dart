@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Theme(
       data: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: Colors.black,
-        ), // Force light theme for this page
+        ), 
       child:  Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -97,7 +97,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              // Text Fields & Sign Up Button
               Padding(
                 padding: const EdgeInsets.all(22),
                 child: Column(

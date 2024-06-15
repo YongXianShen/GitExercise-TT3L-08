@@ -23,7 +23,6 @@ class TransactionDetailsPage extends StatelessWidget {
             Text('Address: ${data['address']}'),
             
             Text('Quantity: ${data['quantity']}'),
-            // Add more details as needed
           ],
         ),
       ),

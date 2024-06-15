@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mmusuperapp/food/components/my_button.dart';
 import 'package:mmusuperapp/food/components/my_cart_tile.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
-import 'package:mmusuperapp/food/pages/payment_page.dart';
 import 'package:mmusuperapp/food/pages/settlement_page.dart';
 import 'package:provider/provider.dart';
 
@@ -12,17 +11,13 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<Restaurant>(builder: (context, restaurant, child) {
-      // cart 
       final userCart = restaurant.cart;
-
-      // scaffold UI
       return Scaffold(
         appBar: AppBar(
           title: const Text("Cart"),
           backgroundColor: Colors.transparent,
           foregroundColor: Theme.of(context).colorScheme.inversePrimary,
           actions: [
-            // clear cart button
             IconButton(
               onPressed: () {
                 showDialog(
@@ -31,13 +26,11 @@ class CartPage extends StatelessWidget {
                     title: const Text(
                       "Are you sure you want to clear this cart?"),
                     actions:[
-                      // cancel button
                       TextButton(
                         onPressed: () => Navigator.pop(context),   
                         child: const Text("Cancel"),
                         ),
 
-                      //yes button
                       TextButton(
                         onPressed: () {
                           Navigator.pop(context); 
@@ -56,7 +49,6 @@ class CartPage extends StatelessWidget {
         body: Column(
           children: [
 
-            // list of cart 
             Expanded(
               child: Column(
                 children: [
@@ -70,11 +62,7 @@ class CartPage extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: userCart.length,
                       itemBuilder: (context, index) {
-              
-                        // get  individual cart item
                         final cartItem = userCart[index];
-                        
-                        // return cart tile UI
                         return MyCartTile(cartItem: cartItem);
                       },
                   ),),
@@ -82,7 +70,6 @@ class CartPage extends StatelessWidget {
               ),
             ),
 
-            // button to pay
             MyButton(
               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettlementPage(),
               ),

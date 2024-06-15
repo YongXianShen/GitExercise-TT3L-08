@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:mmusuperapp/food/models/food.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/pages/food_page.dart';
-import 'dart:math';
 import 'dart:async';
 import 'package:mmusuperapp/food/widget/bigtext.dart';
 import 'package:mmusuperapp/food/widget/iconandtext.dart';
@@ -63,7 +62,6 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     return Column(
       children: [
         Container(
-          //color: Colors.redAccent,
           height: 320,
           child: PageView.builder(
             controller: pageController,

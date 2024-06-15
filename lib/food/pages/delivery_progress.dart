@@ -13,14 +13,11 @@ class DeliveryProgressPage extends StatefulWidget {
 
 class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
 
-  // get access to db
   FirestoreService db = FirestoreService();
 
   @override
   void initState() {
     super.initState();
-
-    // if we get to this page, submit order to firestore db
     final restaurant = context.read<Restaurant>();
     final orderData = restaurant.generateOrderData();
 
@@ -47,7 +44,6 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
     );
   }
 
-  // Custom Bottom Nav Bar - Message / Call delivery driver
   Widget _buildBottomNavBar(BuildContext context) {
     return Container(
       height: 100,
@@ -61,7 +57,6 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
       padding: const EdgeInsets.all(25),
       child: Row(
         children: [
-          // profile pic of driver
           Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
@@ -74,8 +69,6 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
           ),
 
           const SizedBox(width: 10),
-
-          // driver details
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -99,7 +92,6 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
           
           Row(
             children: [
-              // message button
               Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
@@ -113,8 +105,6 @@ class _DeliveryProgressPageState extends State<DeliveryProgressPage> {
           ),
 
           const SizedBox(width: 10),
-
-              //call button
               Container(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,

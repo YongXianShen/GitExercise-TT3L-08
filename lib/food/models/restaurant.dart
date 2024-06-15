@@ -21,7 +21,6 @@ class Restaurant extends ChangeNotifier {
       ],
     ),
 
-    //Roti
     Food(
       name: "Roti Canai",
       description: "Crispy and yummy",
@@ -84,8 +83,6 @@ class Restaurant extends ChangeNotifier {
         Addon(name: "with one package teh tarik", price: 1.50),
       ],
     ),
-
-    // Food
     
     Food(
       name: "Nasi Lemak Ayam Goreng",
@@ -112,8 +109,6 @@ class Restaurant extends ChangeNotifier {
       ],
     ),
 
-    //Beverages
-    
     Food(
       name: "Kopi",
       description: "Nice",
@@ -139,49 +134,26 @@ class Restaurant extends ChangeNotifier {
     
   ];
 
-  // user cart
   final List<CartItem> _cart = [];
 
-  // delivery address (which user can change/update)
   String _deliveryAddress = '';
-
-  /* 
-  
-  G E T T E R S
-
-  */
 
   List<Food> get menu => _menu;
   List<CartItem> get cart => _cart;
   String get deliveryAddress => _deliveryAddress;
 
-  /*
-
-  O P E R A T I O N S
-
-  */
-
-  // add to cart
   void addToCart(Food food, List<Addon> selectedAddons) {
-    // see if there is a cart item already with the same food and selected addons
     CartItem? cartItem = _cart.firstWhereOrNull((item) {
-      // check if the food items are the same
       bool isSameFood = item.food == food;
-
-      // check if the list of selected addons are the same
       bool isSameAddons = 
         const ListEquality().equals(item.selectedAddons, selectedAddons);
 
       return isSameFood && isSameAddons;
     });
 
-    // if item already exists, increase it's quantity
     if (cartItem != null) {
       cartItem.quantity++;
-    }
-
-    //otherwise, add a new cart item to the cart
-    else {
+    } else {
       _cart.add(CartItem(
         food: food, 
         selectedAddons: selectedAddons,
@@ -191,7 +163,6 @@ class Restaurant extends ChangeNotifier {
     notifyListeners();
   }
 
-  // remove from cart
   void removeFromCart(CartItem cartItem) {
     int cartIndex = _cart.indexOf(cartItem);
 
@@ -206,7 +177,6 @@ class Restaurant extends ChangeNotifier {
     notifyListeners();
   }
 
-  // get total price of cart
   double getTotalPrice() {
     double total = 0.0;
 
@@ -223,7 +193,6 @@ class Restaurant extends ChangeNotifier {
     return total;
   }
 
-  // get total number of items in cart
   int getTotalItemCount() {
     int totalItemCount = 0;
 
@@ -234,23 +203,16 @@ class Restaurant extends ChangeNotifier {
     return totalItemCount;
   }
 
-  // clear cart
   void clearCart() {
     _cart.clear();
     notifyListeners();
   }
 
-  // update delivery address
   void updateDeliveryAddress(String newAddress) {
     _deliveryAddress = newAddress;
     notifyListeners();
   }
 
-  /* 
-  
-  H E L P E R S 
-  
-  */
   Map<String, dynamic> generateOrderData() {
     List<Map<String, dynamic>> foodList = _cart.map((cartItem) {
       return {
@@ -268,7 +230,7 @@ class Restaurant extends ChangeNotifier {
       'address': _deliveryAddress,
     };
   }
-  // generate a receipt
+
   String displayCartReceipt() {
     final receipt = StringBuffer();
     receipt.writeln("MMU TASTE RESTAURANT");
@@ -276,7 +238,6 @@ class Restaurant extends ChangeNotifier {
     receipt.writeln("Here's your receipt.");
     receipt.writeln();
 
-    // format the date to include up to seconds only
     String formattedDate = 
       DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
 
@@ -303,12 +264,10 @@ class Restaurant extends ChangeNotifier {
     return receipt.toString();
   }
 
-  // format double value into money
   String _formatPrice(double price) {
     return "RM${price.toStringAsFixed(2)}";
   }
 
-  // format list of addons into a string summary
   String _formatAddons(List<Addon> addons) {
     return addons
       .map((addon) => "${addon.name} (${_formatPrice(addon.price)})")

@@ -15,14 +15,12 @@ class Food {
     required this.category,});
 }
 
-//food categorys
 enum FoodCategory {
   Roti,
   Food,
   Beverages,
 }
 
-// food addons
 class Addon {
   String name;
   double price;

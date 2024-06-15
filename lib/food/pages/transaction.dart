@@ -31,10 +31,9 @@ class TransactionPage extends StatelessWidget {
                       child: ListTile(
                         title: Text('Order ID: ${data.id}'),
                         subtitle: Text('Total Payment: \$${data['payment']}'),
-                        // Add more details as needed
                       ),
                     ),
-                    Divider(), // Add a Divider between ListTiles
+                    Divider(), 
                   ],
                 );
               },

@@ -27,7 +27,6 @@ class MyCartTile extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // food image
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.asset(
@@ -39,14 +38,11 @@ class MyCartTile extends StatelessWidget {
               
                   const SizedBox(width: 10),
               
-                  // name and price
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // food name
                       Text(cartItem.food.name), 
               
-                      // food price
                       Text(
                         'RM${cartItem.food.price}',
                         style: TextStyle(
@@ -55,7 +51,6 @@ class MyCartTile extends StatelessWidget {
 
                           const SizedBox(height: 10),
               
-                  // increment or decrement quantity
                   QuantitySelector(
                     quantity: cartItem.quantity, 
                     food: cartItem.food, 
@@ -73,7 +68,6 @@ class MyCartTile extends StatelessWidget {
               ),
             ),
 
-            // addons
             SizedBox(
               height: cartItem.selectedAddons.isEmpty ? 0 : 60,
               child: ListView(
@@ -86,10 +80,8 @@ class MyCartTile extends StatelessWidget {
                     child: FilterChip(
                     label: Row(
                       children: [
-                        // addon name
                         Text(addon.name),
                     
-                        // addon price
                         Text('(RM${addon.price})'),
                       ],
                     ), 

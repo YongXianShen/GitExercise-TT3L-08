@@ -3,14 +3,10 @@ import 'package:mmusuperapp/authentication/login_screen.dart';
 import 'package:mmusuperapp/food/components/my_drawer_tile.dart';
 import 'package:mmusuperapp/food/pages/dartmode_page.dart';
 import 'package:mmusuperapp/food/widget/bigtext.dart';
-import 'package:mmusuperapp/food/widget/smalltext.dart';
-import 'package:mmusuperapp/profile/codes/profile_screen.dart';
 import 'package:mmusuperapp/user_profile_page.dart';
-import 'package:mmusuperapp/userdetails.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +14,6 @@ class MyDrawer extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.surface,
       child: Column(
         children: [
-          //app logo
           Padding(
             padding: const EdgeInsets.only(top: 100.0),
             child:Icon(
@@ -49,7 +44,6 @@ class MyDrawer extends StatelessWidget {
             ),
           
 
-          //settings list tile
           MyDrawerTile(
             text: "D A R K M O D E", 
             icons: Icons.settings, 
@@ -64,14 +58,9 @@ class MyDrawer extends StatelessWidget {
               },
             ),
 
-            
-
-
-
           const Spacer(),
       BigText(text: "v1.1.5"),
 
-          //logout list
           MyDrawerTile(
             text: "L O G O U T", 
             icons: Icons.logout, 

@@ -62,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         "blockStatus": "no",
       };
 
-      print("User data to be saved: $userDataMap"); // Debugging print
+      print("User data to be saved: $userDataMap"); 
       usersRef.set(userDataMap).then((_) {
         print("User data saved successfully");
         Navigator.push(context, MaterialPageRoute(builder: (c) => HomePage()));
@@ -83,7 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Theme(
       data: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: Colors.black,
-        ), // Force light theme for this page
+        ), 
       child: Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -103,7 +103,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
 
-              // Text Fields & Sign Up Button
               Padding(
                 padding: const EdgeInsets.all(22),
                 child: Column(
@@ -195,7 +194,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               const SizedBox(height: 12,),
 
-              // Text Button
               TextButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));

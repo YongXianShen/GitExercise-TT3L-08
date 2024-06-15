@@ -2,7 +2,7 @@
 # mmusuperapp
 
 Made by MMU Students, Made for MMU Students.
-https://mmusuperapp.my.canva.site
+
 
 Features: 
 - Carpool
@@ -10,7 +10,12 @@ Features:
 - Roommate Finders
 
 Links for download (Android Only) : 
-- https://drive.google.com/drive/folders/1rdGwZ7QGIMEBp8SyZ_rSGNPWO-ussY_o?usp=sharing
-- https://www.upload-apk.com/en/dKN9LtBaq7eOGLn 
+- https://mmusuperapp.my.canva.site/
+- https://www.upload-apk.com/en/dKN9LtBaq7eOGLn
+
+Made with Flutter.
+
+
+<img src="https://github.com/YongXianShen/GitExercise-TT3L-08/assets/100085645/78bcd776-ee8f-4a2b-ab84-cb7f21442c76" width="650" height="200">
 
 

@@ -30,11 +30,11 @@ class User extends Equatable {
       name: "Timothy",
       age: 20,
       imageUrls: [
-        "https://images.app.goo.gl/iRLmaQzvhUmAtZ3e7",
-        "https://images.app.goo.gl/iRLmaQzvhUmAtZ3e7",
-        "https://images.app.goo.gl/iRLmaQzvhUmAtZ3e7",
-        "https://images.app.goo.gl/iRLmaQzvhUmAtZ3e7",
-        "https://images.app.goo.gl/iRLmaQzvhUmAtZ3e7"
+        "lib/hostel/images/man_1.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg"
       ],
       jobTitle: "Job Title Here",
       bio: "Hi! My name is Timothy but you can call me Timmy! I am 20 years old and I current live in HB1 Block B Room 101!"
@@ -44,11 +44,11 @@ class User extends Equatable {
       name: "Mike",
       age: 19,
       imageUrls: [
-        "https://negativespace.co/wp-content/uploads/2021/05/negative-space-smiling-young-male-adult-2048x1365.jpg",
-        "https://negativespace.co/wp-content/uploads/2021/05/negative-space-smiling-young-male-adult-2048x1365.jpg",
-        "https://negativespace.co/wp-content/uploads/2021/05/negative-space-smiling-young-male-adult-2048x1365.jpg",
-        "https://negativespace.co/wp-content/uploads/2021/05/negative-space-smiling-young-male-adult-2048x1365.jpg",
-        "https://negativespace.co/wp-content/uploads/2021/05/negative-space-smiling-young-male-adult-2048x1365.jpg"
+        "lib/hostel/images/man_2.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg"
       ],
       jobTitle: "Job Title Here",
       bio: "Hello there! My name is Mike! Nice to meet you all from those who visited my page!"
@@ -58,11 +58,11 @@ class User extends Equatable {
       name: "Jimmy",
       age: 18,
       imageUrls: [
-        "https://images.app.goo.gl/VZm6cKe1oJLQJYz59",
-        "https://images.app.goo.gl/VZm6cKe1oJLQJYz59",
-        "https://images.app.goo.gl/VZm6cKe1oJLQJYz59",
-        "https://images.app.goo.gl/VZm6cKe1oJLQJYz59",
-        "https://images.app.goo.gl/VZm6cKe1oJLQJYz59"
+        "lib/hostel/images/man_3.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg"
       ],
       jobTitle: "Job Title Here",
       bio: "They don't like us, they don't like us, they don't like us....."
@@ -72,11 +72,11 @@ class User extends Equatable {
       name: "Yuan Xiao Ping",
       age: 18,
       imageUrls: [
-        "https://images.app.goo.gl/c7n8mjQQatvresFv8",
-        "https://images.app.goo.gl/c7n8mjQQatvresFv8",
-        "https://images.app.goo.gl/c7n8mjQQatvresFv8",
-        "https://images.app.goo.gl/c7n8mjQQatvresFv8",
-        "https://images.app.goo.gl/c7n8mjQQatvresFv8"
+        "lib/hostel/images/man_5.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg"
       ],
       jobTitle: "Job Title Here",
       bio: "Hello! If you find me. you will find that I am the most tolerable person on this university!"
@@ -86,11 +86,11 @@ class User extends Equatable {
       name: "Rahul Thanan",
       age: 19,
       imageUrls: [
-        "https://images.app.goo.gl/DnQ3LGvq1h1idM6k6",
-        "https://images.app.goo.gl/DnQ3LGvq1h1idM6k6",
-        "https://images.app.goo.gl/DnQ3LGvq1h1idM6k6",
-        "https://images.app.goo.gl/DnQ3LGvq1h1idM6k6",
-        "https://images.app.goo.gl/DnQ3LGvq1h1idM6k6"
+        "lib/hostel/images/man_6.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg"
       ],
       jobTitle: "Job Title Here",
       bio: "Some might say that money does not buy happiness, but my high income say otherwise!"
@@ -100,11 +100,11 @@ class User extends Equatable {
       name: "Daniel",
       age: 21,
       imageUrls: [
-        "https://images.app.goo.gl/XXZVVb43npqEMd6r6",
-        "https://images.app.goo.gl/XXZVVb43npqEMd6r6",
-        "https://images.app.goo.gl/XXZVVb43npqEMd6r6",
-        "https://images.app.goo.gl/XXZVVb43npqEMd6r6",
-        "https://images.app.goo.gl/XXZVVb43npqEMd6r6"
+        "lib/hostel/images/man_4.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg"
       ],
       jobTitle: "Job Title Here",
       bio: "Look at me! If you want to find the most intelligent person in this university, then you come to the right place..."
@@ -114,11 +114,11 @@ class User extends Equatable {
       name: "Muhammad Ahmad",
       age: 20,
       imageUrls: [
-        "https://images.app.goo.gl/76Tp4whLqWdX9XSd9",
-        "https://images.app.goo.gl/76Tp4whLqWdX9XSd9",
-        "https://images.app.goo.gl/76Tp4whLqWdX9XSd9",
-        "https://images.app.goo.gl/76Tp4whLqWdX9XSd9",
-        "https://images.app.goo.gl/76Tp4whLqWdX9XSd9"
+        "lib/hostel/images/man_7.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg",
+        "lib/hostel/images/smiling_face.jpg"
       ],
       jobTitle: "Job Title Here",
       bio: "I am very shy, so don't be shy..."
@@ -127,5 +127,4 @@ class User extends Equatable {
   
 }
 
-class Equatable {
-}
+class Equatable {}

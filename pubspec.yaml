@@ -56,7 +56,9 @@ dependencies:
   flutter_geofire:
   loading_animation_widget:
   image_picker: ^1.1.2
+  url_launcher:
   google_sign_in: ^6.2.1
+  flutter_bloc:
 
 
 

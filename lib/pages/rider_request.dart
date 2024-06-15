@@ -6,6 +6,7 @@ class RidersRequest extends StatelessWidget {
   void _acceptRider(BuildContext context, String riderId, Map<String, dynamic> rider) async {
     await FirebaseFirestore.instance.collection('riders').doc(riderId).update({
       'requested': true,
+      'accepted': true,
     });
 
     String driverId = rider['driverId'];

@@ -1,17 +1,21 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mmusuperapp/pages/rider_full_details.dart';
 import 'package:provider/provider.dart';
 
 import '../appInfo/app_info.dart';
 import '../global/global_var.dart';
 import '../methods/common_methods.dart';
 import '../models/direction_details.dart';
+import '../pages/driverhelp.dart';
 import '../pages/rider_request.dart';
 import '../pages/search_destination_page.dart';
 import '../pages/driver_details.dart';
@@ -36,6 +40,34 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
   Set<Marker> markerSet = {};
   Set<Circle> circleSet = {};
   DirectionDetails? tripDirectionDetailsInfo;
+  bool tripAccepted = false;
+  String? riderId;
+  String? driverId;
+
+  @override
+  void initState() {
+    super.initState();
+    checkForAcceptedTrip();
+  }
+
+  Future<void> checkForAcceptedTrip() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var snapshot = await FirebaseFirestore.instance
+          .collection('riders')
+          .where('userId', isEqualTo: user.uid)
+          .where('accepted', isEqualTo: true)
+          .get();
+      if (snapshot.docs.isNotEmpty) {
+        var doc = snapshot.docs.first;
+        setState(() {
+          tripAccepted = true;
+          riderId = doc.id;
+          driverId = doc['driverId'];
+        });
+      }
+    }
+  }
 
   void updateMapTheme(GoogleMapController controller) {
     getJsonFileFromThemes("themes/blue_style.json").then((value) {
@@ -264,10 +296,30 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
                   icon: Icon(Icons.edit),
+                  color: isNightMode ? Colors.white : Colors.black,
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => DriverDetails()),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            top: 50,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  icon: Icon(Icons.info),
+                  color: isNightMode ? Colors.white : Colors.black,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DriverHelpPage()),
                     );
                   },
                 ),
@@ -305,7 +357,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                   ),
                   const SizedBox(height: 20.0),
                   SizedBox(
-                    width: 350,
+                    width: 250,
                     child: ElevatedButton(
                       onPressed: () async {
                         var responseFromSearchPage = await Navigator.push(
@@ -388,7 +440,7 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => RidersRequest()),
-                          );
+                          ).then((_) => checkForAcceptedTrip());
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue,
@@ -401,8 +453,23 @@ class _CarpoolDetailsState extends State<CarpoolDetails> {
               ),
             ),
           ),
+          if (tripAccepted) Positioned(
+            bottom: 16,
+            right: 16,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RiderFullDetails(riderId: riderId!)),
+                );
+              },
+              backgroundColor: Colors.blueAccent,
+              child: Icon(Icons.directions_car,),
+            ),
+          ),
         ],
       ),
     );
   }
 }
+

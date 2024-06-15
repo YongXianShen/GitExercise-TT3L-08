@@ -7,9 +7,11 @@ import 'package:mmusuperapp/authentication/login_screen.dart';
 import 'package:mmusuperapp/food/models/restaurant.dart';
 import 'package:mmusuperapp/food/themes/theme_provider.dart';
 import 'package:mmusuperapp/homepage.dart';
+import 'package:mmusuperapp/hostel/codes/swiping.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mmusuperapp/hostel/codes/hostel_male_user.dart';
 
 Future<void> main() async
 {
@@ -44,17 +46,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
-      builder: (context, themeProvider, child) {
-        return ChangeNotifierProvider(
-          create: (context) => AppInfo(),
-          child: MaterialApp(
-                debugShowCheckedModeBanner: false,
-                theme:themeProvider.themeData,
-            home: const LoginScreen(),
-          ),
-        );
-      }
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => SwipeBloc()..add(
+            LoadUsers(users: User.users)
+          )
+        )
+      ],
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return ChangeNotifierProvider(
+            create: (context) => AppInfo(),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme:themeProvider.themeData,
+              home: const HomePage(),
+            ),
+          );
+        }
+      )
     );  
   }
 }

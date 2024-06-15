@@ -1,28 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mmusuperapp/hostel/codes/hb1_a.dart';
-import 'package:mmusuperapp/hostel/codes/hb1_b.dart';
-import 'package:mmusuperapp/hostel/codes/hb1_c.dart';
-import 'package:mmusuperapp/hostel/codes/hb2_a.dart';
-import 'package:mmusuperapp/hostel/codes/hb2_b.dart';
-import 'package:mmusuperapp/hostel/codes/hb2_c.dart';
-import 'package:mmusuperapp/hostel/codes/hb3_a.dart';
-import 'package:mmusuperapp/hostel/codes/hb3_b.dart';
-import 'package:mmusuperapp/hostel/codes/hb3_c.dart';
-import 'package:mmusuperapp/hostel/codes/hb4_a.dart';
-import 'package:mmusuperapp/hostel/codes/hb4_b.dart';
-import 'package:mmusuperapp/hostel/codes/hb4_c.dart';
-import 'package:mmusuperapp/hostel/codes/hostel_female.dart';
-import 'package:mmusuperapp/hostel/codes/hostel_male.dart';
+import 'package:mmusuperapp/hostel/codes/hostel_room.dart';
 
-class Hostel extends StatefulWidget {
+class Hostel extends StatelessWidget {
   const Hostel({super.key});
 
-  @override
-  State<Hostel> createState() => _HostelState();
-}
-
-class _HostelState extends State<Hostel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,137 +56,68 @@ class _HostelState extends State<Hostel> {
             ),
             const SizedBox(height: 40.0),
             Stack(
-              alignment: Alignment.center,
               children: [
                 const Card(
                   elevation: 10.0,
                   color: Color.fromARGB(255, 26, 35, 126),
                   child: SizedBox(
-                    height: 400,
+                    height: 450,
                     width: 400,
                     child: Center()
                   ),
                 ),
-                const Card(
+                Card(
                   elevation: 10.0,
-                  color: Color.fromARGB(255, 159, 168, 218),
+                  color: const Color.fromARGB(255, 159, 168, 218),
                   child: SizedBox(
-                    height: 380,
-                    width: 380,
-                  ),
-                ),
-                Column(
-                  children: [
-                    const Card(
-                      elevation: 10.0,
-                      color: Color.fromARGB(255, 121, 134, 203),
-                      child: SizedBox(
-                        height: 50,
-                        width: 250,
-                        child: Center(
-                          child: Text(
-                            "Select Your Gender:",
-                            style: TextStyle(
-                              fontSize: 25.0,
-                              fontWeight: FontWeight.bold
+                    height: 440,
+                    width: 390,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 20.0),
+                        Card(
+                          elevation: 10.0,
+                          color: Colors.indigo[900],
+                          child: const SizedBox(
+                            height: 50,
+                            width: 220,
+                            child: Center(
+                              child: Text(
+                                "Map Of Hostel",
+                                style: TextStyle(
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white
+                                ),
+                              ),
                             ),
-                            textAlign: TextAlign.center,
-                          )
-                        )
-                      ),
-                    ),
-                    const SizedBox(height: 60),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const HostelMale())
-                        );
-                      },
-                      child: const Card(
-                        elevation: 10.0,
-                        color: Color.fromARGB(255, 121, 134, 203),
-                        child: SizedBox(
-                          height: 50,
-                          width: 120,
-                          child: Center(
-                            child: Text(
-                              "Male",
-                              style: TextStyle(
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.bold
-                              ),
-                              textAlign: TextAlign.center,
-                            )
-                          )
+                          ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const HostelFemale(),)
-                        );
-                      },
-                      child: const Card(
-                        elevation: 10.0,
-                        color: Color.fromARGB(255, 121, 134, 203),
-                        child: SizedBox(
-                          height: 50,
-                          width: 120,
-                          child: Center(
-                            child: Text(
-                              "Female",
-                              style: TextStyle(
-                                fontSize: 25.0,
-                                fontWeight: FontWeight.bold
-                              ),
-                              textAlign: TextAlign.center,
-                            )
-                          )
+                        const SizedBox(height: 20.0),
+                        SizedBox(
+                          height: 300.0,
+                          width: 350.0,
+                          child: Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  image: const DecorationImage(
+                                    image: AssetImage("lib/hostel/images/hostel_map.jpg"),
+                                    fit: BoxFit.fill
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                )
+                              )
+                            ]
+                          ),
                         ),
-                      ),
+                      ]
                     ),
-                  ]
-                )
+                  )
+                ),
               ],
             ),
             const SizedBox(height: 40.0),
-            Stack(
-              children: [
-                Card(
-                  color: Colors.orange[200],
-                  elevation: 10.0,
-                  child: Opacity(
-                    opacity: 0.5,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Image.asset(
-                        "lib/hostel/images/hb1.jpg",
-                        height: 250,
-                        width: 400,
-                        fit: BoxFit.fill, 
-                      ),
-                    ),
-                  )
-                ),
-                const SizedBox(
-                  height: 250,
-                  width: 400,
-                  child: Center(
-                    child: Text(
-                      "HB1",
-                      style: TextStyle(
-                        fontSize: 100.0,
-                        fontWeight: FontWeight.bold
-                      ),
-                    )
-                  )
-                )
-              ],
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -212,311 +125,42 @@ class _HostelState extends State<Hostel> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const HB1A()),
+                      MaterialPageRoute(builder: (context) => const HostelRoom()),
                     );
                   },
-                  child: const Card(
+                  child: Card(
                     elevation: 10.0,
-                    color: Color.fromARGB(255, 239, 108, 0),
-                    child: _HostelCard(cardName: 'A'),
-                  ),
-                ),
-                const SizedBox(width: 10.0),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HB1B()),
-                    );
-                  },
-                  child: const Card(
-                    elevation: 10.0,
-                    color: Color.fromARGB(255, 251, 140, 0),
-                    child: _HostelCard(cardName: 'B'),
-                  ),
-                ),
-                const SizedBox(width: 10.0),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HB1C()),
-                    );
-                  },
-                  child: const Card(
-                    elevation: 10.0,
-                    color: Color.fromARGB(255, 255, 167, 38),
-                    child: _HostelCard(cardName: 'C'),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 80.0),
-            Stack(
-              children: [
-                Card(
-                  color: Colors.blue[200],
-                  elevation: 10.0,
-                  child: Opacity(
-                    opacity: 0.5,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Image.asset(
-                        "lib/hostel/images/hb2.jpg",
-                        height: 250,
-                        width: 400,
-                        fit: BoxFit.fill, 
-                      ),
+                    color: Colors.indigo[900],
+                    child: const SizedBox(
+                      height: 50,
+                      width: 250,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
+                          SizedBox(width: 10.0),
+                          Text(
+                            "Lets get started!",
+                            style: TextStyle(
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                        ]
+                      )
                     ),
-                  )
-                ),
-                const SizedBox(
-                  height: 250,
-                  width: 400,
-                  child: Center(
-                    child: Text(
-                      "HB2",
-                      style: TextStyle(
-                        fontSize: 100.0,
-                        fontWeight: FontWeight.bold
-                      ),
-                    )
-                  )
+                  ),
                 )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HB2A()),
-                    );
-                  },
-                  child: const Card(
-                    elevation: 10.0,
-                    color: Color.fromARGB(255, 13, 71, 161),
-                    child: _HostelCard(cardName: 'A'),
-                  ),
-                ),
-                const SizedBox(width: 10.0),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HB2B()),
-                    );
-                  },
-                  child: const Card(
-                    elevation: 10.0,
-                    color: Color.fromARGB(255, 21, 101, 192),
-                    child: _HostelCard(cardName: 'B'),
-                  ),
-                ),
-                const SizedBox(width: 10.0),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HB2C()),
-                    );
-                  },
-                  child: const Card(
-                    elevation: 10.0,
-                    color: Color.fromARGB(255, 25, 118, 210),
-                    child: _HostelCard(cardName: 'C'),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 80.0),
-            Stack(
-              children: [
-                Card(
-                  color: Colors.red[200],
-                  elevation: 10.0,
-                  child: Opacity(
-                    opacity: 0.5,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Image.asset(
-                        "lib/hostel/images/hb3.jpg",
-                        height: 250,
-                        width: 400,
-                        fit: BoxFit.fill, 
-                      ),
-                    ),
-                  )
-                ),
-                const SizedBox(
-                  height: 250,
-                  width: 400,
-                  child: Center(
-                    child: Text(
-                      "HB3",
-                      style: TextStyle(
-                        fontSize: 100.0,
-                        fontWeight: FontWeight.bold
-                      ),
-                    )
-                  )
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HB3A()),
-                    );
-                  },
-                  child: const Card(
-                    elevation: 10.0,
-                    color: Color.fromARGB(255, 183, 28, 28),
-                    child: _HostelCard(cardName: 'A'),
-                  ),
-                ),
-                const SizedBox(width: 10.0),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HB3B()),
-                    );
-                  },
-                  child: const Card(
-                    elevation: 10.0,
-                    color: Color.fromARGB(255, 211, 47, 47),
-                    child: _HostelCard(cardName: 'B'),
-                  ),
-                ),
-                const SizedBox(width: 10.0),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HB3C()),
-                    );
-                  },
-                  child: const Card(
-                    elevation: 10.0,
-                    color: Color.fromARGB(255, 244, 67, 54),
-                    child: _HostelCard(cardName: 'C'),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 80.0),
-            Stack(
-              children: [
-                Card(
-                  color: Colors.purple[200],
-                  elevation: 10.0,
-                  child: Opacity(
-                    opacity: 0.5,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10.0),
-                      child: Image.asset(
-                        "lib/hostel/images/hb4.jpg",
-                        height: 250,
-                        width: 400,
-                        fit: BoxFit.fill, 
-                      ),
-                    ),
-                  )
-                ),
-                const SizedBox(
-                  height: 250,
-                  width: 400,
-                  child: Center(
-                    child: Text(
-                      "HB4",
-                      style: TextStyle(
-                        fontSize: 100.0,
-                        fontWeight: FontWeight.bold
-                      ),
-                    )
-                  )
-                )
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HB4A()),
-                    );
-                  },
-                  child: const Card(
-                    elevation: 10.0,
-                    color: Color.fromARGB(255, 74, 20, 140),
-                    child: _HostelCard(cardName: 'A'),
-                  ),
-                ),
-                const SizedBox(width: 10.0),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HB4B()),
-                    );
-                  },
-                  child: const Card(
-                    elevation: 10.0,
-                    color: Color.fromARGB(255, 106, 27, 154),
-                    child: _HostelCard(cardName: 'B'),
-                  ),
-                ),
-                const SizedBox(width: 10.0),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HB4C()),
-                    );
-                  },
-                  child: const Card(
-                    elevation: 10.0,
-                    color: Color.fromARGB(255, 123, 31, 162),
-                    child: _HostelCard(cardName: 'C'),
-                  ),
-                ),
               ],
             )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _HostelCard extends StatelessWidget {
-  const _HostelCard({required this.cardName});
-  final String cardName;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 120,
-      height: 100,
-      child: Center(
-        child: Text(
-          cardName,
-          style: const TextStyle(
-            fontSize: 50.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.white
-          ),
-        ),
-      ),
+          ]
+        )
+      )
     );
   }
 }
